@@ -4,5 +4,5 @@
 .idea/
 /.idea/
 /out/
-*.xml
+*/*.xml
 /envi/
