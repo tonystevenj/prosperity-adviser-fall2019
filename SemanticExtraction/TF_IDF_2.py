@@ -1,9 +1,5 @@
-import nltk
-import math
-import string
-from nltk.corpus import stopwords
-from collections import Counter
-from nltk.stem.porter import *
+from sklearn.feature_extraction.text import TfidfVectorizer
+# Documentation: https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
 
 
 text1 = "Python is a 2000 made-for-TV horror movie directed by Richard \
@@ -30,17 +26,15 @@ Colt Python targeted the premium revolver market segment. Some firearm \
 collectors and writers such as Jeff Cooper, Ian V. Hogg, Chuck Hawks, Leroy \
 Thompson, Renee Smeets and Martin Dougherty have described the Python as the \
 finest production revolver ever made."
-
-
-def get_tokens(text):
-    lowers = text.lower()
-    # remove the punctuation using the character deletion step of translate
-    remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
-    no_punctuation = lowers.translate(remove_punctuation_map)
-    tokens = nltk.word_tokenize(no_punctuation)
-    return tokens
-
-
-tokens = get_tokens(text1)
-count = Counter(tokens)
-print(count.most_common(10))
+corpus = ['This is the first document.',
+      'This is the second second document.',
+      'And the third one.',
+      'Is this the first document?',]
+corpus[1]=text1
+corpus[2]=text2
+vectorizer = TfidfVectorizer(min_df=1)
+vectorizer.fit_transform(corpus)
+out1=vectorizer.get_feature_names()
+out2=vectorizer.fit_transform(corpus).toarray()
+print(out1)
+print(out2)
