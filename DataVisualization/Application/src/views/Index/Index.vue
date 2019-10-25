@@ -62,7 +62,7 @@
         <div class="text item">
           <div class="clearfix">
             <div style="display: none">
-              <el-input id="searchbox" placeholder="Enter " class="searchbox"></el-input>
+              <el-input id="searchbox" v-model="mapform.searchbox" placeholder="Enter a location"></el-input>
               <el-button id="calculate" type="danger" icon="el-icon-s-data">Calculate</el-button>
               <el-slider
                 label="Scope"
@@ -123,7 +123,8 @@ export default {
       },
       mapform: {
         scope: 5,
-        place: ""
+        place: "",
+        searchbox: ""
       },
       gmap: {},
       activeIndex: "1",
