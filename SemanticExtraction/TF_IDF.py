@@ -6,6 +6,11 @@ from collections import Counter
 from nltk.stem.porter import *
 
 
+"""
+这个只能count单词的数量
+"""
+
+
 text1 = "Python is a 2000 made-for-TV horror movie directed by Richard \
 Clabaugh. The film features several cult favorite actors, including William \
 Zabka of The Karate Kid fame, Wil Wheaton, Casper Van Dien, Jenny McCarthy, \
