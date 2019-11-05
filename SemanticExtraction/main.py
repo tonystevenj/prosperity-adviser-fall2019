@@ -1,3 +1,6 @@
 from release.My_TF_IDF import FullProcess
+from release import toMidData
 
-FullProcess("Data/Process02_demo.csv")
+
+midpath=toMidData.processToMiddata('Data/review_Phoenix.csv',"New.csv")
+FullProcess(midpath)
