@@ -5,7 +5,8 @@ import numpy as np
 
 
 class FullProcess:
-    def __init__(self, fPath):
+    def __init__(self, fPath,toFileNames):
+        self.toFileNames = toFileNames
         self.fPath = fPath
         corpus = pd.read_csv(fPath).to_numpy(str).T
         besinessID = corpus[0]
@@ -48,7 +49,7 @@ class FullProcess:
         vectorizer.fit_transform(text)
         words = vectorizer.get_feature_names()
         weights = vectorizer.fit_transform(text).toarray()
-        words = np.array([words] * 10)
+        words = np.array([words] * len(weights))
         weights = np.array(weights)
         return words, weights
 
@@ -71,4 +72,4 @@ class FullProcess:
             output[i][1] = outnowWords
             output[i][2] = outnowWeights
         print(output)
-        pd.DataFrame(output).to_csv("10demo.csv")
+        pd.DataFrame(output).to_csv(f"finalDataes/finaloutputs{self.toFileNames}.csv")

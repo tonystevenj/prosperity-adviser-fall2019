@@ -7,3 +7,5 @@
 */*.xml
 /envi/
 /SemanticExtraction/Data/
+/SemanticExtraction/finalDataes/
+/SemanticExtraction/midDataes/
