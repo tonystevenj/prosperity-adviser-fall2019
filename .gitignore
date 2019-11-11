@@ -6,5 +6,11 @@
 /out/
 */*.xml
 /envi/
+<<<<<<< HEAD
 .DS_Store
 */*.log
+=======
+/SemanticExtraction/Data/
+/SemanticExtraction/finalDataes/
+/SemanticExtraction/midDataes/
+>>>>>>> 27276f83c27176ceca96584adebaea06c77abb91

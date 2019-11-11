@@ -1,6 +1,7 @@
+# https://blog.csdn.net/baimafujinji/article/details/51476117
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 # Documentation: https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
-
 
 text1 = "Python is a 2000 made-for-TV horror movie directed by Richard \
 Clabaugh. The film features several cult favorite actors, including William \
@@ -29,10 +30,21 @@ finest production revolver ever made."
 corpus = ['This is the first document.',
       'This is the second second document.',
       'And the third one.',
-      'Is this the first document?',]
-corpus[1]=text1
-corpus[2]=text2
-vectorizer = TfidfVectorizer(min_df=1)
+      'Is this the first document?',
+          ]
+# corpus[1]=text1
+# corpus[2]=text2
+
+"""
+Question，Oct 29
+如果把所有的名词搞定去就太多了，有没有方法筛选我们需要的词
+
+"""
+from nltk.corpus import stopwords
+stop = stopwords.words('english')
+stopwords = {'english','is','and','the','this'}
+vectorizer = TfidfVectorizer(min_df=1,stop_words= stop)
+# vectorizer = TfidfVectorizer(min_df=1)
 vectorizer.fit_transform(corpus)
 out1=vectorizer.get_feature_names()
 out2=vectorizer.fit_transform(corpus).toarray()
