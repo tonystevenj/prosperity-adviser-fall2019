@@ -73,3 +73,5 @@ class FullProcess:
             output[i][2] = outnowWeights
         print(output)
         pd.DataFrame(output).to_csv(f"finalDataes/finaloutputs{self.toFileNames}.csv")
+for i in range(41):
+    FullProcess(f"midDataes/midData{i}.csv",i)

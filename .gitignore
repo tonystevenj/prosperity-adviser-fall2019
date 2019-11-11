@@ -11,5 +11,6 @@
 /SemanticExtraction/Data/
 /SemanticExtraction/finalDataes/
 /SemanticExtraction/midDataes/
+/SemanticExtraction/midDataes_Single/
 __pycache__
 *.pyc
