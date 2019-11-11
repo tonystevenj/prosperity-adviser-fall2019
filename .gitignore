@@ -6,3 +6,5 @@
 /out/
 */*.xml
 /envi/
+.DS_Store
+*/*.log

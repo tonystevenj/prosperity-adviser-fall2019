@@ -110,7 +110,8 @@
 
 
 <script>
-import mapstyle from "../../../utils/mapstyles/mapstyle_mb.js";
+import mapstyle from "@/utils/mapstyles/mapstyle_mb.js";
+const config = require('../../../config')
 
 export default {
   name: "Index",
@@ -180,7 +181,9 @@ export default {
       // Create a <script> tag and set the USGS URL as the source.
       var script = document.createElement("script");
       // This example uses a local copy of the GeoJSON stored at
-      script.src = "https://afrsscdn.hopeness.net/static/geo_jsonp.js";
+      // script.src = "https://afrsscdn.hopeness.net/static/all_geo_jsonp.js";
+      process.env.NODE_ENV === 'production'
+      script.src = "/static/geo_jsonp.js";
       document.getElementsByTagName("head")[0].appendChild(script);
     },
     initSearchBox() {
@@ -260,9 +263,9 @@ export default {
         // marker
         // https://developers.google.com/maps/documentation/javascript/markers?hl=zh-CN
         var marker = new google.maps.Marker({
+          map: this.gmap,
           title: "testtest",
-          position: latLng,
-          map: this.gmap
+          position: latLng
         });
 
         // Marker Animations
@@ -286,7 +289,7 @@ export default {
         // add add pin event
         // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/event-arguments?hl=zh-CN
         this.gmap.addListener("click", e => {
-          this.sitePin(e.latLng, this.gmap);
+          this.sitePin(e.latLng);
         });
 
         // todo: heat map
@@ -298,25 +301,24 @@ export default {
       // https://developers.google.com/maps/documentation/javascript/marker-clustering?hl=zh-CN
       var markerCluster = new MarkerClusterer(this.gmap, markers);
     },
-    sitePin(latLng, map) {
+    sitePin(latLng) {
       var marker = new google.maps.Marker({
+        map: this.gmap,
         position: latLng,
-        icon: this.centerMarker,
-        map: map
+        icon: this.centerMarker
       });
-      map.panTo(latLng);
 
       // Shapes
       // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/shapes?hl=zh-CN
       var cityCircle = new google.maps.Circle({
-        strokeColor: "FF0000",
+        map: this.gmap,
+        strokeColor: "#FF0000",
         strokeOpacity: 0.8,
         strokeWeight: 2,
         fillColor: "#FF0000",
         fillOpacity: 0.35,
         center: latLng,
-        radius: this.mapform.scope * 1609.344,
-        map: map
+        radius: this.mapform.scope * 1609.344
       });
     },
     handleSelect(key, keyPath) {
@@ -372,7 +374,7 @@ export default {
 #scope .el-slider__marks-text {
   font-weight: bold;
   color: #ffffff;
-  text-shadow:1px 1px 3px #000000;
+  text-shadow: 1px 1px 3px #000000;
 }
 #scope .el-slider__stop {
   background-color: #333333;
