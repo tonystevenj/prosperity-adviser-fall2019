@@ -2,6 +2,7 @@
 import json
 from flask import Response, request
 from ..models.data.business import Business
+from ..models.data.park import Park
 
 
 def report():
@@ -24,4 +25,18 @@ def report():
                 'stars': ret['stars'],
                 'review_count': ret['review_count'],
             })
+    return Response(json.dumps(result), mimetype='application/json')
+
+def parks():
+    latitude = request.args.get('latitude')
+    longitude = request.args.get('longitude')
+    radius = request.args.get('radius')
+
+    park = Park()
+    items = park.radius(latitude, longitude, radius)
+    result = []
+    for item in items:
+        ret, exists = park.getItem(item['name'])
+        if exists:
+            result.append(ret)
     return Response(json.dumps(result), mimetype='application/json')

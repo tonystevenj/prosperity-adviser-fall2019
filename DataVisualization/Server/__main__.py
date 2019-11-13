@@ -2,6 +2,7 @@
 from . import server
 from .scripts import load
 from .models.data.business import Business
+from .models.data.park import Park
 
 
 if __name__ == '__main__':
@@ -14,9 +15,14 @@ if __name__ == '__main__':
     if args.run_type == 'run':
         business = Business()
         total = business.load(loadData=True)
-        print('{} items loaded'.format(total))
+        print('{} business items loaded'.format(total))
+        park = Park()
+        total = park.load(loadData=True)
+        print('{} park items loaded'.format(total))
         server.run()
     elif args.run_type == 'init':
         business = Business()
         total = business.load(loadGEO=True)
+        park = Park()
+        total = park.load(loadData=False, loadGEO=True)
         print('{} items loaded'.format(total))

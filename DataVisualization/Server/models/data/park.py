@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+import csv
 from ...models.dao import redisDao
 import threading
 from ...librarys import env
@@ -7,7 +8,7 @@ from ...librarys import env
 _businessInstance = None
 
 
-class Business():
+class Park():
 
     _instance_lock = threading.Lock()
     redis = redisDao.connect()
@@ -18,14 +19,15 @@ class Business():
 
     def radius(self, longitude, latitude, radius, unit='mi'):
         result = []
-        geoList = self.redis.georadius('afrss_business', longitude=longitude, latitude=latitude, radius=radius,
+        geoList = self.redis.georadius('afrss_park', longitude=longitude, latitude=latitude, radius=radius,
                                        unit=unit, withdist=True, withcoord=False, withhash=False, count=None,
                                        sort='ASC', store=None, store_dist=None)
         for item in geoList:
             result.append({
-                'business_id': item[0].decode('utf-8'),
+                'name': item[0].decode('utf-8'),
                 'distance': item[1],
             })
+        print(result)
         return result
 
     def getItem(self, id):
@@ -53,35 +55,40 @@ class Business():
         return True
 
     def add(self, *values):
-        return self.redis.geoadd('afrss_business', *values)
+        return self.redis.geoadd('afrss_park', *values)
 
     def load(self, loadData=False, loadGEO=False):
         dataPath = env.getDataPath()
-        fp = open(dataPath + 'yelp_dataset/business.json',
-                  'r', encoding='utf8')
+        fp = open(dataPath + 'parks.csv', 'r', encoding='utf8')
+        fpcsv = csv.reader(fp)
+        next(fpcsv)
         count = 0
         values = []
         limit = 1000
         total = 0
-        while True:
-            line = fp.readline()
-            if loadGEO and (count >= limit or (not line and count > 0)):
+        for line in fpcsv:
+            if loadGEO and (count >= limit):
                 total += self.add(*values)
                 count = 0
                 values = []
-            if not line:
-                break
-            data = json.loads(line)
-            if data['state'] == 'AZ' and data['city'] == 'Phoenix':
-                # Insert memory
-                if loadData:
-                    self.setItem(data['business_id'], data)
-                # Insert redis geo data
-                if loadGEO:
-                    count += 1
-                    values.append(data['longitude'])
-                    values.append(data['latitude'])
-                    values.append(data['business_id'])
+            # Insert memory
+            if loadData:
+                self.setItem(line[2], {
+                    'longitude': line[0],
+                    'latitude': line[1],
+                    'name': line[2],
+                    'adress': line[3],
+                    'zipcode': line[6],
+                    'url': line[7],
+                })
+            # Insert redis geo data
+            if loadGEO:
+                count += 1
+                values.append(line[0])
+                values.append(line[1])
+                values.append(line[2])
+        if count > 0:
+            total += self.add(*values)
         fp.close()
         return total
 
