@@ -14,3 +14,4 @@
 /SemanticExtraction/midDataes_Single/
 __pycache__
 *.pyc
+.vscode

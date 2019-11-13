@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
+from . import server
+from .scripts import load
+from .models.data.business import Business
+
+
 if __name__ == '__main__':
-    from flask import Flask, request, render_template
-    from .librarys import env
-    from .models.data.business import Business
-
-    app = Flask(__name__)
-
-    @app.route('/', methods=['GET'])
-    def index():
-        return render_template('index.html')
-
-    @app.route('/api/report', methods=['GET'])
-    def report():
+    import argparse
+    parser = argparse.ArgumentParser(
+        description='Assistant for Restaurant Site Selection')
+    parser.add_argument('run_type', default='run',
+                        help='run: run webserver, pre: pretreatment')
+    args = parser.parse_args()
+    if args.run_type == 'run':
         business = Business()
-        business.load()
-        lat = request.args.get('lat')
-        lng = request.args.get('lng')
-        return '{}   {}'.format(lat, lng)
-
-    app.run(host='0.0.0.0', port=8080, debug=True)
+        total = business.load(loadData=True)
+        print('{} items loaded'.format(total))
+        server.run()
+    elif args.run_type == 'init':
+        business = Business()
+        total = business.load(loadGEO=True)
+        print('{} items loaded'.format(total))
