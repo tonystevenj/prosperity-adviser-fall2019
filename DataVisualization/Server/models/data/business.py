@@ -4,90 +4,40 @@ from ...models.dao import redisDao
 import threading
 from ...librarys import env
 
+from . import base
+
 _businessInstance = None
 
 
 class Business():
+    """
+    商家数据导入
+    """
 
-    _instance_lock = threading.Lock()
-    redis = redisDao.connect()
-    data = {}
-
-    def __init__(self):
-        pass
-
-    def radius(self, longitude, latitude, radius, unit='mi'):
-        result = []
-        geoList = self.redis.georadius('afrss_business', longitude=longitude, latitude=latitude, radius=radius,
-                                       unit=unit, withdist=True, withcoord=False, withhash=False, count=None,
-                                       sort='ASC', store=None, store_dist=None)
-        for item in geoList:
-            result.append({
-                'business_id': item[0].decode('utf-8'),
-                'distance': item[1],
-            })
-        return result
-
-    def getItem(self, id):
-        print(id)
-        if id in self.data:
-            return self.data[id], True
-        return {}, False
-
-    def setItem(self, id, item):
-        self.data[id] = item
-        return True
-
-    def getItems(self, ids):
-        items = []
-        for id in ids:
-            item, exists = self.getItem(id)
-            if not exists:
-                continue
-            items.append(item)
-        return items
-
-    def setItems(self, items):
-        for id, item in items:
-            self.setItem(id, item)
-        return True
-
-    def add(self, *values):
-        return self.redis.geoadd('afrss_business', *values)
-
-    def load(self, loadData=False, loadGEO=False):
+    def load(self):
+        """ 数据导入
+        Return: dict, dict
+                两个返回的key都为数据唯一标识，比如business_id，
+                第一个返回值为商家详细信息，存在进程内存中，使用business_id查找
+                第二个返回值为地理位置信息，存在redis中，值为dict{longitude, latitude}
+        """
         dataPath = env.getDataPath()
         fp = open(dataPath + 'yelp_dataset/business.json',
                   'r', encoding='utf8')
-        count = 0
-        values = []
-        limit = 1000
-        total = 0
-        while True:
-            line = fp.readline()
-            if loadGEO and (count >= limit or (not line and count > 0)):
-                total += self.add(*values)
-                count = 0
-                values = []
-            if not line:
-                break
+        items = {}
+        geoItems = {}
+        for line in fp:
             data = json.loads(line)
             if data['state'] == 'AZ' and data['city'] == 'Phoenix':
-                # Insert memory
-                if loadData:
-                    self.setItem(data['business_id'], data)
-                # Insert redis geo data
-                if loadGEO:
-                    count += 1
-                    values.append(data['longitude'])
-                    values.append(data['latitude'])
-                    values.append(data['business_id'])
+                # 商家数据
+                items[data['business_id']] = data
+                # 经纬度数据
+                geoItems[data['business_id']] = {
+                    'longitude': data['longitude'],
+                    'latitude': data['latitude']
+                }
         fp.close()
-        return total
+        return items, geoItems
 
-    def __new__(cls, *args, **kwargs):
-        if not hasattr(cls, '_instance'):
-            with cls._instance_lock:
-                if not hasattr(cls, '_instance'):
-                    cls._instance = object.__new__(cls, *args, **kwargs)
-        return cls._instance
+
+base.regObj(Business())
