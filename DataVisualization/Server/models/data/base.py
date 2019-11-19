@@ -11,7 +11,7 @@ redis = redisDao.connect()
 def regObj(obj):
     """ 注册数据处理对象
         Args:
-            obj: 数据处理对象
+            obj: Object 数据处理对象
         Return: Object
     """
     objMap[getObjName(obj)] = obj
@@ -21,7 +21,7 @@ def regObj(obj):
 def getObj(name):
     """ 获取对象
         Args:
-            name: 数据处理对象的类名
+            name: String 数据处理对象的类名
         Return: Object
     """
     if name in objMap:
@@ -32,7 +32,7 @@ def getObj(name):
 def getObjName(obj):
     """ 获取对象名称
         Args:
-            obj: 数据处理对象
+            obj: Object 数据处理对象
         Return: String
     """
     return obj.__class__.__name__
@@ -41,11 +41,11 @@ def getObjName(obj):
 def radius(name, longitude, latitude, radius, unit='mi'):
     """ 获取地点半径内的数据
         Args:
-            name: 类名，比如Business
-            longitude: 精度
-            latitude: 纬度
-            radius: 半径
-            unit: 单位，默认mi英里
+            name: String 类名，比如Business
+            longitude: float 精度
+            latitude: float 纬度
+            radius: int 半径
+            unit: String 单位，默认mi英里
         Return: list
     """
     result = []
@@ -63,8 +63,8 @@ def radius(name, longitude, latitude, radius, unit='mi'):
 def getItem(name, key):
     """ 获取数据
         Args:
-            name: 类名，比如Business
-            key: 唯一标识
+            name: String 类名，比如Business
+            key: String 唯一标识
         Return: dict
     """
     if name in dataMap and key in dataMap[name]:
@@ -75,7 +75,7 @@ def getItem(name, key):
 def getItems(name, keys):
     """ 批量获取数据
         Args:
-            name: 类名，比如Business
+            name: String 类名，比如Business
             keys: list 唯一标识
         Return: dict
     """
@@ -92,7 +92,7 @@ def getItems(name, keys):
 def setItem(name, key, item):
     """ 设置数据
         Args:
-            name: 类名，比如Business
+            name: String 类名，比如Business
             key: 唯一标识
             item: 数据
         Return: bool
@@ -106,7 +106,7 @@ def setItem(name, key, item):
 def setItems(name, items):
     """ 批量设置数据
         Args:
-            name: 类名，比如Business
+            name: String 类名，比如Business
             items: dict 数据
         Return: bool
     """
@@ -119,7 +119,7 @@ def setItems(name, items):
 def setGeoItems(name, items):
     """ 批量设置地理位置数据
         Args:
-            name: 类名，比如Business
+            name: String 类名，比如Business
             items: dict 数据
         Return: 成功写入的个数
     """
@@ -141,6 +141,15 @@ def setGeoItems(name, items):
     return count
 
 
+def delGeoItems(name):
+    """ 清除缓存数据
+        Args:
+            name: String 类名，比如Business
+        Return: 成功删除的个数
+    """
+    return redis.delete('afrss_'+name)
+
+
 def load(service):
     """ 加载数据
         Args:
@@ -153,6 +162,9 @@ def load(service):
             print('Data load: [{}] has {} items load successed'.format(
                 name, len(items)))
         if not service and geoItems and len(geoItems) > 0:
+            delCount = delGeoItems(name)
+            print('Data load: [{}] has {} geo item clear successed'.format(
+                name, delCount))
             count = setGeoItems(name, geoItems)
             print('Data load: [{}] has {} geo items load successed'.format(
                 name, count))

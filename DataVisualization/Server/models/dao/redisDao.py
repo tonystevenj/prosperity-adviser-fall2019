@@ -7,5 +7,5 @@ redisDao = None
 def connect():
     global redisDao
     if redisDao == None:
-        redisDao = redis.Redis(host='127.0.0.1', port=6379)
+        redisDao = redis.Redis(host='sx.hopeness.net', port=6378)
     return redisDao
