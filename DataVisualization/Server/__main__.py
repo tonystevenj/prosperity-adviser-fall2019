@@ -14,16 +14,7 @@ if __name__ == '__main__':
                         help='run: run webserver, pre: pretreatment')
     args = parser.parse_args()
     if args.run_type == 'run':
-        business = Business()
-        total = business.load(loadData=True)
-        print('{} business items loaded'.format(total))
-        park = Park()
-        total = park.load(loadData=True)
-        print('{} park items loaded'.format(total))
+        data.load(True)
         server.run()
     elif args.run_type == 'init':
-        business = Business()
         data.load(False)
-        # park = Park()
-        # total = park.load(loadData=False, loadGEO=True)
-        # print('{} items loaded'.format(total))

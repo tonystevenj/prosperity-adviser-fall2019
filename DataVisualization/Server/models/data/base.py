@@ -98,7 +98,7 @@ def setItem(name, key, item):
         Return: bool
     """
     if name in dataMap:
-        dataMap[key] = item
+        dataMap[name][key] = item
         return True
     return False
 
