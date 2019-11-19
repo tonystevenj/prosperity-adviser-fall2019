@@ -40,4 +40,6 @@ class Business():
         return items, geoItems
 
 
+# 最后需要调用base.regObj注册数据处理对象，
+# 然后在同级__init.py中import执行这个文件
 base.regObj(Business())
