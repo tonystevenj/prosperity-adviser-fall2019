@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import redis
+import toml
+from ...librarys import config
 
 redisDao = None
 
@@ -7,5 +9,6 @@ redisDao = None
 def connect():
     global redisDao
     if redisDao == None:
-        redisDao = redis.Redis(host='sx.hopeness.net', port=6378)
+        conf = config.load('redis.toml')
+        redisDao = redis.Redis(host=conf['host'], port=conf['port'], password=conf['password'])
     return redisDao
