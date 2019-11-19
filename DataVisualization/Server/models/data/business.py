@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
-from ...models.dao import redisDao
-import threading
 from ...librarys import env
-
 from . import base
-
-_businessInstance = None
 
 
 class Business():
