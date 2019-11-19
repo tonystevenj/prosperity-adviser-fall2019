@@ -26,15 +26,17 @@ def business():
     return Response(json.dumps(result), mimetype='application/json')
 
 def parks():
-    latitude = request.args.get('latitude')
-    longitude = request.args.get('longitude')
-    radius = request.args.get('radius')
+    pass
+    # latitude = request.args.get('latitude')
+    # longitude = request.args.get('longitude')
+    # radius = request.args.get('radius')
+    #
+    # park = Park()
+    # items = park.radius(latitude, longitude, radius)
+    # result = []
+    # for item in items:
+    #     ret, exists = park.getItem(item['name'])
+    #     if exists:
+    #         result.append(ret)
+    # return Response(json.dumps(result), mimetype='application/json')
 
-    park = Park()
-    items = park.radius(latitude, longitude, radius)
-    result = []
-    for item in items:
-        ret, exists = park.getItem(item['name'])
-        if exists:
-            result.append(ret)
-    return Response(json.dumps(result), mimetype='application/json')
