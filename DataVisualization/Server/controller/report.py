@@ -13,7 +13,7 @@ def business():
     result = []
 
     for item in items:
-        ret, exists = data.getItem('Business', item['business_id'])
+        ret, exists = data.getItem('Business', item['key'])
         if exists:
             result.append({
                 'business_id': ret['business_id'],
@@ -25,18 +25,16 @@ def business():
             })
     return Response(json.dumps(result), mimetype='application/json')
 
-def parks():
-    pass
-    # latitude = request.args.get('latitude')
-    # longitude = request.args.get('longitude')
-    # radius = request.args.get('radius')
-    #
-    # park = Park()
-    # items = park.radius(latitude, longitude, radius)
-    # result = []
-    # for item in items:
-    #     ret, exists = park.getItem(item['name'])
-    #     if exists:
-    #         result.append(ret)
-    # return Response(json.dumps(result), mimetype='application/json')
 
+def parks():
+    latitude = request.args.get('latitude')
+    longitude = request.args.get('longitude')
+    radius = request.args.get('radius')
+
+    items = data.radius('Park', latitude, longitude, radius)
+    result = []
+    for item in items:
+        ret, exists = data.getItem('Park', item['key'])
+        if exists:
+            result.append(ret)
+    return Response(json.dumps(result), mimetype='application/json')

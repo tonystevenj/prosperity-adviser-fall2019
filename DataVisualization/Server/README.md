@@ -4,6 +4,8 @@
 
 ## 数据
 ### 保证以下文件在
+- ./data/yelp_dataset/business.json
+- ./data/parks.csv
 
 ## 初始化脚本
 ### 用来将数据写入redis geo指定的key中

@@ -54,7 +54,7 @@ def radius(name, longitude, latitude, radius, unit='mi'):
                               sort='ASC', store=None, store_dist=None)
     for item in geoList:
         result.append({
-            'business_id': item[0].decode('utf-8'),
+            'key': item[0].decode('utf-8'),
             'distance': item[1],
         })
     return result
@@ -156,7 +156,20 @@ def load(service):
             service: bool 运行类型，True为服务形式运行，False为脚本形式运行初始化
     """
     for name in objMap:
-        items, geoItems = objMap[name].load()
+        try:
+            items, geoItems = objMap[name].load()
+            if items and len(items) == 0 and geoItems and len(geoItems) == 0:
+                print('Data load failed: [{}] items and geoItems are both empty'.format(
+                    getObjName(objMap[name]), e))
+                continue
+        except FileNotFoundError as e:
+            print('Data load failed: [{}] {}'.format(
+                getObjName(objMap[name]), e))
+            continue
+        except BaseException as e:
+            print('Unknown error: {}'.format(e))
+            return
+
         if service and items and len(items) > 0:
             status = setItems(name, items)
             print('Data load: [{}] has {} items load successed'.format(
