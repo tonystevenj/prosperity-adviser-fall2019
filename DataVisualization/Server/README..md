@@ -1,6 +1,10 @@
 ## 依赖服务
 - redis 用来做地理位置信息检索
 > 仓库中的服务器地址是默认的本地地址，需要连公共服务需要替换配置文件 ***./config/redis.toml***
+
+## 数据
+### 保证以下文件在
+
 ## 初始化脚本
 ### 用来将数据写入redis geo指定的key中
 > 进入目录 ***DataVisualization***，执行 ***python -m Server init***
