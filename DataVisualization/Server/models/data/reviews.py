@@ -6,9 +6,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS as esw
 
 class Reviews():
-    def __init__(self):
-        pass
-
     def load(self):
         dataPath = env.getDataPath()
         reviews = pd.read_csv(dataPath+"yelp_dataset/review_Phoenix.csv", sep=',', header=None, engine='python')
@@ -17,16 +14,10 @@ class Reviews():
         new3.reset_index(drop=True, inplace=True)
         new4 = new3.drop(['review_id', 'cool', 'useful', 'user_id', 'funny', 'date', 'stars'], axis=1)
         new5= new4.groupby('business_id').agg(lambda x: '&'.join(set(x))).reset_index()
-        self.data =new5.to_numpy().T
-
-
-
-    # 根据半径，返回要展示的  商家ID，和其review信息
-    def get_id_according_to_redies(self):
-        self.data_to_process = self.data.T[:100].T
-    def full_process(self):
-        besinessID = self.data_to_process[0]
-        text = self.data_to_process[1]
+        self.data =new5.to_numpy()
+    def full_process(self,data_to_process):
+        besinessID = data_to_process[0]
+        text = data_to_process[1]
         words, weights = self._my_TF_IDF(text)
         output=self._my_process_for_IFIDF(besinessID, words, weights)
         return output
@@ -80,5 +71,5 @@ class Reviews():
             outnowWeights = now[1][:10].flatten().T
             output[i][1] = outnowWords
             output[i][2] = outnowWeights
-        return output
+        return output.T[:2].T
 
