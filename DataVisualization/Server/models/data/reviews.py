@@ -23,6 +23,7 @@ class Reviews():
             items[self.data[i][0]]=self.data[i][1]
         return items, geoItems
     def full_process(self,data_to_process):
+        data_to_process=data_to_process.T
         besinessID = data_to_process[0]
         text = data_to_process[1]
         words, weights = self._my_TF_IDF(text)
@@ -31,7 +32,7 @@ class Reviews():
 
     def _my_TF_IDF(self, text):
 
-        myStopWords = ['00', '00a', '00am', '00pm', '01', '04', '050d_xior1npcuwkbivaq', '0530', '06', '0600', '0630',
+        myStopWords = ['00', '00a', '66', '00am', '00pm', '01', '04', '050d_xior1npcuwkbivaq', '0530', '06', '0600', '0630',
                        '07',
                        '09', '10', '100', '1000', '105', '10a', '10am', '11', '110', '115', '11am', '11dollars', '11pm',
                        '12',
