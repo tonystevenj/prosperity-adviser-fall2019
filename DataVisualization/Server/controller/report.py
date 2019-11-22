@@ -43,15 +43,12 @@ def reviews():
         if re.data[i,0] in result:
             finaloutput.append([re.data[i,0],re.data[i,1]])
     nparray = np.array(finaloutput)
-    # print(nparray.shape)
     output = re.full_process(nparray.T)
-    # print(output.shape)
     list_dic_out = []
     for i in range(len(output)):
         list_dic_out.append({'business_id': str(output[i,0]),
                              'reviews':str(output[i,1])
                              })
-    # print(type(list_dic_out[0]))
     return Response(json.dumps(list_dic_out), mimetype='application/json')
 
 def parks():
