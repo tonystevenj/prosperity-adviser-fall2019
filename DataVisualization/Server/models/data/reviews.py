@@ -4,6 +4,7 @@ import numpy as np
 from ...librarys import env
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS as esw
+from . import base
 
 class Reviews():
     def load(self):
@@ -15,6 +16,12 @@ class Reviews():
         new4 = new3.drop(['review_id', 'cool', 'useful', 'user_id', 'funny', 'date', 'stars'], axis=1)
         new5= new4.groupby('business_id').agg(lambda x: '&'.join(set(x))).reset_index()
         self.data =new5.to_numpy()
+        # print("哈哈",self.data.shape) : (4003,2)
+        items = {}
+        geoItems = {}
+        for i in range(len(self.data)):
+            items[self.data[i][0]]=self.data[i][1]
+        return items, geoItems
     def full_process(self,data_to_process):
         besinessID = data_to_process[0]
         text = data_to_process[1]
@@ -71,5 +78,8 @@ class Reviews():
             outnowWeights = now[1][:10].flatten().T
             output[i][1] = outnowWords
             output[i][2] = outnowWeights
-        return output.T[:2].T
+        # return output.T[:2].T
+        return output
 
+
+base.regObj(Reviews())

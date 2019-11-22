@@ -8,8 +8,8 @@ dataMap = {}
 redis = redisDao.connect()
 
 # review part, load data into RAM
-from ...models.data.reviews import Reviews
-re = Reviews()
+# from ...models.data.reviews import Reviews
+# re = Reviews()
 
 def regObj(obj):
     """ 注册数据处理对象
@@ -160,8 +160,8 @@ def load(service):
     """
 
     # review part, load data into RAM
-    if service:
-        re.load()
+    # if service:
+    #     re.load()
 
     for name in objMap:
         try:

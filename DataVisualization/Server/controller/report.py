@@ -29,25 +29,25 @@ def reviews():
     longitude = request.args.get('longitude')
     radius = request.args.get('radius')
 
-    items = data.radius('Business', latitude, longitude, radius)
-    result = set()
+    IDs = data.radius('Business', latitude, longitude, radius)
+    result = []
 
-    for item in items:
-        ret, exists = data.getItem('Business', item['key'])
+    for id in IDs:
+        ret, exists = data.getItem('Reviews', id['key'])
         if exists:
-            result.add(ret['business_id'])
-
-    finaloutput = []
-    re = data.base.re
-    for i in range(len(re.data)):
-        if re.data[i,0] in result:
-            finaloutput.append([re.data[i,0],re.data[i,1]])
-    nparray = np.array(finaloutput)
-    output = re.full_process(nparray.T)
+            result.append([id,ret])
+    # re = data.getObj("Reviews")# 这里为什么调用这个get函数拿到的是tuple类型？
+    re = data.base.objMap['Reviews']
+    # print(data.base.objMap)
+    # print(type(re))
+    # print(type(data.base.objMap['Reviews']))
+    nparray = np.array(result)
+    output = re.full_process(nparray.T) # output.shape:
     list_dic_out = []
     for i in range(len(output)):
         list_dic_out.append({'business_id': str(output[i,0]),
-                             'reviews':str(output[i,1])
+                             'reviews':str(output[i,1]),
+                             'weights':str(output[i,2])
                              })
     return Response(json.dumps(list_dic_out), mimetype='application/json')
 
