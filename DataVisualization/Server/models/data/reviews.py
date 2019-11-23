@@ -8,7 +8,10 @@ from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS as esw
 class Reviews():
     def load(self):
         dataPath = env.getDataPath()
-        reviews = pd.read_csv(dataPath+"yelp_dataset/review_Phoenix.csv", sep=',', header=None, engine='python')
+        try:
+            reviews = pd.read_csv(dataPath+"yelp_dataset/review_Phoenix.csv", sep=',', header=None, engine='python')
+        except:
+            return
         reviews.columns = reviews.iloc[0]
         new3 = reviews.drop(0)
         new3.reset_index(drop=True, inplace=True)
