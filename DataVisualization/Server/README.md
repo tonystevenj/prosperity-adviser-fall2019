@@ -39,3 +39,4 @@
 
 ## 词云(大字报)安装
 > npm install vue-wordcloud
+> 参考资料 https://www.npmjs.com/package/vue-wordcloud
