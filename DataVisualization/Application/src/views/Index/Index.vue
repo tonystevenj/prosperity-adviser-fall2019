@@ -8,7 +8,7 @@
         background-color="#f6f6f6"
       >
         <el-menu-item>
-          <el-menu-item class="logo">AFRSS</el-menu-item>
+          <el-menu-item class="logo">ARSS</el-menu-item>
         </el-menu-item>
         <el-menu-item index="1">
           <i class="el-icon-house" style="width:65%;">HOME</i>
@@ -86,6 +86,24 @@
         </div>
         <div>Content Content Content Content Content Content Content Content Content Content Content Content</div>
       </el-card>
+
+<el-card class="box-card gmap-box">
+
+<span>I am here</span>
+
+      <div id="app">
+      <wordcloud
+      :data="defaultWords"
+      nameKey="name"
+      valueKey="value"
+      :color="myColors"
+      :showTooltip="true"
+      :wordClick="wordClickHandler">
+      </wordcloud>
+       </div>
+
+        </el-card>
+
     </el-main>
     <el-footer height="100px">
       <div class="footer_link">
@@ -111,12 +129,57 @@
 
 <script>
 import mapstyle from "@/utils/mapstyles/mapstyle_mb.js";
+import wordcloud from 'vue-wordcloud';
+
 const config = require('../../../config')
 
 export default {
   name: "Index",
+  components: {
+    wordcloud
+  },
   data() {
     return {
+    myColors: ['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef'],
+
+      defaultWords: [{
+          "name": "Cat",
+          "value": 26
+        },
+        {
+          "name": "fish",
+          "value": 19
+        },
+        {
+          "name": "things",
+          "value": 18
+        },
+        {
+          "name": "look",
+          "value": 16
+        },
+        {
+          "name": "two",
+          "value": 15
+        },
+        {
+          "name": "fun",
+          "value": 9
+        },
+        {
+          "name": "know",
+          "value": 9
+        },
+        {
+          "name": "good",
+          "value": 9
+        },
+        {
+          "name": "play",
+          "value": 6
+        }
+      ],
+
       milemarks: {
         1: "1",
         15: "15",
