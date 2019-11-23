@@ -87,23 +87,18 @@
         <div>Content Content Content Content Content Content Content Content Content Content Content Content</div>
       </el-card>
 
-<el-card class="box-card gmap-box">
+      <el-card class="box-card gmap-box">
+        <span>I am here</span>
 
-<span>I am here</span>
-
-      <div id="app">
-      <wordcloud
-      :data="defaultWords"
-      nameKey="name"
-      valueKey="value"
-      :color="myColors"
-      :showTooltip="true"
-      :wordClick="wordClickHandler">
-      </wordcloud>
-       </div>
-
-        </el-card>
-
+        <wordcloud
+          :data="defaultWords"
+          nameKey="name"
+          valueKey="value"
+          :color="myColors"
+          :showTooltip="true"
+          :wordClick="wordClickHandler"
+        ></wordcloud>
+      </el-card>
     </el-main>
     <el-footer height="100px">
       <div class="footer_link">
@@ -118,6 +113,7 @@
 
     <el-dialog title="Report" :visible.sync="showReport" width="30%" :before-close="handleClose">
       <span>This is a Report</span>
+      <Layer></Layer>
       <span slot="footer" class="dialog-footer">
         <el-button @click="showReport = false">Cancel</el-button>
         <el-button type="primary" @click="showReport = false">Confirm</el-button>
@@ -129,54 +125,57 @@
 
 <script>
 import mapstyle from "@/utils/mapstyles/mapstyle_mb.js";
-import wordcloud from 'vue-wordcloud';
+import wordcloud from "vue-wordcloud";
+import Layer from "./components/layer";
 
-const config = require('../../../config')
+const config = require("../../../config");
 
 export default {
   name: "Index",
   components: {
-    wordcloud
+    wordcloud,
+    Layer
   },
   data() {
     return {
-    myColors: ['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef'],
+      myColors: ["#1f77b4", "#629fc9", "#94bedb", "#c9e0ef"],
 
-      defaultWords: [{
-          "name": "Cat",
-          "value": 26
+      defaultWords: [
+        {
+          name: "Cat",
+          value: 26
         },
         {
-          "name": "fish",
-          "value": 19
+          name: "fish",
+          value: 19
         },
         {
-          "name": "things",
-          "value": 18
+          name: "things",
+          value: 18
         },
         {
-          "name": "look",
-          "value": 16
+          name: "look",
+          value: 16
         },
         {
-          "name": "two",
-          "value": 15
+          name: "two",
+          value: 15
         },
         {
-          "name": "fun",
-          "value": 9
+          name: "fun",
+          value: 9
         },
         {
-          "name": "know",
-          "value": 9
+          name: "know",
+          value: 9
         },
         {
-          "name": "good",
-          "value": 9
+          name: "good",
+          value: 9
         },
         {
-          "name": "play",
-          "value": 6
+          name: "play",
+          value: 6
         }
       ],
 
@@ -245,7 +244,7 @@ export default {
       var script = document.createElement("script");
       // This example uses a local copy of the GeoJSON stored at
       // script.src = "https://afrsscdn.hopeness.net/static/all_geo_jsonp.js";
-      process.env.NODE_ENV === 'production'
+      process.env.NODE_ENV === "production";
       script.src = "/static/geo_jsonp.js";
       document.getElementsByTagName("head")[0].appendChild(script);
     },

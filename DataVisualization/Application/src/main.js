@@ -6,7 +6,10 @@ import router from './router'
 import enLocale from 'element-ui/lib/locale/lang/en'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
+Vue.use(VueAxios, axios)
 Vue.use(ElementUI, { enLocale })
 
 Vue.use(ElementUI);
