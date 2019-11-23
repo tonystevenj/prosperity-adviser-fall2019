@@ -4,6 +4,7 @@ import numpy as np
 from ...librarys import env
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS as esw
+from . import base
 
 class Reviews():
     def load(self):
@@ -18,7 +19,14 @@ class Reviews():
         new4 = new3.drop(['review_id', 'cool', 'useful', 'user_id', 'funny', 'date', 'stars'], axis=1)
         new5= new4.groupby('business_id').agg(lambda x: '&'.join(set(x))).reset_index()
         self.data =new5.to_numpy()
+        # print("哈哈",self.data.shape) : (4003,2)
+        items = {}
+        geoItems = {}
+        for i in range(len(self.data)):
+            items[self.data[i][0]]=self.data[i][1]
+        return items, geoItems
     def full_process(self,data_to_process):
+        data_to_process=data_to_process.T
         besinessID = data_to_process[0]
         text = data_to_process[1]
         words, weights = self._my_TF_IDF(text)
@@ -27,7 +35,7 @@ class Reviews():
 
     def _my_TF_IDF(self, text):
 
-        myStopWords = ['00', '00a', '00am', '00pm', '01', '04', '050d_xior1npcuwkbivaq', '0530', '06', '0600', '0630',
+        myStopWords = ['00', '00a', '66', '00am', '00pm', '01', '04', '050d_xior1npcuwkbivaq', '0530', '06', '0600', '0630',
                        '07',
                        '09', '10', '100', '1000', '105', '10a', '10am', '11', '110', '115', '11am', '11dollars', '11pm',
                        '12',
@@ -74,5 +82,8 @@ class Reviews():
             outnowWeights = now[1][:10].flatten().T
             output[i][1] = outnowWords
             output[i][2] = outnowWeights
-        return output.T[:2].T
+        # return output.T[:2].T
+        return output
 
+
+base.regObj(Reviews())

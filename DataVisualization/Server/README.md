@@ -1,4 +1,4 @@
-## 依赖服务
+﻿## 依赖服务
 - redis 用来做地理位置信息检索
 > 仓库中的服务器地址是默认的本地地址，需要连公共服务需要替换配置文件 ***./config/redis.toml***
 
@@ -21,6 +21,9 @@
 
 #### park数据
 > http://127.0.0.1:8080/api/report/park?latitude=-112.073843&longitude=33.447999&radius=1
+
+#### reviews大字报数据
+> http://127.0.0.1:8080/api/report/reviews?latitude=-112.073843&longitude=33.447999&radius=0.1
 
 ## 开发
 ### 扩展数据开发

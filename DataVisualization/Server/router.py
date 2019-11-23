@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from . controller import main, report
-from .models.data.reviews import Reviews
 
 def dispatch(app):
     app.add_url_rule('/', view_func=main.index, methods=['GET'])
