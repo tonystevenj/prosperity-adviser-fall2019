@@ -1,4 +1,29 @@
-﻿## 依赖服务
+﻿# 简介
+
+项目代码库分为前端、后端两部分，采用前后端分离的开发方式，通过http api进行数据交互。
+
+前端部分使用NodeJS + Vue框架 + ElementUI样式库
+
+后端使用Python + Flask框架运行HTTP Server
+
+# NodeJS 前端
+**项目目录**：Application
+首次启动需要安装NodeJS以及相关依赖，NodeJS安装方式可以google一下，然后按照下面方式进行：
+
+``` bash
+# 安装项目依赖
+npm install
+
+# dev方式启动项目，成功后访问 localhost:8081
+npm run dev
+
+# 开发完成后进行编译，此步骤可以忽略
+npm run build
+```
+
+# Python 后端
+**项目目录**：Server
+## 依赖服务
 - redis 用来做地理位置信息检索
 > 仓库中的服务器地址是默认的本地地址，需要连公共服务需要替换配置文件 ***./config/redis.toml***
 
@@ -9,11 +34,17 @@
 
 ## 初始化脚本
 ### 用来将数据写入redis geo指定的key中
-> 进入目录 ***DataVisualization***，执行 ***python -m Server init***
+``` bash
+# 进入目录 DataVisualization，执行
+python -m Server init
+```
 
-## 启动服务
+## 启动Web服务
 ### 启动web服务
-> 进入目录 ***DataVisualization***，执行***python -m Server run***
+``` bash
+# 进入目录 DataVisualization，执行
+python -m Server run
+```
 
 ### 测试访问地址
 #### business数据
