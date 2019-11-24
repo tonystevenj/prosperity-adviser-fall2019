@@ -71,3 +71,7 @@ python -m Server run
 ## 词云(大字报)安装
 > npm install vue-wordcloud
 > 参考资料 https://www.npmjs.com/package/vue-wordcloud
+>
+## 画廊安装
+>https://github.com/surmon-china/vue-awesome-swiper
+>npm install vue-awesome-swiper --save
