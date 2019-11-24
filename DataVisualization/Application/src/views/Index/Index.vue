@@ -44,7 +44,7 @@
           <div slot="header" class="clearfix test">
             <span style="font-weight: bold;">Assistant for Restaurant Site Selection</span>
           </div>
-          <div>Content</div>
+          <div>ARSS（Assistant of Restaurant Site Selection）is a web-based service that helps restaurant businesses to make better location-based decisions. Based on comprehensive databases and advanced big data processing technology; ARSS is totally committed to assists every restaurant owner to determine businesses location, accomplish cooperation target, and create value.</div>
         </el-card>
       </div>
     </div>
@@ -53,7 +53,8 @@
         <div slot="header" class="clearfix">
           <span>Describe</span>
         </div>
-        <div>Content Content Content Content Content Content Content Content Content Content Content Content</div>
+
+        <coverflow></coverflow>
       </el-card>
       <el-card class="box-card gmap-box">
         <div slot="header" class="clearfix">
@@ -80,25 +81,7 @@
           </div>
         </div>
       </el-card>
-      <el-card class="box-card gmap-box">
-        <div slot="header" class="clearfix">
-          <span>Describe</span>
-        </div>
-        <div>Content Content Content Content Content Content Content Content Content Content Content Content</div>
-      </el-card>
 
-      <el-card class="box-card gmap-box">
-        <span>I am here</span>
-
-        <wordcloud
-          :data="defaultWords"
-          nameKey="name"
-          valueKey="value"
-          :color="myColors"
-          :showTooltip="true"
-          :wordClick="wordClickHandler"
-        ></wordcloud>
-      </el-card>
     </el-main>
     <el-footer height="100px">
       <div class="footer_link">
@@ -125,60 +108,19 @@
 
 <script>
 import mapstyle from "@/utils/mapstyles/mapstyle_mb.js";
-import wordcloud from "vue-wordcloud";
 import Layer from "./components/layer";
+import coverflow from "./components/coverflow";
 
 const config = require("../../../config");
 
 export default {
   name: "Index",
   components: {
-    wordcloud,
-    Layer
+    Layer,
+    coverflow,
   },
   data() {
     return {
-      myColors: ["#1f77b4", "#629fc9", "#94bedb", "#c9e0ef"],
-
-      defaultWords: [
-        {
-          name: "Cat",
-          value: 26
-        },
-        {
-          name: "fish",
-          value: 19
-        },
-        {
-          name: "things",
-          value: 18
-        },
-        {
-          name: "look",
-          value: 16
-        },
-        {
-          name: "two",
-          value: 15
-        },
-        {
-          name: "fun",
-          value: 9
-        },
-        {
-          name: "know",
-          value: 9
-        },
-        {
-          name: "good",
-          value: 9
-        },
-        {
-          name: "play",
-          value: 6
-        }
-      ],
-
       milemarks: {
         1: "1",
         15: "15",
