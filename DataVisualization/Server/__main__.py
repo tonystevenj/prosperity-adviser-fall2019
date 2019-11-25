@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from . import server
 from .models import data
-
+from .scripts import downloader,uploader
 
 if __name__ == '__main__':
     import argparse
@@ -15,3 +15,12 @@ if __name__ == '__main__':
         server.run()
     elif args.run_type == 'init':
         data.load(False)
+    elif args.run_type == 'uploaddata':
+        uploader.active()
+    elif args.run_type == 'downloaddata':
+        downloader.active()
+    elif args.run_type == 'help':
+        print("run -> to run server")
+        print("uploaddata -> upload data to server")
+        print("downloaddata -> download data from server")
+        print("init -> to load data")
