@@ -6,12 +6,12 @@ from ..scripts import registFileInfo
 from qiniu import BucketManager
 
 
-def active():
+def active(access_key,secret_key):
     filesInfo = registFileInfo.active(True)
     print(filesInfo)
     # 需要填写你的 Access Key 和 Secret Key
-    access_key = 'fWDyTnj2bvRZNmlsZR9kLdfMtjswThPFGWXjbdoR'
-    secret_key = 'ni4xK_1xCPGchgnr0HkDQi0B50xY3a8opyx3qHf5'
+    # access_key = 'fWDyTnj2bvRZNmlsZR9kLdfMtjswThPFGWXjbdoR'
+    # secret_key = 'ni4xK_1xCPGchgnr0HkDQi0B50xY3a8opyx3qHf5'
     # 要上传的空间
     bucket_name = 'afrss'
     # 构建鉴权对象
