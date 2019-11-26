@@ -4,7 +4,7 @@ from .models import data
 from .scripts import downloader,uploader
 import sys
 if __name__ == '__main__':
-    print(sys.argv)
+    # print(sys.argv)
     argv = sys.argv
     if(len(argv)>2):
         if argv[1] == "uploaddata":
@@ -30,6 +30,6 @@ if __name__ == '__main__':
             downloader.active()
         elif args.run_type == 'help':
             print("run -> to run server")
-            print("uploaddata -> upload data to server")
+            print("uploaddata AK SK-> upload data to server, you also need type in AK and SK")
             print("downloaddata -> download data from server")
             print("init -> to load data")

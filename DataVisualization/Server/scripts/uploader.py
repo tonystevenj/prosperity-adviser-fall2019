@@ -8,7 +8,7 @@ from qiniu import BucketManager
 
 def active(access_key,secret_key):
     filesInfo = registFileInfo.active(True)
-    print(filesInfo)
+    # print(filesInfo)
     # 需要填写你的 Access Key 和 Secret Key
     # access_key = 'fWDyTnj2bvRZNmlsZR9kLdfMtjswThPFGWXjbdoR'
     # secret_key = 'ni4xK_1xCPGchgnr0HkDQi0B50xY3a8opyx3qHf5'
@@ -22,12 +22,12 @@ def active(access_key,secret_key):
         filename = filesInfo[i][1]
         ret, info = bucket.stat(bucket_name, filename)
         if filename!="filesInfo.json" and (str(ret) != "None"):
-            print("file exists")
+            print(f"{filename} file exists")
             continue
         if filename == "filesInfo.json":
             ret,info = bucket.delete(bucket_name, filename)
-            print(ret)
-            print(info)
+            # print(ret)
+            # print(info)
 
         #上传后保存的文件名
         key = filename
@@ -35,10 +35,10 @@ def active(access_key,secret_key):
         token = q.upload_token(bucket_name, key, 3600)
         #要上传文件的本地路径
         localfile =filesInfo[i][0]+ '/'+filename
-        print("Begin uploading file")
+        # print(f"Begin uploading {filename}")
         ret, info = put_file(token, key, localfile)
-        print("Upload file finished")
-        print(info)
+        print(f"Upload {filename} finished")
+        # print(info)
         assert ret['key'] == key
         assert ret['hash'] == etag(localfile)
 # active()
