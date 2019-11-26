@@ -53,7 +53,7 @@
     </el-row>
     <el-row :gutter="32" class="row">
       <el-col :span="8">
-        <Test />
+        <Test :latitude="latitude" :longitude="longitude" :radius="radius" />
       </el-col>
       <el-col :span="8">
         <comment />
@@ -64,7 +64,7 @@
     </el-row>
     <el-row :gutter="32" class="row">
       <el-col :span="24">
-        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" />
+        <!-- <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" /> -->
       </el-col>
     </el-row>
     <el-row :gutter="32" class="row">
@@ -72,12 +72,12 @@
         <Table />
       </el-col>
       <el-col :span="8">
-        <Test />
+        <Test :latitude="latitude" :longitude="longitude" :radius="radius" />
       </el-col>
     </el-row>
     <el-row :gutter="32" class="row">
       <el-col :span="16">
-        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" />
+        <!-- <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" /> -->
       </el-col>
       <el-col :span="8"></el-col>
     </el-row>
@@ -120,7 +120,9 @@ export default {
     return {};
   },
   created() {},
-  mounted() {},
+  mounted() {
+    // console.log(this, this.latitude, this.longitude, this.radius)
+  },
   methods: {}
 };
 </script>

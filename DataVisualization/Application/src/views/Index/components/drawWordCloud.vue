@@ -35,6 +35,7 @@ export default {
     };
   },
   mounted() {
+    // console.log(this.latitude, this.longitude, this.radius)
     this.chart = echarts.init(this.$refs.wordcloud);
     this.draw(this.defaultWords);
     this.request();
