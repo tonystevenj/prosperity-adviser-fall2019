@@ -16,7 +16,7 @@ def active(writeToJson):
                     filesInfo.append([path, file])
 
     core(path)
-    print(filesInfo)
+    # print(filesInfo)
     if writeToJson:
         file_name = path+'/filesInfo.json'  # 通过扩展名指定文件存储的数据为json格式
         with open(file_name, 'w') as file_object:
