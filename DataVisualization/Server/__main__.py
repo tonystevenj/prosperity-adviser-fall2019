@@ -30,6 +30,6 @@ if __name__ == '__main__':
             downloader.active()
         elif args.run_type == 'help':
             print("run -> to run server")
-            print("uploaddata -> upload data to server")
+            print("uploaddata AK SK-> upload data to server, you also need type in AK and SK")
             print("downloaddata -> download data from server")
             print("init -> to load data")
