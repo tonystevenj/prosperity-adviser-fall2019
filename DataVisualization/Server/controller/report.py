@@ -60,7 +60,7 @@ def reviews():
     # sort dict(map) according to value
     L = sorted(whole_words.items(), key=lambda item: item[1], reverse=True) # 这里牛皮，python真的比java省生命多了
     # if u want top 20. then change the number below to 20
-    return Response(json.dumps(L[:10]), mimetype='application/json')
+    return Response(json.dumps(L), mimetype='application/json')
 
 def parks():
     latitude = request.args.get('latitude')

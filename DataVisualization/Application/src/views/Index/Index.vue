@@ -33,9 +33,6 @@
         <el-menu-item index="4">
           <i class="el-icon-postcard" style="width:65%;">ABOUT</i>
         </el-menu-item>
-        <!-- <el-menu-item index="4">
-          <a href="https://www.ele.me" target="_blank">订单管理</a>
-        </el-menu-item>-->
       </el-menu>
     </el-header>
     <div class="banner">
@@ -81,7 +78,6 @@
           </div>
         </div>
       </el-card>
-
     </el-main>
     <el-footer height="100px">
       <div class="footer_link">
@@ -94,12 +90,11 @@
       </div>
     </el-footer>
 
-    <el-dialog title="Report" :visible.sync="showReport" width="30%" :before-close="handleClose">
-      <span>This is a Report</span>
+    <el-dialog class="report" title="Report" radius="10" :visible.sync="showReport" width="80%">
+      <!-- :before-close="handleClose" -->
       <Layer></Layer>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="showReport = false">Cancel</el-button>
-        <el-button type="primary" @click="showReport = false">Confirm</el-button>
+        <el-button type="primary" @click="showReport = false">Close</el-button>
       </span>
     </el-dialog>
   </el-container>
@@ -347,6 +342,13 @@ export default {
 .banner_content .el-card__header {
   border-bottom-color: rgba(0, 0, 0, 0.6);
 }
+.el-dialog {
+  border-radius: 20;
+  background-color: #f0f1f4;
+}
+.el-dialog__header, .el-dialog__footer {
+  background-color: #ffffff;
+}
 #searchbox {
   width: 50%;
   min-width: 400px;
@@ -461,5 +463,8 @@ export default {
 
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
+}
+.report {
+  /* background-color: #999999; */
 }
 </style>

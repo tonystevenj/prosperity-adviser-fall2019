@@ -32,6 +32,19 @@ npm run build
 - ./data/yelp_dataset/business.json
 - ./data/parks.csv
 
+## 环境初始化
+所有系统环境都相对于DataVisualization目录下
+``` bash
+# 安装环境所需依赖
+pip install -r Server/requirements.txt
+
+# 开发完成后如果有新增的包，请通过pip安装pipreqs包进行包依赖的管理，然后提交更新后的requirements.txt
+# 安装pipreqs
+pip install pipreqs
+# 梳理依赖
+pipreqs Server --force
+```
+
 ## 初始化脚本
 ### 用来将数据写入redis geo指定的key中
 ``` bash
