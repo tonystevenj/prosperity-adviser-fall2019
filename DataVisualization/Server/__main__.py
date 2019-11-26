@@ -4,7 +4,7 @@ from .models import data
 from .scripts import downloader,uploader
 import sys
 if __name__ == '__main__':
-    print(sys.argv)
+    # print(sys.argv)
     argv = sys.argv
     if(len(argv)>2):
         if argv[1] == "uploaddata":

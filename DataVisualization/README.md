@@ -57,6 +57,10 @@ python -m Server run
 > http://127.0.0.1:8080/api/report/reviews?latitude=-112.073843&longitude=33.447999&radius=0.1
 
 ## 开发
+### 扩展数据补充
+> 1.先确保自己本地的数据文件是最新的，通过 python -m Server downloaddata 来获取云端最新数据
+> 2.加入在data folder里面加入自己要补充的数据，执行 python -m Server uploaddata AK SK 推送本地data到云端
+> 注：AK SK 是CDN服务器的登录密码
 ### 扩展数据开发
 > 扩展数据参考./models/data/business.py，里面有详细的注释。
 > 1. 在同目录下复制 ***business.py***（负责原始数据解析和导入） ，修改Business的类名以及其中的load方法，按指定格式返回两个dict，上游代码会自动在redis和内存中建立索引；
