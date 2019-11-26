@@ -63,7 +63,9 @@
       </el-col>
     </el-row>
     <el-row :gutter="32" class="row">
-      <el-col :span="24"></el-col>
+      <el-col :span="24">
+        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" />
+      </el-col>
     </el-row>
     <el-row :gutter="32" class="row">
       <el-col :span="16">
