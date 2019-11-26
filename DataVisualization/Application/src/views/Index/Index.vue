@@ -51,7 +51,7 @@
           <span>Describe</span>
         </div>
 
-        <coverflow></coverflow>
+        <!-- <coverflow></coverflow> -->
       </el-card>
       <el-card class="box-card gmap-box">
         <div slot="header" class="clearfix">
@@ -90,9 +90,16 @@
       </div>
     </el-footer>
 
-    <el-dialog class="report" title="Report" radius="10" :visible.sync="showReport" width="80%">
+    <el-dialog
+      class="report"
+      title="Report"
+      radius="10"
+      :visible.sync="showReport"
+      width="80%"
+      v-if="showReport"
+    >
       <!-- :before-close="handleClose" -->
-      <Layer></Layer>
+      <Layer :latitude="-112.073843" :longitude="33.447999" :radius="0.1" />
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="showReport = false">Close</el-button>
       </span>
@@ -100,19 +107,18 @@
   </el-container>
 </template>
 
-
 <script>
 import mapstyle from "@/utils/mapstyles/mapstyle_mb.js";
 import Layer from "./components/layer";
-import coverflow from "./components/coverflow";
+// import coverflow from "./components/coverflow";
 
 const config = require("../../../config");
 
 export default {
   name: "Index",
   components: {
-    Layer,
-    coverflow,
+    Layer
+    // coverflow,
   },
   data() {
     return {
@@ -346,7 +352,8 @@ export default {
   border-radius: 20;
   background-color: #f0f1f4;
 }
-.el-dialog__header, .el-dialog__footer {
+.el-dialog__header,
+.el-dialog__footer {
   background-color: #ffffff;
 }
 #searchbox {
