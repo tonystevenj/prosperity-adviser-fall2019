@@ -28,8 +28,10 @@ npm run build
 > 仓库中的服务器地址是默认的本地地址，需要连公共服务需要替换配置文件 ***./config/redis.toml***
 
 ## 数据
+### 可通过 python -m Server downloaddata 来获得所有需要的数据
 ### 保证以下文件在
 - ./data/yelp_dataset/business.json
+- ./data/yelp_dataset/review_Phoenix.csv
 - ./data/parks.csv
 
 ## 初始化脚本
@@ -58,8 +60,8 @@ python -m Server run
 
 ## 开发
 ### 扩展数据补充
-> 1.先确保自己本地的数据文件是最新的，通过 python -m Server downloaddata 来获取云端最新数据
-> 2.加入在data folder里面加入自己要补充的数据，执行 python -m Server uploaddata AK SK 推送本地data到云端
+> 1.先确保自己本地的数据文件是最新的，通过 python -m Server downloaddata 来获取云端最新数据;
+> 2.加入在data folder里面加入自己要补充的数据，执行 python -m Server uploaddata AK SK 推送本地data到云端;
 > 注：AK SK 是CDN服务器的登录密码
 ### 扩展数据开发
 > 扩展数据参考./models/data/business.py，里面有详细的注释。
