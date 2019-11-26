@@ -51,7 +51,7 @@
           <span>Describe</span>
         </div>
 
-        <!-- <coverflow></coverflow> -->
+        <coverflow></coverflow>
       </el-card>
       <el-card class="box-card gmap-box">
         <div slot="header" class="clearfix">
@@ -110,15 +110,15 @@
 <script>
 import mapstyle from "@/utils/mapstyles/mapstyle_mb.js";
 import Layer from "./components/layer";
-// import coverflow from "./components/coverflow";
+import coverflow from "./components/coverflow";
 
 const config = require("../../../config");
 
 export default {
   name: "Index",
   components: {
-    Layer
-    // coverflow,
+    Layer,
+    coverflow,
   },
   data() {
     return {

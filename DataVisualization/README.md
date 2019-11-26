@@ -21,6 +21,15 @@ npm run dev
 npm run build
 ```
 
+### 开发
+#### 地图
+地图所有代码在index.vue中，每个部分都有对应注释及文档链接
+
+#### 图表
+结构：components/layer.vue 为所有图表浮层的主文件，新增图表参照 components/drawTest.vue 及注释进行开发在layer.vue中引用
+
+
+
 # Python 后端
 **项目目录**：Server
 ## 依赖服务
@@ -86,11 +95,3 @@ python -m Server run
 > 6. 修改 ***./router.py*** （负责路由解析），仿照business添加一行，修改ruoute地址和业务处理方法，即上一条中新建的方法名；
 > 7. 运行 ***python -m Server init*** （启动web服务）模拟请求进行验证；
 > 8. 大功告成！
-
-## 词云(大字报)安装
-> npm install vue-wordcloud
-> 参考资料 https://www.npmjs.com/package/vue-wordcloud
->
-## 画廊安装
->https://github.com/surmon-china/vue-awesome-swiper
->npm install vue-awesome-swiper --save

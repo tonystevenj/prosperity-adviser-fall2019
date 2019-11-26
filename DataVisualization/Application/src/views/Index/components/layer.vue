@@ -85,8 +85,6 @@
 </template>
 
 <script>
-import echarts from "echarts";
-
 import Rate from "./drawRate";
 import Comment from "./drawComment";
 import WordCloud from "./drawWordCloud";
