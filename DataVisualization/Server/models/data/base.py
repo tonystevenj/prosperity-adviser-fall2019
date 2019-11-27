@@ -175,7 +175,7 @@ def load(service):
                 getObjName(objMap[name]), e))
             continue
         except BaseException as e:
-            print('Unknown error: {{}] {}'.format(objMap[name], e))
+            print('Unknown error: {}'.format(e))
             return
 
         if service and items and len(items) > 0:

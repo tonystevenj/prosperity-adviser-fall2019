@@ -1,7 +1,7 @@
 <template>
-  <md-card>
 
-    <md-card-media class="swiper-inner">
+
+
       <!-- swiper -->
       <swiper :options="swiperOption">
 
@@ -80,8 +80,7 @@
 
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
-    </md-card-media>
-  </md-card>
+
 </template>
 
 <script>
