@@ -35,7 +35,7 @@ class Reviews():
 
     def _my_TF_IDF(self, text):
 
-        myStopWords = ['00', 'place', '00a', '66', '00am', '00pm', '01', '04', '050d_xior1npcuwkbivaq', '0530', '06', '0600', '0630',
+        myStopWords = ['00', 'like','just','good','great','food','place', '00a', '66', '00am', '00pm', '01', '04', '050d_xior1npcuwkbivaq', '0530', '06', '0600', '0630',
                        '07',
                        '09', '10', '100', '1000', '105', '10a', '10am', '11', '110', '115', '11am', '11dollars', '11pm',
                        '12',
