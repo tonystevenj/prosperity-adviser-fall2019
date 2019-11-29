@@ -6,11 +6,11 @@ import numpy as np
 
 
 def business():
-    latitude = request.args.get('latitude')
     longitude = request.args.get('longitude')
+    latitude = request.args.get('latitude')
     radius = request.args.get('radius')
 
-    items = data.radius('Business', latitude, longitude, radius)
+    items = data.radius('Business', longitude, latitude, radius)
     result = []
 
     for item in items:
@@ -32,7 +32,7 @@ def reviews():
     longitude = request.args.get('longitude')
     radius = request.args.get('radius')
 
-    IDs = data.radius('Business', latitude, longitude, radius)
+    IDs = data.radius('Business', longitude, latitude, radius)
     result_0 = []
     result_13 = []
     result_45 = []
@@ -84,10 +84,10 @@ def reviews():
     return Response(json.dumps(L), mimetype='application/json')
 
 def parks():
-    latitude = request.args.get('latitude')
     longitude = request.args.get('longitude')
+    latitude = request.args.get('latitude')
     radius = request.args.get('radius')
-    items = data.radius('Park', latitude, longitude, radius)
+    items = data.radius('Park', longitude, latitude, radius)
     result = []
     for item in items:
         ret, exists = data.getItem('Park', item['key'])

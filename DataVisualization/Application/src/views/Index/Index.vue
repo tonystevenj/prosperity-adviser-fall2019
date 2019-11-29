@@ -99,7 +99,7 @@
       v-if="showReport"
     >
       <!-- :before-close="handleClose" -->
-      <Layer :latitude=report_lat :longitude=report_lng :radius=report_radius />
+      <Layer :longitude="report_lng" :latitude="report_lat" :radius="report_radius" />
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="showReport = false">Close</el-button>
       </span>
@@ -122,13 +122,13 @@ export default {
   name: "Index",
   components: {
     Layer,
-    coverflow,
+    coverflow
   },
   data() {
     return {
-    report_lat:777,
-    report_lng:888,
-    report_radius:0.1,
+      report_lat: 777,
+      report_lng: 888,
+      report_radius: 0.1,
 
       milemarks: {
         1: "1",
@@ -294,7 +294,6 @@ export default {
         // add click event
         // https://developers.google.com/maps/documentation/javascript/events?hl=zh-CN
         marker.addListener("click", () => {
-
           this.gmap.setZoom(10);
           this.gmap.setCenter(marker.getPosition());
         });
@@ -322,15 +321,14 @@ export default {
     },
 
     sitePin(latLng) {
-
       //clear others
       for (var i = 0; i < mymarkers.length; i++) {
-          mymarkers[i].setMap(null);
-       }
+        mymarkers[i].setMap(null);
+      }
 
-       for (var i = 0; i < shapes.length; i++) {
-          shapes[i].setMap(null);
-       }
+      for (var i = 0; i < shapes.length; i++) {
+        shapes[i].setMap(null);
+      }
 
       var marker = new google.maps.Marker({
         map: this.gmap,
@@ -339,8 +337,6 @@ export default {
       });
 
       mymarkers.push(marker);
-
-
 
       // Shapes
       // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/shapes?hl=zh-CN
@@ -356,7 +352,6 @@ export default {
       });
 
       shapes.push(cityCircle);
-
     },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
