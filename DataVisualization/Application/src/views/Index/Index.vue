@@ -99,7 +99,7 @@
       v-if="showReport"
     >
       <!-- :before-close="handleClose" -->
-      <Layer :latitude="-112.073843" :longitude="33.447999" :radius="0.1" />
+      <Layer :latitude=report_lat :longitude=report_lng :radius="0.1" />
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="showReport = false">Close</el-button>
       </span>
@@ -126,6 +126,9 @@ export default {
   },
   data() {
     return {
+    report_lat:777,
+    report_lng:888,
+
       milemarks: {
         1: "1",
         15: "15",
@@ -290,7 +293,7 @@ export default {
         // add click event
         // https://developers.google.com/maps/documentation/javascript/events?hl=zh-CN
         marker.addListener("click", () => {
-          this.showReport = true;
+
           this.gmap.setZoom(10);
           this.gmap.setCenter(marker.getPosition());
         });
@@ -298,6 +301,10 @@ export default {
         // add add pin event
         // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/event-arguments?hl=zh-CN
         this.gmap.addListener("click", e => {
+          this.report_lat = e.latLng.lat();
+          this.report_lng = e.latLng.lng();
+
+          this.showReport = true;
           this.sitePin(e.latLng);
         });
 
@@ -329,6 +336,8 @@ export default {
       });
 
       mymarkers.push(marker);
+
+
 
       // Shapes
       // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/shapes?hl=zh-CN
