@@ -99,7 +99,7 @@
       v-if="showReport"
     >
       <!-- :before-close="handleClose" -->
-      <Layer :latitude=report_lat :longitude=report_lng :radius="0.1" />
+      <Layer :latitude=report_lat :longitude=report_lng :radius=report_radius />
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="showReport = false">Close</el-button>
       </span>
@@ -128,6 +128,7 @@ export default {
     return {
     report_lat:777,
     report_lng:888,
+    report_radius:0.1,
 
       milemarks: {
         1: "1",
@@ -303,6 +304,8 @@ export default {
         this.gmap.addListener("click", e => {
           this.report_lat = e.latLng.lat();
           this.report_lng = e.latLng.lng();
+
+          this.report_radius = this.mapform.scope;
 
           this.showReport = true;
           this.sitePin(e.latLng);
