@@ -114,6 +114,10 @@ import coverflow from "./components/coverflow";
 
 const config = require("../../../config");
 
+var mymarkers = [];
+
+var shapes = [];
+
 export default {
   name: "Index",
   components: {
@@ -306,12 +310,25 @@ export default {
       // https://developers.google.com/maps/documentation/javascript/marker-clustering?hl=zh-CN
       var markerCluster = new MarkerClusterer(this.gmap, markers);
     },
+
     sitePin(latLng) {
+
+      //clear others
+      for (var i = 0; i < mymarkers.length; i++) {
+          mymarkers[i].setMap(null);
+       }
+
+       for (var i = 0; i < shapes.length; i++) {
+          shapes[i].setMap(null);
+       }
+
       var marker = new google.maps.Marker({
         map: this.gmap,
         position: latLng,
         icon: this.centerMarker
       });
+
+      mymarkers.push(marker);
 
       // Shapes
       // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/shapes?hl=zh-CN
@@ -325,6 +342,9 @@ export default {
         center: latLng,
         radius: this.mapform.scope * 1609.344
       });
+
+      shapes.push(cityCircle);
+
     },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
