@@ -99,7 +99,7 @@
       v-if="showReport"
     >
       <!-- :before-close="handleClose" -->
-      <Layer :longitude="report_lng" :latitude="report_lat" :radius="report_radius" />
+      <Layer :longitude="mapform.longitude" :latitude="mapform.latitude" :radius="mapform.radius" />
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="showReport = false">Close</el-button>
       </span>
@@ -126,17 +126,15 @@ export default {
   },
   data() {
     return {
-      report_lat: 777,
-      report_lng: 888,
-      report_radius: 0.1,
-
       milemarks: {
         1: "1",
         15: "15",
         30: "30"
       },
       mapform: {
-        scope: 5,
+        longitude: 0,
+        latitude: 0,
+        radius: 1,
         place: "",
         searchbox: ""
       },
@@ -301,10 +299,8 @@ export default {
         // add add pin event
         // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/event-arguments?hl=zh-CN
         this.gmap.addListener("click", e => {
-          this.report_lat = e.latLng.lat();
-          this.report_lng = e.latLng.lng();
-
-          this.report_radius = this.mapform.scope;
+          this.mapform.latitude = e.latLng.lat();
+          this.mapform.longitude = e.latLng.lng();
 
           this.showReport = true;
           this.sitePin(e.latLng);
@@ -343,12 +339,12 @@ export default {
       var cityCircle = new google.maps.Circle({
         map: this.gmap,
         strokeColor: "#FF0000",
-        strokeOpacity: 0.8,
+        strokeOpacity: 0.6,
         strokeWeight: 2,
         fillColor: "#FF0000",
-        fillOpacity: 0.35,
+        fillOpacity: 0.2,
         center: latLng,
-        radius: this.mapform.scope * 1609.344
+        radius: this.mapform.radius * 1609.344
       });
 
       shapes.push(cityCircle);
