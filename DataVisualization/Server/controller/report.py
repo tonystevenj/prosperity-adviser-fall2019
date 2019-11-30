@@ -9,22 +9,43 @@ def business():
     longitude = request.args.get('longitude')
     latitude = request.args.get('latitude')
     radius = request.args.get('radius')
+    zipcode = request.args.get('zipcode')
 
     items = data.radius('Business', longitude, latitude, radius)
-    result = []
+    result = {
+        'open_count': 0,
+        'close_count': 0,
+        'total_earners': 0,
+        'population': 0,
+        'business': []
+    }
 
+    # 分析business数据
     for item in items:
         ret, exists = data.getItem('Business', item['key'])
         if exists:
-            result.append({
+            if ret['is_open'] == '1':
+                result['open_count'] += 1
+            else:
+                result['close_count'] += 1
+            result['business'].append({
                 'business_id': ret['business_id'],
                 'name': ret['name'],
-                'latitude': ret['latitude'],
+                'is_open': ret['is_open'],
                 'longitude': ret['longitude'],
+                'latitude': ret['latitude'],
                 'stars': ret['stars'],
-                'review_count': ret['review_count'],
+                'review_count': ret['review_count']
             })
+
+    # 分析population数据
+    ret, exists = data.getItem('Population', zipcode)
+    if exists:
+        result['total_earners'] = ret['total_earners']
+        result['population'] = ret['population']
+
     return Response(json.dumps(result), mimetype='application/json')
+
 
 def reviews():
     category = request.args.get('category')
@@ -37,27 +58,28 @@ def reviews():
     result_13 = []
     result_45 = []
 
-    for id in IDs:  # print(id) : {'key': '_iEl9sCLsvXEFHUWPvgsAg', 'distance': 0.0082}
+    # print(id) : {'key': '_iEl9sCLsvXEFHUWPvgsAg', 'distance': 0.0082}
+    for id in IDs:
         ret, exists = data.getItem('Reviews', id['key'])
         ret2, exists2 = data.getItem('Business', id['key'])
         if exists and exists2:
             star = ret2['stars']
             # print( type(star))  # float
             isopen = ret2['is_open']
-            #print("哈哈",type(isopen)) # int
+            # print("哈哈",type(isopen)) # int
             if isopen == 0:
                 result_0.append([id['key'], ret])
             else:
-                if star >=4:
+                if star >= 4:
                     result_45.append([id['key'], ret])
                 else:
                     result_13.append([id['key'], ret])
     re, bool = data.getObj("Reviews")
-    if category== 'closed':
+    if category == 'closed':
         nparray = np.array(result_0)
-    elif category== 'star13':
+    elif category == 'star13':
         nparray = np.array(result_13)
-    elif category== 'star45':
+    elif category == 'star45':
         nparray = np.array(result_45)
     output = re.full_process(nparray)  # 输入形式：(n,2)
     list_dic_out = []
@@ -79,9 +101,11 @@ def reviews():
                 whole_words[shop[1][j]] = shop[2][j]
         # whole_words: {food:0.231,mecian:0.3421,....}
     # sort dict(map) according to value
-    L = sorted(whole_words.items(), key=lambda item: item[1], reverse=True)  # 这里牛皮，python真的比java省生命多了
+    # 这里牛皮，python真的比java省生命多了
+    L = sorted(whole_words.items(), key=lambda item: item[1], reverse=True)
     # if u want top 20. then change the number below to 20
     return Response(json.dumps(L), mimetype='application/json')
+
 
 def parks():
     longitude = request.args.get('longitude')

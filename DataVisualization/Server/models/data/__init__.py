@@ -4,5 +4,6 @@ from .base import getObj, getItem, getItems, radius, load
 from . import business
 from . import park
 from . import reviews
+from . import population
 
 __all__ = ['getObj', 'getItem', 'getItems', 'radius', 'load']

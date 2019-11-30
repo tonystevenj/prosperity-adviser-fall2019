@@ -1,36 +1,26 @@
 <template>
   <div>
+    <!-- 顶部4个栏 -->
     <el-row :gutter="32" class="row">
       <el-col :span="6">
         <div class="topdesc wbg">
           <div class="icon">
-            <i class="el-icon-food" style="color: #6ac6c5;"></i>
+            <i class="el-icon-s-shop" style="color: #6ac6c5;"></i>
           </div>
           <div class="detail">
             <div class="key">The number of restaurants</div>
-            <div class="value">200</div>
+            <div class="value">{{ topdata['open_count'] }}</div>
           </div>
         </div>
       </el-col>
       <el-col :span="6">
         <div class="topdesc wbg">
           <div class="icon">
-            <i class="el-icon-map-location" style="color: #36a3f7;"></i>
+            <i class="el-icon-s-shop" style="color: #f4516c;"></i>
           </div>
           <div class="detail">
-            <div class="key">The number of restaurants</div>
-            <div class="value">200</div>
-          </div>
-        </div>
-      </el-col>
-      <el-col :span="6">
-        <div class="topdesc wbg">
-          <div class="icon">
-            <i class="el-icon-user" style="color: #f4516c;"></i>
-          </div>
-          <div class="detail">
-            <div class="key">The number of restaurants</div>
-            <div class="value">200</div>
+            <div class="key">Closed restaurants</div>
+            <div class="value">{{ topdata['close_count'] }}</div>
           </div>
         </div>
       </el-col>
@@ -40,39 +30,79 @@
             <i class="el-icon-bank-card" style="color: #E6A23C;"></i>
           </div>
           <div class="detail">
-            <div class="key">The number of restaurants</div>
-            <div class="value">200</div>
+            <div class="key">Total earners</div>
+            <div class="value">{{ topdata['total_earners'] }}</div>
+          </div>
+        </div>
+      </el-col>
+      <el-col :span="6">
+        <div class="topdesc wbg">
+          <div class="icon">
+            <i class="el-icon-user" style="color: #36a3f7;"></i>
+          </div>
+          <div class="detail">
+            <div class="key">Population</div>
+            <div class="value">{{ topdata['population'] }}</div>
           </div>
         </div>
       </el-col>
     </el-row>
+    <!-- 标题 -->
     <el-row :gutter="32" class="row">
-      <el-col :span="24">
-        <rate />
+      <el-col :span="1"></el-col>
+      <el-col :span="8">
+        <span class="star_type">4 - 5 stars</span>
+      </el-col>
+      <el-col :span="8">
+        <span class="star_type">0 - 3 stars</span>
+      </el-col>
+      <el-col :span="8">
+        <span class="star_type">Closed</span>
       </el-col>
     </el-row>
+    <!-- 评分相关性 -->
+    <el-row :gutter="32" class="row">
+      <el-col :span="8">
+        <Rate />
+      </el-col>
+      <el-col :span="8">
+        <Rate />
+      </el-col>
+      <el-col :span="8">
+        <Rate />
+      </el-col>
+    </el-row>
+    <!-- 大字报 -->
+    <el-row :gutter="32" class="row">
+      <el-col :span="8">
+        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" />
+      </el-col>
+      <el-col :span="8">
+        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" />
+      </el-col>
+      <el-col :span="8">
+        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" />
+      </el-col>
+    </el-row>
+    <!-- other -->
     <el-row :gutter="32" class="row">
       <el-col :span="8">
         <Test :latitude="latitude" :longitude="longitude" :radius="radius" />
       </el-col>
       <el-col :span="8">
-        <comment />
+        <Test :latitude="latitude" :longitude="longitude" :radius="radius" />
       </el-col>
       <el-col :span="8">
-        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" />
+        <Test :latitude="latitude" :longitude="longitude" :radius="radius" />
       </el-col>
     </el-row>
-    <el-row :gutter="32" class="row">
-      <el-col :span="24">
-        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" />
-      </el-col>
-    </el-row>
+    <!-- 表格 -->
     <el-row :gutter="32" class="row">
       <el-col :span="16">
         <Table />
       </el-col>
       <el-col :span="8">
-        <Test :latitude="latitude" :longitude="longitude" :radius="radius" />
+        <Comment />
       </el-col>
     </el-row>
     <el-row :gutter="32" class="row">
@@ -105,6 +135,10 @@ export default {
     radius: {
       type: Number,
       required: true
+    },
+    zipcode: {
+      type: Number,
+      required: true
     }
   },
   components: {
@@ -115,13 +149,42 @@ export default {
     Table
   },
   data() {
-    return {};
+    return {
+      topdata: {
+        open_count: 0,
+        close_count: 0,
+        total_earners: 0,
+        population: 0,
+      }
+    };
   },
   created() {},
   mounted() {
-    // console.log(this, this.latitude, this.longitude, this.radius)
+    this.request()
   },
-  methods: {}
+  methods: {
+    request() {
+      // api获取真实数据进行替换
+      this.axios
+        .get("/api/report/business", {
+          params: {
+            latitude: this.latitude,
+            longitude: this.longitude,
+            radius: this.radius,
+            zipcode: this.zipcode
+          }
+        })
+        .then(response => {
+          this.topdata['open_count'] = response.data['open_count'];
+          this.topdata['close_count'] = response.data['close_count'];
+          this.topdata['total_earners'] = response.data['total_earners'];
+          this.topdata['population'] = response.data['population'];
+        })
+        .catch(response => {
+          console.log(response);
+        });
+    }
+  }
 };
 </script>
 
@@ -154,5 +217,12 @@ export default {
   line-height: 76px;
   font-weight: bolder;
   text-align: center;
+}
+.star_type {
+  text-align: center;
+  font-size: 18px;
+}
+.diagram_type {
+  writing-mode: vertical-lr;
 }
 </style>

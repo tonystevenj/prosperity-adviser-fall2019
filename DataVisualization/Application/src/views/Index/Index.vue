@@ -99,7 +99,12 @@
       v-if="showReport"
     >
       <!-- :before-close="handleClose" -->
-      <Layer :longitude="mapform.longitude" :latitude="mapform.latitude" :radius="mapform.radius" />
+      <Layer
+        :longitude="mapform.longitude"
+        :latitude="mapform.latitude"
+        :radius="mapform.radius"
+        :zipcode="mapform.zipcode"
+      />
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="showReport = false">Close</el-button>
       </span>
@@ -135,6 +140,7 @@ export default {
         longitude: 0,
         latitude: 0,
         radius: 1,
+        zipcode: 0,
         place: "",
         searchbox: ""
       },
@@ -302,6 +308,20 @@ export default {
           this.mapform.latitude = e.latLng.lat();
           this.mapform.longitude = e.latLng.lng();
 
+          // get zipcode
+          // https://stackoverflow.com/questions/6764917/latitude-and-longitude-can-find-zip-code
+          var geocoder = new google.maps.Geocoder();
+          geocoder.geocode({ latLng: e.latLng }, (results, status) => {
+            if (status != "OK") {
+              this.$message.error("Network error, please try again!");
+              return;
+            }
+            for (var i in results[0]["address_components"]) {
+              if (results[0]["address_components"][i]["types"].indexOf("postal_code") > -1) {
+                this.mapform.zipcode = Number(results[0]["address_components"][i]["long_name"]);
+              }
+            }
+          });
           this.showReport = true;
           this.sitePin(e.latLng);
         });
