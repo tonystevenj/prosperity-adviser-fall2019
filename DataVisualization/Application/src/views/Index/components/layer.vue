@@ -31,7 +31,7 @@
           </div>
           <div class="detail">
             <div class="key">Total earners</div>
-            <div class="value">{{ topdata['total_earners'] }}</div>
+            <div class="value">${{ topdata['total_earners'] }}</div>
           </div>
         </div>
       </el-col>

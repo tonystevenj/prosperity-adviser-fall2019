@@ -3,6 +3,7 @@ import json
 from flask import Response, request
 from ..models import data
 import numpy as np
+from ..models.data import Business_Feature_Graph as bfg
 
 
 def business():
