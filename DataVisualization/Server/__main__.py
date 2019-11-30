@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from . import server
 from .models import data
-from .scripts import downloader,uploader
+from .scripts import downloader,uploader,registFileInfo
 import sys
 if __name__ == '__main__':
     # print(sys.argv)
@@ -33,3 +33,5 @@ if __name__ == '__main__':
             print("uploaddata AK SK-> upload data to server, you also need type in AK and SK")
             print("downloaddata -> download data from server")
             print("init -> to load data")
+        # elif args.run_type == 'test': # for test up/download file
+        #     registFileInfo.active(False)

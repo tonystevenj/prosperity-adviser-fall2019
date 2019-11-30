@@ -17,7 +17,7 @@ def active():
     # print("Downloading files")
     for i in range(len(load_dict)):
         filename = load_dict[i][1]
-        filepath = load_dict[i][0]
+        filepath = proPath+load_dict[i][0]
         if not os.path.exists(filepath):
             os.makedirs(filepath)
         if not os.path.exists(filepath+"/"+filename):

@@ -4,9 +4,11 @@
 from qiniu import Auth, put_file, etag
 from ..scripts import registFileInfo
 from qiniu import BucketManager
+from ..librarys import env
 
 
 def active(access_key,secret_key):
+    path = env.getProjectPath()
     filesInfo = registFileInfo.active(True)
     # print(filesInfo)
     # 需要填写你的 Access Key 和 Secret Key
@@ -34,7 +36,7 @@ def active(access_key,secret_key):
         # 生成上传 Token，可以指定过期时间等
         token = q.upload_token(bucket_name, key, 3600)
         #要上传文件的本地路径
-        localfile =filesInfo[i][0]+ '/'+filename
+        localfile =path+filesInfo[i][0]+ '/'+filename
         # print(f"Begin uploading {filename}")
         ret, info = put_file(token, key, localfile)
         print(f"Upload {filename} finished")
