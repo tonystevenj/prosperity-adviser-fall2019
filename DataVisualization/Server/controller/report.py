@@ -61,28 +61,34 @@ def reviews():
 
     # print(id) : {'key': '_iEl9sCLsvXEFHUWPvgsAg', 'distance': 0.0082}
     for id in IDs:
+        # print(id)
         ret, exists = data.getItem('Reviews', id['key'])
         ret2, exists2 = data.getItem('Business', id['key'])
+        # print(exists, exists2)
         if exists and exists2:
             star = ret2['stars']
-            # print( type(star))  # float
+            # print(type(star))  # float
             isopen = ret2['is_open']
-            # print("哈哈",type(isopen)) # int
-            if isopen == 0:
+            # print("哈哈", type(isopen), isopen)  # int
+            if float(isopen) == 0:
                 result_0.append([id['key'], ret])
             else:
-                if star >= 4:
+                if float(star) >= 4:
                     result_45.append([id['key'], ret])
                 else:
                     result_13.append([id['key'], ret])
+    # print(len(result_0), "呼呼")
+    # print(len(result_13))
+    # print(len(result_45))
     re, bool = data.getObj("Reviews")
+    nparray = None
     if category == 'closed':
         nparray = np.array(result_0)
     elif category == 'star13':
         nparray = np.array(result_13)
     elif category == 'star45':
         nparray = np.array(result_45)
-    if(len(nparray)==0):
+    if (len(nparray) == 0):
         return Response(json.dumps("No data"), mimetype='application/json')
     output = re.full_process(nparray)  # 输入形式：(n,2)
     list_dic_out = []
