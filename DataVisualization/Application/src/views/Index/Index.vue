@@ -367,6 +367,15 @@ export default {
         radius: this.mapform.radius * 1609.344
       });
 
+      cityCircle.addListener("click", e => {
+          this.report_lat = e.latLng.lat();
+          this.report_lng = e.latLng.lng();
+
+          this.report_radius = this.mapform.scope;
+
+          this.showReport = true;
+          this.sitePin(e.latLng);
+        });
       shapes.push(cityCircle);
     },
     handleSelect(key, keyPath) {
