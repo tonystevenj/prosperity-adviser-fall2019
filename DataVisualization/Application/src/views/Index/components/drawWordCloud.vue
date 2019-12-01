@@ -27,7 +27,7 @@ export default {
     return {
       defaultWords: [
         {
-          name: "Landing...",
+          name: "Loading...",
           value: 1000
         }
       ],

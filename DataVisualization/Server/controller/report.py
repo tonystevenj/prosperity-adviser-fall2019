@@ -42,7 +42,7 @@ def business():
     # 分析population数据
     ret, exists = data.getItem('Population', zipcode)
     if exists:
-        result['total_earners'] = ret['total_earners']
+        result['median_earnings'] = ret['median_earnings']
         result['population'] = ret['population']
 
     return Response(json.dumps(result), mimetype='application/json')

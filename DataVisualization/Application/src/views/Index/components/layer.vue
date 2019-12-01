@@ -30,8 +30,8 @@
             <i class="el-icon-bank-card" style="color: #E6A23C;"></i>
           </div>
           <div class="detail">
-            <div class="key">Total earners</div>
-            <div class="value">${{ topdata['total_earners'] }}</div>
+            <div class="key">Median earners</div>
+            <div class="value">${{ topdata['median_earnings'] }}</div>
           </div>
         </div>
       </el-col>
@@ -153,7 +153,7 @@ export default {
       topdata: {
         open_count: 0,
         close_count: 0,
-        total_earners: 0,
+        median_earnings: 0,
         population: 0,
       }
     };
@@ -177,7 +177,7 @@ export default {
         .then(response => {
           this.topdata['open_count'] = response.data['open_count'];
           this.topdata['close_count'] = response.data['close_count'];
-          this.topdata['total_earners'] = response.data['total_earners'];
+          this.topdata['median_earnings'] = response.data['median_earnings'];
           this.topdata['population'] = response.data['population'];
         })
         .catch(response => {
