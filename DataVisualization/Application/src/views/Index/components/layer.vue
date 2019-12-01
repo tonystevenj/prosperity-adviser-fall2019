@@ -30,7 +30,7 @@
             <i class="el-icon-bank-card" style="color: #E6A23C;"></i>
           </div>
           <div class="detail">
-            <div class="key">Median earners</div>
+            <div class="key">Median earnings</div>
             <div class="value">${{ topdata['median_earnings'] }}</div>
           </div>
         </div>
