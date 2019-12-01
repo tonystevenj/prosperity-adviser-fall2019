@@ -84,8 +84,8 @@ python -m Server run
 
 ## 开发
 ### 扩展数据补充
-> 1.先确保自己本地的数据文件是最新的，通过 python -m Server downloaddata 来获取云端最新数据;
-> 2.加入在data folder里面加入自己要补充的数据，执行 python -m Server uploaddata AK SK 推送本地data到云端;
+> 1. 先确保自己本地的数据文件是最新的，通过 python -m Server downloaddata 来获取云端最新数据;
+> 2. 加入在data folder里面加入自己要补充的数据，执行 python -m Server uploaddata AK SK 推送本地data到云端;
 > 注：AK SK 是CDN服务器的登录密码
 ### 扩展数据开发
 > 扩展数据参考./models/data/business.py，里面有详细的注释。
