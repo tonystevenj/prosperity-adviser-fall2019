@@ -53,7 +53,7 @@ def reviews():
     latitude = request.args.get('latitude')
     longitude = request.args.get('longitude')
     radius = request.args.get('radius')
-
+    # print("哈哈",category)
     IDs = data.radius('Business', longitude, latitude, radius)
     result_0 = []
     result_13 = []
@@ -89,7 +89,7 @@ def reviews():
     elif category == 'star45':
         nparray = np.array(result_45)
     if (len(nparray) == 0):
-        return Response(json.dumps("No data"), mimetype='application/json')
+        return Response(json.dumps([["No data",50],["",40]]), mimetype='application/json')
     output = re.full_process(nparray)  # 输入形式：(n,2)
     list_dic_out = []
     for i in range(len(output)):

@@ -8,7 +8,7 @@
             <i class="el-icon-s-shop" style="color: #6ac6c5;"></i>
           </div>
           <div class="detail">
-            <div class="key">The number of restaurants</div>
+            <div class="key">Total</div>
             <div class="value">{{ topdata['open_count'] }}</div>
           </div>
         </div>
@@ -19,7 +19,7 @@
             <i class="el-icon-s-shop" style="color: #f4516c;"></i>
           </div>
           <div class="detail">
-            <div class="key">Closed restaurants</div>
+            <div class="key">Closed</div>
             <div class="value">{{ topdata['close_count'] }}</div>
           </div>
         </div>
@@ -75,13 +75,13 @@
     <!-- 大字报 -->
     <el-row :gutter="32" class="row">
       <el-col :span="8">
-        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" />
+        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" :category="category[0]"/>
       </el-col>
       <el-col :span="8">
-        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" />
+        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" :category="category[1]"/>
       </el-col>
       <el-col :span="8">
-        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" />
+        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" :category="category[2]"/>
       </el-col>
     </el-row>
     <!-- other -->
@@ -107,7 +107,7 @@
     </el-row>
     <el-row :gutter="32" class="row">
       <el-col :span="16">
-        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" />
+        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" :category="'closed'" />
       </el-col>
       <el-col :span="8"></el-col>
     </el-row>
@@ -155,7 +155,10 @@ export default {
         close_count: 0,
         median_earnings: 0,
         population: 0,
-      }
+      },
+      category: [
+        "star45", "star13", "closed"
+      ]
     };
   },
   created() {},
