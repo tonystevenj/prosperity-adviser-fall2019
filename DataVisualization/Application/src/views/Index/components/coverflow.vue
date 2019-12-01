@@ -49,30 +49,30 @@
 
         <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
-        <img src="/static/competitors.png" class="img-xys">
+        <img src="/static/people.png" class="img-xys">
         <div style="padding: 10px;">
-          <strong>Nearby Competitors</strong>
-          <div class="bottom">Specific information of selected nearby restaurants.</div>
+          <strong>Potential Customers</strong>
+          <div class="bottom">Authoritative population data of selected area.</div>
         </div>
         </el-card>
         </swiper-slide>
 
         <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
-        <img src="/static/competitors.png" class="img-xys">
+        <img src="/static/income.png" class="img-xys">
         <div style="padding: 10px;">
-          <strong>Nearby Competitors</strong>
-          <div class="bottom">Specific information of selected nearby restaurants.</div>
+          <strong>Consumption Ability</strong>
+          <div class="bottom">Reliable income data of selected area.</div>
         </div>
         </el-card>
         </swiper-slide>
 
         <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
-        <img src="/static/competitors.png" class="img-xys">
+        <img src="/static/store.png" class="img-xys">
         <div style="padding: 10px;">
-          <strong>Nearby Competitors</strong>
-          <div class="bottom">Specific information of selected nearby restaurants.</div>
+          <strong>Possible Risks</strong>
+          <div class="bottom">Nearby closed restaurants’ yelp review key word.</div>
         </div>
         </el-card>
         </swiper-slide>
