@@ -8,7 +8,7 @@
             <i class="el-icon-s-shop" style="color: #6ac6c5;"></i>
           </div>
           <div class="detail">
-            <div class="key">The number of restaurants</div>
+            <div class="key">Total</div>
             <div class="value">{{ topdata['open_count'] }}</div>
           </div>
         </div>
@@ -19,7 +19,7 @@
             <i class="el-icon-s-shop" style="color: #f4516c;"></i>
           </div>
           <div class="detail">
-            <div class="key">Closed restaurants</div>
+            <div class="key">Closed</div>
             <div class="value">{{ topdata['close_count'] }}</div>
           </div>
         </div>
