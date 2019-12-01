@@ -53,7 +53,7 @@ def reviews():
     latitude = request.args.get('latitude')
     longitude = request.args.get('longitude')
     radius = request.args.get('radius')
-
+    # print("哈哈",category)
     IDs = data.radius('Business', longitude, latitude, radius)
     result_0 = []
     result_13 = []
