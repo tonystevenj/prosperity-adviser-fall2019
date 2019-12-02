@@ -58,12 +58,24 @@ def reviews():
     result_0 = []
     result_13 = []
     result_45 = []
-
+    reviewInfo_closed = {
+        'reviewAmount': 0,
+        'businessAmount': 0,
+    }
+    reviewInfo_star13 = {
+        'reviewAmount': 0,
+        'businessAmount': 0,
+    }
+    reviewInfo_star45 = {
+        'reviewAmount': 0,
+        'businessAmount': 0,
+    }
     # print(id) : {'key': '_iEl9sCLsvXEFHUWPvgsAg', 'distance': 0.0082}
     for id in IDs:
         # print(id)
         ret, exists = data.getItem('Reviews', id['key'])
         ret2, exists2 = data.getItem('Business', id['key'])
+        print(ret2)
         # print(exists, exists2)
         if exists and exists2:
             star = ret2['stars']
@@ -72,14 +84,27 @@ def reviews():
             # print("哈哈", type(isopen), isopen)  # int
             if float(isopen) == 0:
                 result_0.append([id['key'], ret])
+                reviewInfo_closed['reviewAmount'] += int(ret2['review_count'])
+                reviewInfo_closed['businessAmount'] += 1
             else:
                 if float(star) >= 4:
                     result_45.append([id['key'], ret])
+                    reviewInfo_star45['reviewAmount'] += int(ret2['review_count'])
+                    reviewInfo_star45['businessAmount'] += 1
                 else:
                     result_13.append([id['key'], ret])
+                    reviewInfo_star13['reviewAmount'] += int(ret2['review_count'])
+                    reviewInfo_star13['businessAmount'] += 1
     # print(len(result_0), "呼呼")
     # print(len(result_13))
     # print(len(result_45))
+    if category == 'closedinfo':
+        return Response(json.dumps(reviewInfo_closed), mimetype='application/json')
+    if category == 'star13info':
+        return Response(json.dumps(reviewInfo_star13), mimetype='application/json')
+    if category == 'star45info':
+        return Response(json.dumps(reviewInfo_star45), mimetype='application/json')
+
     re, bool = data.getObj("Reviews")
     nparray = None
     if category == 'closed':
@@ -89,7 +114,7 @@ def reviews():
     elif category == 'star45':
         nparray = np.array(result_45)
     if (len(nparray) == 0):
-        return Response(json.dumps([["No data",50],["",40]]), mimetype='application/json')
+        return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
     output = re.full_process(nparray)  # 输入形式：(n,2)
     list_dic_out = []
     for i in range(len(output)):
