@@ -304,9 +304,23 @@ export default {
 
         // add add pin event
         // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/event-arguments?hl=zh-CN
-        this.gmap.addListener("click", e => {
-          this.mapform.latitude = e.latLng.lat();
-          this.mapform.longitude = e.latLng.lng();
+          this.gmap.addListener("click",this.onclickmap);
+
+        // todo: heat map
+        // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/layer-heatmap?hl=zh-CN
+
+        return marker;
+      });
+
+      // https://developers.google.com/maps/documentation/javascript/marker-clustering?hl=zh-CN
+      var markerCluster = new MarkerClusterer(this.gmap, markers);
+    },
+    onclickmap(e){
+
+            this.mapform.latitude = e.latLng.lat();
+            this.mapform.longitude = e.latLng.lng();
+
+           this.sitePin(e.latLng);
 
           // get zipcode
           // https://stackoverflow.com/questions/6764917/latitude-and-longitude-can-find-zip-code
@@ -322,20 +336,9 @@ export default {
               }
             }
           });
+
           this.showReport = true;
-          this.sitePin(e.latLng);
-        });
-
-        // todo: heat map
-        // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/layer-heatmap?hl=zh-CN
-
-        return marker;
-      });
-
-      // https://developers.google.com/maps/documentation/javascript/marker-clustering?hl=zh-CN
-      var markerCluster = new MarkerClusterer(this.gmap, markers);
     },
-
     sitePin(latLng) {
       //clear others
       for (var i = 0; i < mymarkers.length; i++) {
@@ -367,15 +370,7 @@ export default {
         radius: this.mapform.radius * 1609.344
       });
 
-      cityCircle.addListener("click", e => {
-          this.report_lat = e.latLng.lat();
-          this.report_lng = e.latLng.lng();
-
-          this.report_radius = this.mapform.scope;
-
-          this.showReport = true;
-          this.sitePin(e.latLng);
-        });
+      cityCircle.addListener("click", this.onclickmap);
       shapes.push(cityCircle);
     },
     handleSelect(key, keyPath) {
