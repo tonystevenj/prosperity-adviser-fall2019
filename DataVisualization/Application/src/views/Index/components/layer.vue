@@ -63,13 +63,13 @@
     <!-- 评分相关性 -->
     <el-row :gutter="32" class="row">
       <el-col :span="8">
-        <Rate />
+        <Rate :latitude="latitude" :longitude="longitude" :radius="radius" :category="category[0]" />
       </el-col>
       <el-col :span="8">
-        <Rate />
+        <Rate :latitude="latitude" :longitude="longitude" :radius="radius" :category="category[1]" />
       </el-col>
       <el-col :span="8">
-        <Rate />
+        <Rate :latitude="latitude" :longitude="longitude" :radius="radius" :category="category[2]" />
       </el-col>
     </el-row>
     <!-- 大字报 -->

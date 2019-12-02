@@ -127,3 +127,31 @@ def parks():
         if exists:
             result.append(ret)
     return Response(json.dumps(result), mimetype='application/json')
+
+def feature():
+    longitude = request.args.get('longitude')
+    latitude = request.args.get('latitude')
+    radius = request.args.get('radius')
+    category = request.args.get('category')
+
+    items = data.radius('Business', longitude, latitude, radius)
+
+    dataTmp = []
+    group = None
+
+    for item in items:
+        ret, exists = data.getItem('Business', item['key'])
+        if category == 'closed' and ret['is_open'] == '0':
+            group = 3
+            dataTmp.append(ret)
+        if  category == 'star45' and ret['is_open'] == '1' and float(ret['stars']) >= 4:
+            group = 1
+            dataTmp.append(ret)
+        elif category == 'star13' and ret['is_open'] == '1' and float(ret['stars']) > 0 and float(ret['stars']) < 4:
+            group = 2
+            dataTmp.append(ret)
+
+    response = bfg.Business_Feature_Graph(dataTmp, group)
+
+    return Response(json.dumps(response), mimetype='application/json')
+
