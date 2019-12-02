@@ -89,7 +89,7 @@ export default {
           series.push([]);
         }
         let seriesTmp = [];
-        for (var i = 0; i < line; i++) {
+        for (var i = line - 1; i >= 0; i--) {
           if (data[i]["dataTmp"].hasOwnProperty(j)) {
             seriesTmp.push(data[i]["dataTmp"][j]);
           } else {
@@ -112,7 +112,7 @@ export default {
         angleAxis: {},
         radiusAxis: {
           type: "category",
-          data: subTitle,
+          data: subTitle.reverse(),
           z: 10
         },
         polar: {},
