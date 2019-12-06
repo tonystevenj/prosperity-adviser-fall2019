@@ -7,21 +7,21 @@ def business_top_features(bdata_selected, restaurant_group):
     if restaurant_group == 1:
         bdata_group = bdata_selected.loc[(bdata_selected['stars'].astype(float).fillna(0.0) >= 4) & (
             bdata_selected['is_open'] == '1')]
-        feature = ['food_type', 'attributes.NoiseLevel', 'attributes.RestaurantsPriceRange2',
-                   'attributes.RestaurantsDelivery', 'attributes.Alcohol', 'attributes.RestaurantsGoodForGroups',
-                   'attributes.WiFi', 'attributes.RestaurantsReservations', 'attributes.RestaurantsTableService',
-                   'attributes.OutdoorSeating']
+        feature = {'food_type': 0.0872, 'attributes.NoiseLevel': 0.0574, 'attributes.RestaurantsPriceRange2': 0.0568,
+                   'attributes.RestaurantsDelivery': 0.0458, 'attributes.Alcohol': 0.0406, 'attributes.RestaurantsGoodForGroups': 0.0393,
+                   'attributes.WiFi': 0.0385, 'attributes.RestaurantsReservations': 0.0373, 'attributes.RestaurantsTableService': 0.037,
+                   'attributes.OutdoorSeating': 0.037}
     elif restaurant_group == 2:
         bdata_group = bdata_selected.loc[(bdata_selected['stars'].astype(float).fillna(0.0) < 4) & (
             bdata_selected['is_open'] == '1')]
-        feature = ['casual', 'food_type', 'attributes.Alcohol', 'attributes.WiFi', 'attributes.Caters',
-                   'attributes.NoiseLevel', 'attributes.OutdoorSeating', 'attributes.BikeParking', 'lot',
-                   'attributes.RestaurantsGoodForGroups']
+        feature = {'casual': 0.1134, 'food_type': 0.0869, 'attributes.Alcohol': 0.0866, 'attributes.WiFi': 0.0581, 'attributes.Caters': 0.0502,
+                   'attributes.NoiseLevel': 0.0473, 'attributes.OutdoorSeating': 0.0472, 'attributes.BikeParking': 0.0466, 'lot': 0.041,
+                   'attributes.RestaurantsGoodForGroups': 0.0406}
     else:
         bdata_group = bdata_selected.loc[(bdata_selected['is_open'] == '0')]
-        feature = ['food_type', 'attributes.NoiseLevel', 'attributes.Alcohol', 'attributes.RestaurantsPriceRange2',
-                   'attributes.OutdoorSeating', 'attributes.Caters', 'attributes.WiFi', 'attributes.HasTV',
-                   'attributes.BikeParking', 'attributes.RestaurantsGoodForGroups']
+        feature = {'food_type': 0.1075, 'attributes.NoiseLevel': 0.0589, 'attributes.Alcohol': 0.0581, 'attributes.RestaurantsPriceRange2': 0.0577,
+                   'attributes.OutdoorSeating': 0.0509, 'attributes.Caters': 0.0502, 'attributes.WiFi': 0.0463, 'attributes.HasTV': 0.0454,
+                   'attributes.BikeParking': 0.0445, 'attributes.RestaurantsGoodForGroups': 0.0439}
     bgraphdata = top_features(feature, bdata_group)
     return bgraphdata
 
@@ -51,7 +51,8 @@ def top_features(feature_lst, df):
         if total < 100:
             valueTmp['other'] = round(100 - total, 2)
 
-        common_values.append({"name": name_value, "data": valueTmp})
+        common_values.append(
+            {"name": name_value, "value": feature_lst[x], "data": valueTmp})
     return common_values
 
 
