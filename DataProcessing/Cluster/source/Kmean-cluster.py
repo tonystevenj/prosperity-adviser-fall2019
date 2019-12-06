@@ -39,7 +39,10 @@ def loadDataSet():
     # print(dataSet[0])
     #
     # return dataSet
-    data = pd.read_csv("Data/parks.csv").to_numpy(str).T[0:2].T
+    import os
+    dataset_path = '..'
+    datafilepath = os.path.join(dataset_path, "Data/parks.csv")
+    data = pd.read_csv(datafilepath).to_numpy(str).T[0:2].T
     data_convert = data.astype(float)
     print(len(data_convert))
     print(data_convert[0])
@@ -110,10 +113,8 @@ def showCluster(centroidList, clusterDict):
 
 def test_k_means():
     dataSet = loadDataSet()
-    centroidList = initCentroids(dataSet, 1)
+    centroidList = initCentroids(dataSet, 5)
     clusterDict = minDistance(dataSet, centroidList)
-    # # getCentroids(clusterDict)
-    # showCluster(centroidList, clusterDict)
     newVar = getVar(centroidList, clusterDict)
     oldVar = 1  # 当两次聚类的误差小于某个值是，说明质心基本确定。
 
@@ -125,13 +126,10 @@ def test_k_means():
         newVar = getVar(centroidList, clusterDict)
         times += 1
         showCluster(centroidList, clusterDict)
-        for key in clusterDict.keys():
-            print(len(clusterDict[key]))
+    print("各类长度:")
+    for key in clusterDict.keys():
+        print(len(clusterDict[key]))
 if __name__ == '__main__':
     # show_fig()
     test_k_means()
-
-
-
-
 

@@ -86,7 +86,10 @@ def JarvisMarch(S):
 
     return convexHull
 
-data = pd.read_csv("Data/parks.csv").to_numpy(str).T[0:2].T
+import os
+dataset_path = '..'
+datafilepath = os.path.join(dataset_path, "Data/parks.csv")
+data = pd.read_csv(datafilepath).to_numpy(str).T[0:2].T
 data_convert=data.astype(float).tolist()
 # S=[[3,1],[0,0],[2, 0],[1,-1],[2,2],[1, 1],[1,0],]
 # print("输出：",JarvisMarch(S))
