@@ -5,7 +5,6 @@ from ..models import data
 import numpy as np
 from ..models.data import Business_Feature_Graph as bfg
 
-
 def business():
     longitude = request.args.get('longitude')
     latitude = request.args.get('latitude')
@@ -46,7 +45,6 @@ def business():
         result['population'] = ret['population']
 
     return Response(json.dumps(result), mimetype='application/json')
-
 
 def reviews():
     category = request.args.get('category')
@@ -140,7 +138,6 @@ def reviews():
     # if u want top 20. then change the number below to 20
     return Response(json.dumps(L), mimetype='application/json')
 
-
 def parks():
     longitude = request.args.get('longitude')
     latitude = request.args.get('latitude')
@@ -179,4 +176,3 @@ def feature():
     response = bfg.Business_Feature_Graph(dataTmp, group)
 
     return Response(json.dumps(response), mimetype='application/json')
-

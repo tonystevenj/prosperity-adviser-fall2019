@@ -8,7 +8,7 @@
        <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
         <img src="/static/databases.png" class="img-xys">
-        <div style="padding: 10px;">
+        <div style="padding: 2px;">
           <strong>Comprehensive Databases</strong>
           <div class="bottom">Based on Yelp, census org and other credible datasets.</div>
         </div>
@@ -19,7 +19,7 @@
        <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
         <img src="/static/review.png" class="img-xys">
-        <div style="padding: 10px;">
+        <div style="padding: 2px;">
           <strong>Review’s Key Words</strong>
           <div class="bottom">Visualized high-frequency key words of targeted business circle.</div>
         </div>
@@ -30,7 +30,7 @@
         <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
         <img src="/static/facilities.png" class="img-xys">
-        <div style="padding: 10px;">
+        <div style="padding: 0px;">
           <strong>Communal facilities</strong>
           <div class="bottom">Popular communal facilities in the targeted area.</div>
         </div>
@@ -40,7 +40,7 @@
        <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
         <img src="/static/competitors.png" class="img-xys">
-        <div style="padding: 10px;">
+        <div style="padding: 0px;">
           <strong>Nearby Competitors</strong>
           <div class="bottom">Specific information of selected nearby restaurants.</div>
         </div>
@@ -50,7 +50,7 @@
         <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
         <img src="/static/people.png" class="img-xys">
-        <div style="padding: 10px;">
+        <div style="padding: 0px;">
           <strong>Potential Customers</strong>
           <div class="bottom">Authoritative population data of selected area.</div>
         </div>
@@ -60,7 +60,7 @@
         <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
         <img src="/static/income.png" class="img-xys">
-        <div style="padding: 10px;">
+        <div style="padding: 0px;">
           <strong>Consumption Ability</strong>
           <div class="bottom">Reliable income data of selected area.</div>
         </div>
@@ -70,7 +70,7 @@
         <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
         <img src="/static/store.png" class="img-xys">
-        <div style="padding: 10px;">
+        <div style="padding: 0px;">
           <strong>Possible Risks</strong>
           <div class="bottom">Nearby closed restaurants’ yelp review key word.</div>
         </div>
