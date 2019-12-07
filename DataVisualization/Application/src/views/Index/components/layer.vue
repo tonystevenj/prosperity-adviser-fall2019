@@ -47,9 +47,17 @@
         </div>
       </el-col>
     </el-row>
+    <!-- table & 控制面板 -->
+    <el-row :gutter="32" class="row">
+      <el-col :span="12">
+        <Table :latitude="latitude" :longitude="longitude" :radius="radius" />
+      </el-col>
+      <el-col :span="12">
+        <Panel :latitude="latitude" :longitude="longitude" :radius="radius" />
+      </el-col>
+    </el-row>
     <!-- 标题 -->
     <el-row :gutter="32" class="row">
-      <el-col :span="1"></el-col>
       <el-col :span="8">
         <span class="star_type">4 - 5 stars</span>
       </el-col>
@@ -75,41 +83,29 @@
     <!-- 大字报 -->
     <el-row :gutter="32" class="row">
       <el-col :span="8">
-        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" :category="category[0]"/>
+        <WordCloud
+          :latitude="latitude"
+          :longitude="longitude"
+          :radius="radius"
+          :category="category[0]"
+        />
       </el-col>
       <el-col :span="8">
-        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" :category="category[1]"/>
+        <WordCloud
+          :latitude="latitude"
+          :longitude="longitude"
+          :radius="radius"
+          :category="category[1]"
+        />
       </el-col>
       <el-col :span="8">
-        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" :category="category[2]"/>
+        <WordCloud
+          :latitude="latitude"
+          :longitude="longitude"
+          :radius="radius"
+          :category="category[2]"
+        />
       </el-col>
-    </el-row>
-    <!-- other -->
-    <el-row :gutter="32" class="row">
-      <el-col :span="8">
-        <Test :latitude="latitude" :longitude="longitude" :radius="radius" />
-      </el-col>
-      <el-col :span="8">
-        <Test :latitude="latitude" :longitude="longitude" :radius="radius" />
-      </el-col>
-      <el-col :span="8">
-        <Test :latitude="latitude" :longitude="longitude" :radius="radius" />
-      </el-col>
-    </el-row>
-    <!-- 表格 -->
-    <el-row :gutter="32" class="row">
-      <el-col :span="16">
-        <Table />
-      </el-col>
-      <el-col :span="8">
-        <Comment />
-      </el-col>
-    </el-row>
-    <el-row :gutter="32" class="row">
-      <el-col :span="16">
-        <WordCloud :latitude="latitude" :longitude="longitude" :radius="radius" :category="'closed'" />
-      </el-col>
-      <el-col :span="8"></el-col>
     </el-row>
   </div>
 </template>
@@ -118,8 +114,8 @@
 import Rate from "./drawRate";
 import Comment from "./drawComment";
 import WordCloud from "./drawWordCloud";
-import Test from "./drawTest";
 import Table from "./drawTable";
+import Panel from "./drawPanel";
 
 export default {
   name: "Layer",
@@ -145,8 +141,8 @@ export default {
     Rate,
     Comment,
     WordCloud,
-    Test,
-    Table
+    Table,
+    Panel,
   },
   data() {
     return {
@@ -154,16 +150,14 @@ export default {
         open_count: 0,
         close_count: 0,
         median_earnings: 0,
-        population: 0,
+        population: 0
       },
-      category: [
-        "star45", "star13", "closed"
-      ]
+      category: ["star45", "star13", "closed"]
     };
   },
   created() {},
   mounted() {
-    this.request()
+    this.request();
   },
   methods: {
     request() {
@@ -178,10 +172,10 @@ export default {
           }
         })
         .then(response => {
-          this.topdata['open_count'] = response.data['open_count'];
-          this.topdata['close_count'] = response.data['close_count'];
-          this.topdata['median_earnings'] = response.data['median_earnings'];
-          this.topdata['population'] = response.data['population'];
+          this.topdata["open_count"] = response.data["open_count"];
+          this.topdata["close_count"] = response.data["close_count"];
+          this.topdata["median_earnings"] = response.data["median_earnings"];
+          this.topdata["population"] = response.data["population"];
         })
         .catch(response => {
           console.log(response);

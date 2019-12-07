@@ -5,6 +5,7 @@ from ..models import data
 import numpy as np
 from ..models.data import Business_Feature_Graph as bfg
 
+
 def business():
     longitude = request.args.get('longitude')
     latitude = request.args.get('latitude')
@@ -45,6 +46,7 @@ def business():
         result['population'] = ret['population']
 
     return Response(json.dumps(result), mimetype='application/json')
+
 
 def reviews():
     category = request.args.get('category')
@@ -87,11 +89,13 @@ def reviews():
             else:
                 if float(star) >= 4:
                     result_45.append([id['key'], ret])
-                    reviewInfo_star45['reviewAmount'] += int(ret2['review_count'])
+                    reviewInfo_star45['reviewAmount'] += int(
+                        ret2['review_count'])
                     reviewInfo_star45['businessAmount'] += 1
                 else:
                     result_13.append([id['key'], ret])
-                    reviewInfo_star13['reviewAmount'] += int(ret2['review_count'])
+                    reviewInfo_star13['reviewAmount'] += int(
+                        ret2['review_count'])
                     reviewInfo_star13['businessAmount'] += 1
     # print(len(result_0), "呼呼")
     # print(len(result_13))
@@ -138,6 +142,7 @@ def reviews():
     # if u want top 20. then change the number below to 20
     return Response(json.dumps(L), mimetype='application/json')
 
+
 def parks():
     longitude = request.args.get('longitude')
     latitude = request.args.get('latitude')
@@ -149,6 +154,7 @@ def parks():
         if exists:
             result.append(ret)
     return Response(json.dumps(result), mimetype='application/json')
+
 
 def feature():
     longitude = request.args.get('longitude')
@@ -166,7 +172,7 @@ def feature():
         if category == 'closed' and ret['is_open'] == '0':
             group = 3
             dataTmp.append(ret)
-        if  category == 'star45' and ret['is_open'] == '1' and float(ret['stars']) >= 4:
+        if category == 'star45' and ret['is_open'] == '1' and float(ret['stars']) >= 4:
             group = 1
             dataTmp.append(ret)
         elif category == 'star13' and ret['is_open'] == '1' and float(ret['stars']) > 0 and float(ret['stars']) < 4:
@@ -176,3 +182,63 @@ def feature():
     response = bfg.Business_Feature_Graph(dataTmp, group)
 
     return Response(json.dumps(response), mimetype='application/json')
+
+
+def table():
+    longitude = request.args.get('longitude')
+    latitude = request.args.get('latitude')
+    radius = request.args.get('radius')
+    result = {
+        'business': [],
+        'park': [],
+        'school': [],
+        'pride': [],
+        'hospital': [],
+        'rail': [],
+    }
+
+    # business数据
+    items = data.radius('Business', longitude, latitude, radius)
+    for item in items:
+        ret, exists = data.getItem('Business', item['key'])
+        ret['distance'] = item['distance']
+        result['business'].append(ret)
+    
+    # park数据
+    items = data.radius('Park', longitude, latitude, radius)
+    for item in items:
+        ret, exists = data.getItem('Park', item['key'])
+        ret['distance'] = item['distance']
+        result['park'].append(ret)
+
+    # school数据
+    items = data.radius('School', longitude, latitude, radius)
+    print(items)
+    for item in items:
+        ret, exists = data.getItem('School', item['key'])
+        ret['distance'] = item['distance']
+        result['school'].append(ret)
+
+    # Hospital数据
+    items = data.radius('Hospital', longitude, latitude, radius)
+    for item in items:
+        ret, exists = data.getItem('Hospital', item['key'])
+        ret['distance'] = item['distance']
+        result['hospital'].append(ret)
+        
+    # Pride数据
+    items = data.radius('Pride', longitude, latitude, radius)
+    for item in items:
+        ret, exists = data.getItem('Pride', item['key'])
+        ret['distance'] = item['distance']
+        result['pride'].append(ret)
+
+    # Rail数据
+    items = data.radius('Rail', longitude, latitude, radius)
+    for item in items:
+        ret, exists = data.getItem('Rail', item['key'])
+        ret['distance'] = item['distance']
+        result['rail'].append(ret)
+
+
+    return Response(json.dumps(result), mimetype='application/json')

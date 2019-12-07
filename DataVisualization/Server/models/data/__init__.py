@@ -5,5 +5,10 @@ from . import business
 from . import park
 from . import reviews
 from . import population
+from . import hospital
+from . import school
+from . import pride
+from . import rail
+from . import traffic
 
 __all__ = ['getObj', 'getItem', 'getItems', 'radius', 'load']

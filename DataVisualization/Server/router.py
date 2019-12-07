@@ -7,3 +7,4 @@ def dispatch(app):
     app.add_url_rule('/api/report/park', view_func=report.parks, methods=['GET'])
     app.add_url_rule('/api/report/reviews', view_func=report.reviews, methods=['GET'])
     app.add_url_rule('/api/report/feature', view_func=report.feature, methods=['GET'])
+    app.add_url_rule('/api/report/table', view_func=report.table, methods=['GET'])
