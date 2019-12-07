@@ -105,7 +105,9 @@ def test_k_means():
         newVar = getVar(centroidList, clusterDict)
         times += 1
         # showCluster(centroidList, clusterDict)
-    showCluster(centroidList, clusterDict)
+    # showCluster(centroidList, clusterDict)
+    draw1=centroidList
+    draw2=clusterDict
     # print("各类长度:")
     # for key in clusterDict.keys():
     #     print(len(clusterDict[key]))
@@ -115,7 +117,7 @@ def test_k_means():
     clusterList = []
     for key in clusterDict.keys():
         clusterList.append(clusterDict[key])
-    return clusterList
+    return clusterList, draw1,draw2
 
 
 def JarvisMarch(S):
@@ -253,6 +255,7 @@ def calculateDensity(data_2dPoints):
 # print(calculateDensity(data_convert))
 
 # cluster分类：
-clusterList = test_k_means()
+clusterList,draw1,draw2 = test_k_means()
 for data in clusterList:
     print("density：", calculateDensity(data))
+showCluster(draw1, draw2)
