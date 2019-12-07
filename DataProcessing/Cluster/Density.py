@@ -4,27 +4,9 @@ import random
 import pandas as pd
 import matplotlib.pyplot  as plt
 
-
-def show_fig():
-    dataSet = loadDataSet()
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.scatter(dataSet[:, 0], dataSet[:, 1])
-    plt.show()
-
-
 def calcuDistance(vec1, vec2):
     # 计算向量1与向量2之间的欧式距离
     return np.sqrt(np.sum(np.square(vec1 - vec2)))  # 注意这里的减号
-
-
-def loadDataSet():
-    data = pd.read_csv("Data/parks.csv").to_numpy(str).T[0:2].T
-    data_convert = data.astype(float)
-    # print(len(data_convert))
-    # print(data_convert[0])
-    # print(type(data_convert))
-    return data_convert
 
 
 def initCentroids(dataSet, k):
@@ -86,13 +68,12 @@ def showCluster(centroidList, clusterDict):
         plt.plot(centroidList[key][0], centroidList[key][1], centroidMark[key], markersize=12)  # 质心点
         for item in clusterDict[key]:
             plt.plot(item[0], item[1], colorMark[key])
-
+    # plt.savefig('results_School.png')
     plt.show()
 
 
-def test_k_means():
-    dataSet = loadDataSet()
-    centroidList = initCentroids(dataSet, 7)
+def test_k_means(dataSet,classAmount):
+    centroidList = initCentroids(dataSet, classAmount)
     clusterDict = minDistance(dataSet, centroidList)
     newVar = getVar(centroidList, clusterDict)
     oldVar = 1  # 当两次聚类的误差小于某个值是，说明质心基本确定。
@@ -254,8 +235,49 @@ def calculateDensity(data_2dPoints):
 # data_convert = data.astype(float).tolist()
 # print(calculateDensity(data_convert))
 
-# cluster分类：
-clusterList,draw1,draw2 = test_k_means()
-for data in clusterList:
-    print("density：", calculateDensity(data))
-showCluster(draw1, draw2)
+# cluster分类,究极封装,只需要输入坐标数据,和cluster的种类数量,即可output density：
+def main(data_convert,classAmount):
+    clusterList,draw1,draw2 = test_k_means(data_convert,classAmount)
+    densityList=[]
+    for data in clusterList:
+        outcome=calculateDensity(data)
+        densityList.append(outcome)
+        print("density：", outcome)
+    showCluster(draw1, draw2)
+
+    return densityList
+
+# 程序运行调用:
+# 公园数据:
+data = pd.read_csv("Data/parks.csv").to_numpy(str).T[0:2].T
+data_convert = data.astype(float)
+densityList=main(data_convert,7)
+# pd.DataFrame(densityList).to_csv('results_parks.csv',header=False,index=False)
+
+# 医院数据:
+# data = pd.read_csv("Data/hospital_location_data.csv")[['Longitude','Latitude']]
+# data1=data.to_numpy(float).T[0:2].T
+# densityList=main(data1,7)
+# pd.DataFrame(densityList).to_csv('results_hospital.csv',header=False,index=False)
+
+# 景点数据:
+# data = pd.read_csv("Data/points_pride.csv")[['Longitude','Latitude']]
+# data1=data.to_numpy(float).T[0:2].T
+# densityList=main(data1,5)
+# pd.DataFrame(densityList).to_csv('results_pride.csv',header=False,index=False)
+
+# 轻轨数据:
+# data = pd.read_csv("Data/rail_station.csv")[['Longitude','Latitude']]
+# data1=data.to_numpy(float)
+# densityList=main(data1,5)
+# pd.DataFrame(densityList).to_csv('results_station.csv',header=False,index=False)
+
+# 学校数据:
+# data = pd.read_csv("Data/School.csv",encoding = "ISO-8859-1")[['Longitude','Latitude']]
+# print(data)
+# data1=data.to_numpy(float)
+# densityList=main(data1,7)
+# pd.DataFrame(densityList).to_csv('results_School.csv',header=False,index=False)
+
+
+
