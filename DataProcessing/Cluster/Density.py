@@ -92,7 +92,7 @@ def showCluster(centroidList, clusterDict):
 
 def test_k_means():
     dataSet = loadDataSet()
-    centroidList = initCentroids(dataSet, 5)
+    centroidList = initCentroids(dataSet, 7)
     clusterDict = minDistance(dataSet, centroidList)
     newVar = getVar(centroidList, clusterDict)
     oldVar = 1  # 当两次聚类的误差小于某个值是，说明质心基本确定。
@@ -112,12 +112,10 @@ def test_k_means():
     #     print(clusterDict[key])
 
     # 改变字典储存方式:
-    clusterList=[]
+    clusterList = []
     for key in clusterDict.keys():
         clusterList.append(clusterDict[key])
     return clusterList
-
-
 
 
 def JarvisMarch(S):
@@ -181,30 +179,71 @@ def JarvisMarch(S):
         nowDegree = minnextDegree
     return convexHull
 
+
 def destance(u, v):
     # 0是经度
-    x = (v[0] - u[0])*(2 * math.pi * 6371 / 360)*0.621371*math.cos((v[1]+u[1])/2)
-    y = (v[1] - u[1])*(2 * math.pi * 6371 / 360)*0.621371
+    x = (v[0] - u[0]) * (2 * math.pi * 6371 / 360) * 0.621371 * math.cos((v[1] + u[1]) / 2)
+    y = (v[1] - u[1]) * (2 * math.pi * 6371 / 360) * 0.621371
     return math.sqrt(pow(x, 2) + pow(y, 2))
 
 
 def calculateDensity(data_2dPoints):
     convexID = JarvisMarch(data_2dPoints)
-    print("环边输出：", convexID)
+    # print("环边输出：", convexID)
     # 计算最长两点间最长距离：
     longest = 0
+    p1 = 0
+    p2 = 0
     for i in range(len(convexID)):
         convex1 = data_2dPoints[convexID[i]]
         for j in range(len(convexID)):
             convex2 = data_2dPoints[convexID[j]]
-            longest = max(longest, destance(convex1, convex2))
-    print("直径:",longest)
+            if longest < destance(convex1, convex2):
+                p1 = convexID[i]
+                p2 = convexID[j]
+                longest = destance(convex1, convex2)
+    # print("直径:", longest, "最远两点id:", p1, p2)
+
+    # 计算椭圆的b边:(刚才两点最长作为a边,现在还需要算椭圆的短边)
+    ## idea: 根据最长边,把convex hull 的点分为两坨,然后找到这两坨之间,最小的距离,就是b了
+    ## step1: 计算划分线:
+    x1 = data_2dPoints[p1][0]
+    y1 = data_2dPoints[p1][1]
+    x2 = data_2dPoints[p2][0]
+    y2 = data_2dPoints[p2][1]
+    k = (y1 - y2) / (x1 - x2)
+    b = y1 - k * x1
+
+    # 分类:
+    group1 = []
+    group2 = []
+    for i in range(len(convexID)):
+        if convexID[i] == p1 or convexID[i]==p2:
+            continue
+        Xnow=data_2dPoints[convexID[i]][0]
+        Ynow=data_2dPoints[convexID[i]][1]
+        y_line = k* Xnow+b
+        if Ynow>y_line:
+            group1.append(convexID[i])
+        if Ynow<y_line:
+            group2.append(convexID[i])
+    # print("分类结果:",group1,group2)
+    # 计算b:
+    shortest=99999
+    for id1 in group1:
+        convex1=data_2dPoints[id1]
+        for id2 in group2:
+            convex2 = data_2dPoints[id2]
+            if shortest > destance(convex1, convex2):
+                shortest = destance(convex1, convex2)
+    # print(shortest,longest)
 
     # 计算密度：
     amount = len(data_2dPoints)
-    print("总数量",amount)
-    area = math.pi*pow(longest,2)
-    density = amount/area
+    # print("总数量", amount)
+    # area = math.pi * pow(longest, 2)
+    area = math.pi * longest * shortest
+    density = amount / area
     return density
 
 
@@ -214,6 +253,6 @@ def calculateDensity(data_2dPoints):
 # print(calculateDensity(data_convert))
 
 # cluster分类：
-clusterList=test_k_means()
+clusterList = test_k_means()
 for data in clusterList:
-    print("密度：",calculateDensity(data))
+    print("density：", calculateDensity(data))
