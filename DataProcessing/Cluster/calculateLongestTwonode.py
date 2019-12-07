@@ -182,8 +182,9 @@ def JarvisMarch(S):
     return convexHull
 
 def destance(u, v):
-    x = v[0] - u[0]
-    y = v[1] - u[1]
+    # 0是经度
+    x = (v[0] - u[0])*(2 * math.pi * 6371 / 360)*0.621371*math.cos((v[1]+u[1])/2)
+    y = (v[1] - u[1])*(2 * math.pi * 6371 / 360)*0.621371
     return math.sqrt(pow(x, 2) + pow(y, 2))
 
 
