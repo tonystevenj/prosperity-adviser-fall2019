@@ -36,7 +36,12 @@
       </el-menu>
     </el-header>
     <div class="banner">
+
+    <div>
+    <coverflow></coverflow>
+    </div>
       <div class="banner_content">
+
         <el-card class="box-card">
           <div slot="header" class="clearfix test">
             <span style="font-weight: bold;">Assistant for Restaurant Site Selection</span>
@@ -46,13 +51,7 @@
       </div>
     </div>
     <el-main>
-      <el-card class="box-card gmap-box">
-        <div slot="header" class="clearfix">
-          <span>Describe</span>
-        </div>
 
-        <coverflow></coverflow>
-      </el-card>
       <el-card class="box-card gmap-box">
         <div slot="header" class="clearfix">
           <span>Dashboard</span>
@@ -442,6 +441,15 @@ export default {
 </style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.swiper-container {
+  float: left;
+  width: 550px;
+  height: 360px;
+  margin-top: 40px;
+  margin-left: 30px;
+}
+
 .el-header {
   padding: 0;
   box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 1);
