@@ -64,7 +64,7 @@
               <el-slider
                 label="Scope"
                 id="scope"
-                v-model="mapform.scope"
+                v-model="mapform.radius"
                 vertical
                 :min="1"
                 :max="30"
