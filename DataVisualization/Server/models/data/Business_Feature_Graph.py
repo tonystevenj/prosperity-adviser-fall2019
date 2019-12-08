@@ -7,21 +7,23 @@ def business_top_features(bdata_selected, restaurant_group):
     if restaurant_group == 1:
         bdata_group = bdata_selected.loc[(bdata_selected['stars'].astype(float).fillna(0.0) >= 4) & (
             bdata_selected['is_open'] == '1')]
-        feature = {'food_type': 0.0872, 'attributes.NoiseLevel': 0.0574, 'attributes.RestaurantsPriceRange2': 0.0568,
-                   'attributes.RestaurantsDelivery': 0.0458, 'attributes.Alcohol': 0.0406, 'attributes.RestaurantsGoodForGroups': 0.0393,
-                   'attributes.WiFi': 0.0385, 'attributes.RestaurantsReservations': 0.0373, 'attributes.RestaurantsTableService': 0.037,
-                   'attributes.OutdoorSeating': 0.037}
+        # feature = {'food_type': 0.0872, 'attributes.NoiseLevel': 0.0574, 'attributes.RestaurantsPriceRange2': 0.0568,
+        #            'attributes.RestaurantsDelivery': 0.0458, 'attributes.Alcohol': 0.0406, 'attributes.RestaurantsGoodForGroups': 0.0393,
+        #            'attributes.WiFi': 0.0385, 'attributes.RestaurantsReservations': 0.0373, 'attributes.RestaurantsTableService': 0.037,
+        #            'attributes.OutdoorSeating': 0.037}
     elif restaurant_group == 2:
         bdata_group = bdata_selected.loc[(bdata_selected['stars'].astype(float).fillna(0.0) < 4) & (
             bdata_selected['is_open'] == '1')]
-        feature = {'casual': 0.1134, 'food_type': 0.0869, 'attributes.Alcohol': 0.0866, 'attributes.WiFi': 0.0581, 'attributes.Caters': 0.0502,
-                   'attributes.NoiseLevel': 0.0473, 'attributes.OutdoorSeating': 0.0472, 'attributes.BikeParking': 0.0466, 'lot': 0.041,
-                   'attributes.RestaurantsGoodForGroups': 0.0406}
+        # feature = {'casual': 0.1134, 'food_type': 0.0869, 'attributes.Alcohol': 0.0866, 'attributes.WiFi': 0.0581, 'attributes.Caters': 0.0502,
+        #            'attributes.NoiseLevel': 0.0473, 'attributes.OutdoorSeating': 0.0472, 'attributes.BikeParking': 0.0466, 'lot': 0.041,
+        #            'attributes.RestaurantsGoodForGroups': 0.0406}
     else:
         bdata_group = bdata_selected.loc[(bdata_selected['is_open'] == '0')]
-        feature = {'food_type': 0.1075, 'attributes.NoiseLevel': 0.0589, 'attributes.Alcohol': 0.0581, 'attributes.RestaurantsPriceRange2': 0.0577,
-                   'attributes.OutdoorSeating': 0.0509, 'attributes.Caters': 0.0502, 'attributes.WiFi': 0.0463, 'attributes.HasTV': 0.0454,
-                   'attributes.BikeParking': 0.0445, 'attributes.RestaurantsGoodForGroups': 0.0439}
+        # feature = {'food_type': 0.1075, 'attributes.NoiseLevel': 0.0589, 'attributes.Alcohol': 0.0581, 'attributes.RestaurantsPriceRange2': 0.0577,
+        #            'attributes.OutdoorSeating': 0.0509, 'attributes.Caters': 0.0502, 'attributes.WiFi': 0.0463, 'attributes.HasTV': 0.0454,
+        #            'attributes.BikeParking': 0.0445, 'attributes.RestaurantsGoodForGroups': 0.0439}
+    feature = {'food_type': 0.089, 'attributes.WheelchairAccessible': 0.079, 'attributes.Caters': 0.056, 'attributes.OutdoorSeating': 0.053, 'attributes.Alcohol': 0.051,
+                   'lot': 0.049, 'attributes.NoiseLevel': 0.048, 'attributes.WiFi': 0.044, 'attributes.BikeParking': 0.042, 'attributes.RestaurantsPriceRange2': 0.039}
     bgraphdata = top_features(feature, bdata_group)
     return bgraphdata
 

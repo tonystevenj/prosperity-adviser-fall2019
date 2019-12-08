@@ -96,6 +96,8 @@
       :visible.sync="showReport"
       width="80%"
       v-if="showReport"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
     >
       <!-- :before-close="handleClose" -->
       <Layer
@@ -444,7 +446,7 @@ export default {
 
 .swiper-container {
   float: left;
-  width: 550px;
+  width: 70%;
   height: 360px;
   margin-top: 40px;
   margin-left: 30px;
@@ -481,7 +483,7 @@ export default {
 }
 .banner_content {
   float: right;
-  width: 400px;
+  width: 24%;
   height: 360px;
   background-color: rgba(0, 0, 0, 0.5);
   border-color: black;
