@@ -252,8 +252,8 @@ def score():
     pride_percentage = float(request.args.get('pride_percentage'))
     hospital_percentage = float(request.args.get('hospital_percentage'))
     rail_percentage = float(request.args.get('rail_percentage'))
-    salary_percentage = float(request.args.get('rail_percentage'))
-    population_percentage = float(request.args.get('rail_percentage'))
+    salary_percentage = float(request.args.get('salary_percentage'))
+    population_percentage = float(request.args.get('population_percentage'))
     zipcode = request.args.get('zipcode')
     # convert 5 percentage into 100% in total:
     sum = park_percentage+school_percentage+pride_percentage+hospital_percentage+rail_percentage+salary_percentage+population_percentage
@@ -313,9 +313,12 @@ def score():
     if exists:
         median_earnings = ret['median_earnings']
         population = ret['population']
-    result += (median_earnings/maxdata['salary'])*salary_percentage
 
+    result += (median_earnings/maxdata['salary'])*salary_percentage
     # population数据
     result += (population/maxdata['population'])*population_percentage
-
+    # print(salary_percentage)
+    # print(population_percentage)
+    # print((median_earnings / maxdata['salary']) * salary_percentage)
+    # print((population/maxdata['population'])*population_percentage)
     return Response(json.dumps(result), mimetype='application/json')
