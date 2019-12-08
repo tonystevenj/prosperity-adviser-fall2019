@@ -81,7 +81,8 @@ python -m Server run
 > 1. 关闭的店： http://127.0.0.1:8080/api/report/reviews?longitude=-112.073843&latitude=33.447999&radius=0.1&category=closed
 > 2. 1-3星的店：http://127.0.0.1:8080/api/report/reviews?longitude=-112.073843&latitude=33.447999&radius=0.1&category=star13
 > 3. 4-5星的店：http://127.0.0.1:8080/api/report/reviews?longitude=-112.073843&latitude=33.447999&radius=0.1&category=star45
-
+#### Part 1, score 数据
+>  http://127.0.0.1:8080/api/report/score?longitude=-112.073843&latitude=33.447999&radius=1&park_percentage=0.5&school_percentage=0.5&pride_percentage=0.5&hospital_percentage=0.5&rail_percentage=0.5
 ## 开发
 ### 扩展数据补充
 > 1. 先确保自己本地的数据文件是最新的，通过 python -m Server downloaddata 来获取云端最新数据;
