@@ -252,13 +252,18 @@ def score():
     pride_percentage = float(request.args.get('pride_percentage'))
     hospital_percentage = float(request.args.get('hospital_percentage'))
     rail_percentage = float(request.args.get('rail_percentage'))
+    salary_percentage = float(request.args.get('rail_percentage'))
+    population_percentage = float(request.args.get('rail_percentage'))
+    zipcode = request.args.get('zipcode')
     # convert 5 percentage into 100% in total:
-    sum = park_percentage+school_percentage+pride_percentage+hospital_percentage+rail_percentage
+    sum = park_percentage+school_percentage+pride_percentage+hospital_percentage+rail_percentage+salary_percentage+population_percentage
     park_percentage = park_percentage/sum
     school_percentage = school_percentage/sum
     pride_percentage = pride_percentage/sum
     hospital_percentage = hospital_percentage/sum
     rail_percentage = rail_percentage/sum
+    salary_percentage = salary_percentage/sum
+    population_percentage = population_percentage/sum
     result = 0
 
     maxdata = {
@@ -267,6 +272,8 @@ def score():
         'pride': 2.31007695,
         'hospital': 0.340240332,
         'rail': 0.373340781,
+        'salary':61968,
+        'population': 40452
     }
 
 
@@ -298,5 +305,17 @@ def score():
     items = data.radius('Rail', longitude, latitude, radius)
     Rail_score = calculateScore(len(items) / area_size, maxdata['rail'])
     result += Rail_score*rail_percentage
+
+    # salary数据
+    ret, exists = data.getItem('Population', zipcode)
+    median_earnings=0
+    population=0
+    if exists:
+        median_earnings = ret['median_earnings']
+        population = ret['population']
+    result += (median_earnings/maxdata['salary'])*salary_percentage
+
+    # population数据
+    result += (population/maxdata['population'])*population_percentage
 
     return Response(json.dumps(result), mimetype='application/json')
