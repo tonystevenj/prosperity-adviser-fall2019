@@ -244,16 +244,16 @@ def table():
     return Response(json.dumps(result), mimetype='application/json')
 
 
-def table():
+def score():
     longitude = request.args.get('longitude')
     latitude = request.args.get('latitude')
-    radius = request.args.get('radius')
+    radius = int(request.args.get('radius'))
     area_size = math.pi*radius*radius
-    park_percentage = request.args.get('park_percentage')
-    school_percentage = request.args.get('school_percentage')
-    pride_percentage = request.args.get('pride_percentage')
-    hospital_percentage = request.args.get('hospital_percentage')
-    rail_percentage = request.args.get('rail_percentage')
+    park_percentage = float(request.args.get('park_percentage'))
+    school_percentage = float(request.args.get('school_percentage'))
+    pride_percentage = float(request.args.get('pride_percentage'))
+    hospital_percentage = float(request.args.get('hospital_percentage'))
+    rail_percentage = float(request.args.get('rail_percentage'))
     # convert 5 percentage into 100% in total:
     sum = park_percentage+school_percentage+pride_percentage+hospital_percentage+rail_percentage
     park_percentage = park_percentage/sum
@@ -279,26 +279,26 @@ def table():
     # park数据
     items = data.radius('Park', longitude, latitude, radius)
     park_score = calculateScore(len(items)/area_size,maxdata['park'])
-    result+=park_score
+    result+=park_score*park_percentage
 
     # school数据
     items = data.radius('School', longitude, latitude, radius)
-    School_score = calculateScore(len(items) / area_size, maxdata['School'])
-    result += School_score
+    School_score = calculateScore(len(items) / area_size, maxdata['school'])
+    result += School_score*school_percentage
 
     # Hospital数据
     items = data.radius('Hospital', longitude, latitude, radius)
-    Hospital_score = calculateScore(len(items) / area_size, maxdata['Hospital'])
-    result += Hospital_score
+    Hospital_score = calculateScore(len(items) / area_size, maxdata['hospital'])
+    result += Hospital_score*hospital_percentage
 
     # Pride数据
     items = data.radius('Pride', longitude, latitude, radius)
-    Pride_score = calculateScore(len(items) / area_size, maxdata['Pride'])
-    result += Pride_score
+    Pride_score = calculateScore(len(items) / area_size, maxdata['pride'])
+    result += Pride_score*pride_percentage
 
     # Rail数据
     items = data.radius('Rail', longitude, latitude, radius)
-    Rail_score = calculateScore(len(items) / area_size, maxdata['Rail'])
-    result += Rail_score
+    Rail_score = calculateScore(len(items) / area_size, maxdata['rail'])
+    result += Rail_score*rail_percentage
 
     return Response(json.dumps(result), mimetype='application/json')
