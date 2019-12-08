@@ -4,7 +4,7 @@ from flask import Response, request
 from ..models import data
 import numpy as np
 from ..models.data import Business_Feature_Graph as bfg
-
+import math
 
 def business():
     longitude = request.args.get('longitude')
@@ -240,5 +240,65 @@ def table():
         ret['distance'] = item['distance']
         result['rail'].append(ret)
 
+
+    return Response(json.dumps(result), mimetype='application/json')
+
+
+def table():
+    longitude = request.args.get('longitude')
+    latitude = request.args.get('latitude')
+    radius = request.args.get('radius')
+    area_size = math.pi*radius*radius
+    park_percentage = request.args.get('park_percentage')
+    school_percentage = request.args.get('school_percentage')
+    pride_percentage = request.args.get('pride_percentage')
+    hospital_percentage = request.args.get('hospital_percentage')
+    rail_percentage = request.args.get('rail_percentage')
+    # convert 5 percentage into 100% in total:
+    sum = park_percentage+school_percentage+pride_percentage+hospital_percentage+rail_percentage
+    park_percentage = park_percentage/sum
+    school_percentage = school_percentage/sum
+    pride_percentage = pride_percentage/sum
+    hospital_percentage = hospital_percentage/sum
+    rail_percentage = rail_percentage/sum
+    result = 0
+
+    maxdata = {
+        'park': 1.201385924,
+        'school': 5.815748132,
+        'pride': 2.31007695,
+        'hospital': 0.340240332,
+        'rail': 0.373340781,
+    }
+
+
+    def calculateScore(current, max):
+        if current>max:
+            return 1
+        return current/max
+    # park数据
+    items = data.radius('Park', longitude, latitude, radius)
+    park_score = calculateScore(len(items)/area_size,maxdata['park'])
+    result+=park_score
+
+    # school数据
+    items = data.radius('School', longitude, latitude, radius)
+    School_score = calculateScore(len(items) / area_size, maxdata['School'])
+    result += School_score
+
+    # Hospital数据
+    items = data.radius('Hospital', longitude, latitude, radius)
+    Hospital_score = calculateScore(len(items) / area_size, maxdata['Hospital'])
+    result += Hospital_score
+
+    # Pride数据
+    items = data.radius('Pride', longitude, latitude, radius)
+    Pride_score = calculateScore(len(items) / area_size, maxdata['Pride'])
+    result += Pride_score
+
+    # Rail数据
+    items = data.radius('Rail', longitude, latitude, radius)
+    Rail_score = calculateScore(len(items) / area_size, maxdata['Rail'])
+    result += Rail_score
 
     return Response(json.dumps(result), mimetype='application/json')
