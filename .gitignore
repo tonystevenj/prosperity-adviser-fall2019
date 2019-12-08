@@ -1,5 +1,6 @@
 .idea/
-Data/
+data/*
+*.json
 envi/
 *.xml
 /out/
