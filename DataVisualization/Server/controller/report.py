@@ -75,7 +75,6 @@ def reviews():
         # print(id)
         ret, exists = data.getItem('Reviews', id['key'])
         ret2, exists2 = data.getItem('Business', id['key'])
-        print(ret2)
         # print(exists, exists2)
         if exists and exists2:
             star = ret2['stars']
@@ -213,7 +212,6 @@ def table():
 
     # school数据
     items = data.radius('School', longitude, latitude, radius)
-    print(items)
     for item in items:
         ret, exists = data.getItem('School', item['key'])
         ret['distance'] = item['distance']
