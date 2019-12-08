@@ -3,38 +3,35 @@
     <el-card class="box-card score_frame clearfix">
       <el-form :inline="true" class="score_txt">
         <el-form-item label="Summary score:">{{ score }}</el-form-item>
-        <el-form-item class="button">
-          <el-button type="primary" @click="calculate" :disabled="loading">Calculate</el-button>
-        </el-form-item>
       </el-form>
     </el-card>
     <div class="block" style="margin-top: 20px;">
       <span class="demonstration">Population density</span>
-      <el-slider class="slider" v-model="percent.population"></el-slider>
+      <el-slider class="slider" v-model="percent.population" @input="calculate"></el-slider>
     </div>
     <div class="block">
       <span class="demonstration">Median earnings</span>
-      <el-slider class="slider" v-model="percent.earnings"></el-slider>
+      <el-slider class="slider" v-model="percent.earnings" @input="calculate"></el-slider>
     </div>
     <div class="block">
       <span class="demonstration">Park density</span>
-      <el-slider class="slider" v-model="percent.park"></el-slider>
+      <el-slider class="slider" v-model="percent.park" @input="calculate"></el-slider>
     </div>
     <div class="block">
       <span class="demonstration">School density</span>
-      <el-slider class="slider" v-model="percent.school"></el-slider>
+      <el-slider class="slider" v-model="percent.school" @input="calculate"></el-slider>
     </div>
     <div class="block">
       <span class="demonstration">Hospital density</span>
-      <el-slider class="slider" v-model="percent.hospital"></el-slider>
+      <el-slider class="slider" v-model="percent.hospital" @input="calculate"></el-slider>
     </div>
     <div class="block">
       <span class="demonstration">Light rail density</span>
-      <el-slider class="slider" v-model="percent.rail"></el-slider>
+      <el-slider class="slider" v-model="percent.rail" @input="calculate"></el-slider>
     </div>
     <div class="block">
       <span class="demonstration">Aourist attraction density</span>
-      <el-slider class="slider" v-model="percent.pride"></el-slider>
+      <el-slider class="slider" v-model="percent.pride" @input="calculate"></el-slider>
     </div>
   </div>
 </template>
@@ -73,6 +70,7 @@ export default {
         pride: 50,
         rail: 50
       },
+      data: {},
       score: 0,
       loading: false
     };
@@ -82,6 +80,111 @@ export default {
   },
   methods: {
     request() {
+      this.loading = true;
+      this.axios
+        .get("/api/report/score_data", {
+          params: {
+            latitude: this.latitude,
+            longitude: this.longitude,
+            radius: this.radius,
+            zipcode: this.zipcode
+          }
+        })
+        .then(response => {
+          this.data = response.data;
+          this.calculate();
+          this.loading = false;
+        })
+        .catch(response => {
+          console.log(response);
+        });
+    },
+    calculate() {
+      let result = 0;
+      let area_size = Math.PI * this.radius * this.radius;
+      // convert 7 percentage into 100% in total:
+      let sum =
+        this.percent.population +
+        this.percent.earnings +
+        this.percent.park +
+        this.percent.school +
+        this.percent.pride +
+        this.percent.hospital +
+        this.percent.rail;
+
+      let population_percentage = this.percent.population / sum;
+      let earnings_percentage = this.percent.earnings / sum;
+      let park_percentage = this.percent.park / sum;
+      let school_percentage = this.percent.school / sum;
+      let pride_percentage = this.percent.pride / sum;
+      let hospital_percentage = this.percent.hospital / sum;
+      let rail_percentage = this.percent.rail / sum;
+
+      result +=
+        population_percentage *
+        this.calculateScore(
+          this.data["population"]["sum"] / area_size,
+          this.data["population"]["max"]
+        );
+
+      result +=
+        earnings_percentage *
+        this.calculateScore(
+          this.data["salary"]["sum"] / area_size,
+          this.data["salary"]["max"]
+        );
+
+      result +=
+        park_percentage *
+        this.calculateScore(
+          this.data["park"]["sum"] / area_size,
+          this.data["park"]["max"]
+        );
+
+      result +=
+        park_percentage *
+        this.calculateScore(
+          this.data["park"]["sum"] / area_size,
+          this.data["park"]["max"]
+        );
+
+      result +=
+        school_percentage *
+        this.calculateScore(
+          this.data["school"]["sum"] / area_size,
+          this.data["school"]["max"]
+        );
+
+      result +=
+        pride_percentage *
+        this.calculateScore(
+          this.data["pride"]["sum"] / area_size,
+          this.data["pride"]["max"]
+        );
+
+      result +=
+        hospital_percentage *
+        this.calculateScore(
+          this.data["hospital"]["sum"] / area_size,
+          this.data["hospital"]["max"]
+        );
+
+      result +=
+        rail_percentage *
+        this.calculateScore(
+          this.data["rail"]["sum"] / area_size,
+          this.data["rail"]["max"]
+        );
+
+      this.score = (result * 100).toFixed(2);
+    },
+    calculateScore(current, max) {
+      if (current > max) {
+        return 1;
+      }
+      return current / max;
+    },
+    request_old() {
       this.loading = true;
       this.axios
         .get("/api/report/score", {
@@ -106,9 +209,6 @@ export default {
         .catch(response => {
           console.log(response);
         });
-    },
-    calculate() {
-      this.request();
     }
   }
 };

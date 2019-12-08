@@ -6,6 +6,7 @@ import numpy as np
 from ..models.data import Business_Feature_Graph as bfg
 import math
 
+
 def business():
     longitude = request.args.get('longitude')
     latitude = request.args.get('latitude')
@@ -202,7 +203,7 @@ def table():
         ret, exists = data.getItem('Business', item['key'])
         ret['distance'] = item['distance']
         result['business'].append(ret)
-    
+
     # park数据
     items = data.radius('Park', longitude, latitude, radius)
     for item in items:
@@ -223,7 +224,7 @@ def table():
         ret, exists = data.getItem('Hospital', item['key'])
         ret['distance'] = item['distance']
         result['hospital'].append(ret)
-        
+
     # Pride数据
     items = data.radius('Pride', longitude, latitude, radius)
     for item in items:
@@ -237,7 +238,6 @@ def table():
         ret, exists = data.getItem('Rail', item['key'])
         ret['distance'] = item['distance']
         result['rail'].append(ret)
-
 
     return Response(json.dumps(result), mimetype='application/json')
 
@@ -256,7 +256,8 @@ def score():
     population_percentage = float(request.args.get('population_percentage'))
     zipcode = request.args.get('zipcode')
     # convert 5 percentage into 100% in total:
-    sum = park_percentage+school_percentage+pride_percentage+hospital_percentage+rail_percentage+salary_percentage+population_percentage
+    sum = park_percentage+school_percentage+pride_percentage + \
+        hospital_percentage+rail_percentage+salary_percentage+population_percentage
     park_percentage = park_percentage/sum
     school_percentage = school_percentage/sum
     pride_percentage = pride_percentage/sum
@@ -272,19 +273,18 @@ def score():
         'pride': 2.31007695,
         'hospital': 0.340240332,
         'rail': 0.373340781,
-        'salary':61968,
-        'population': 40452
+        'salary': 61968,
+        'population': 70008
     }
 
-
     def calculateScore(current, max):
-        if current>max:
+        if current > max:
             return 1
         return current/max
     # park数据
     items = data.radius('Park', longitude, latitude, radius)
-    park_score = calculateScore(len(items)/area_size,maxdata['park'])
-    result+=park_score*park_percentage
+    park_score = calculateScore(len(items)/area_size, maxdata['park'])
+    result += park_score*park_percentage
 
     # school数据
     items = data.radius('School', longitude, latitude, radius)
@@ -293,7 +293,8 @@ def score():
 
     # Hospital数据
     items = data.radius('Hospital', longitude, latitude, radius)
-    Hospital_score = calculateScore(len(items) / area_size, maxdata['hospital'])
+    Hospital_score = calculateScore(
+        len(items) / area_size, maxdata['hospital'])
     result += Hospital_score*hospital_percentage
 
     # Pride数据
@@ -308,8 +309,8 @@ def score():
 
     # salary数据
     ret, exists = data.getItem('Population', zipcode)
-    median_earnings=0
-    population=0
+    median_earnings = 0
+    population = 0
     if exists:
         median_earnings = ret['median_earnings']
         population = ret['population']
@@ -321,4 +322,71 @@ def score():
     # print(population_percentage)
     # print((median_earnings / maxdata['salary']) * salary_percentage)
     # print((population/maxdata['population'])*population_percentage)
+    return Response(json.dumps(result), mimetype='application/json')
+
+
+def score_data():
+    longitude = request.args.get('longitude')
+    latitude = request.args.get('latitude')
+    radius = int(request.args.get('radius'))
+    zipcode = request.args.get('zipcode')
+
+    result = {
+        'park': {
+            'sum': 0,
+            'max': 1.201385924
+        },
+        'school': {
+            'sum': 0,
+            'max': 5.815748132
+        },
+        'pride': {
+            'sum': 0,
+            'max': 2.31007695
+        },
+        'hospital': {
+            'sum': 0,
+            'max': 0.340240332
+        },
+        'rail': {
+            'sum': 0,
+            'max': 0.373340781
+        },
+        'salary': {
+            'sum': 0,
+            'max': 61968},
+        'population': {
+            'sum': 0,
+            'max': 70008
+        }
+    }
+
+    # park数据
+    items = data.radius('Park', longitude, latitude, radius)
+    result['park']['sum'] = len(items)
+
+    # school数据
+    items = data.radius('School', longitude, latitude, radius)
+    result['school']['sum'] = len(items)
+
+    # Hospital数据
+    items = data.radius('Hospital', longitude, latitude, radius)
+    result['hospital']['sum'] = len(items)
+
+    # Pride数据
+    items = data.radius('Pride', longitude, latitude, radius)
+    result['pride']['sum'] = len(items)
+
+    # Rail数据
+    items = data.radius('Rail', longitude, latitude, radius)
+    result['rail']['sum'] = len(items)
+
+    # salary数据
+    ret, exists = data.getItem('Population', zipcode)
+    median_earnings = 0
+    population = 0
+    if exists:
+        result['salary']['sum'] = ret['median_earnings']
+        result['population']['sum'] = ret['population']
+    
     return Response(json.dumps(result), mimetype='application/json')

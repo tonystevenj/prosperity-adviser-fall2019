@@ -50,10 +50,10 @@
     <!-- table & 控制面板 -->
     <el-row :gutter="32" class="row">
       <el-col :span="12">
-        <Table :latitude="latitude" :longitude="longitude" :radius="radius" />
+        <Panel :latitude="latitude" :longitude="longitude" :radius="radius" :zipcode="zipcode" />
       </el-col>
       <el-col :span="12">
-        <Panel :latitude="latitude" :longitude="longitude" :radius="radius" :zipcode="zipcode" />
+        <Table :latitude="latitude" :longitude="longitude" :radius="radius" />
       </el-col>
     </el-row>
     <!-- 标题 -->
