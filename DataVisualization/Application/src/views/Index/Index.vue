@@ -36,12 +36,10 @@
       </el-menu>
     </el-header>
     <div class="banner">
-
-    <div>
-    <coverflow></coverflow>
-    </div>
+      <div>
+        <coverflow></coverflow>
+      </div>
       <div class="banner_content">
-
         <el-card class="box-card">
           <div slot="header" class="clearfix test">
             <span style="font-weight: bold;">Assistant for Restaurant Site Selection</span>
@@ -51,8 +49,11 @@
       </div>
     </div>
     <el-main>
-
-      <el-card class="box-card gmap-box">
+      <el-card
+        class="box-card gmap-box"
+        v-loading="loading"
+        element-loading-background="rgba(255, 255, 255, 0.5)"
+      >
         <div slot="header" class="clearfix">
           <span>Dashboard</span>
         </div>
@@ -148,6 +149,7 @@ export default {
       gmap: {},
       activeIndex: "1",
       activeIndex2: "1",
+      loading: false,
       showReport: false,
       usBounds: {
         north: 49.773477,
@@ -305,7 +307,7 @@ export default {
 
         // add add pin event
         // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/event-arguments?hl=zh-CN
-          this.gmap.addListener("click",this.onclickmap);
+        this.gmap.addListener("click", this.onclickmap);
 
         // todo: heat map
         // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/layer-heatmap?hl=zh-CN
@@ -316,29 +318,38 @@ export default {
       // https://developers.google.com/maps/documentation/javascript/marker-clustering?hl=zh-CN
       var markerCluster = new MarkerClusterer(this.gmap, markers);
     },
-    onclickmap(e){
+    onclickmap(e) {
+      this.loading = true;
+      this.mapform.latitude = e.latLng.lat();
+      this.mapform.longitude = e.latLng.lng();
 
-            this.mapform.latitude = e.latLng.lat();
-            this.mapform.longitude = e.latLng.lng();
+      this.sitePin(e.latLng);
 
-           this.sitePin(e.latLng);
-
-          // get zipcode
-          // https://stackoverflow.com/questions/6764917/latitude-and-longitude-can-find-zip-code
-          var geocoder = new google.maps.Geocoder();
-          geocoder.geocode({ latLng: e.latLng }, (results, status) => {
-            if (status != "OK") {
-              this.$message.error("Network error, please try again!");
-              return;
-            }
-            for (var i in results[0]["address_components"]) {
-              if (results[0]["address_components"][i]["types"].indexOf("postal_code") > -1) {
-                this.mapform.zipcode = Number(results[0]["address_components"][i]["long_name"]);
-              }
-            }
-          });
-
-          this.showReport = true;
+      // get zipcode
+      // https://stackoverflow.com/questions/6764917/latitude-and-longitude-can-find-zip-code
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ latLng: e.latLng }, (results, status) => {
+        if (status != "OK") {
+          this.$message.error("Network error, please try again!");
+          return;
+        }
+        for (var i in results[0]["address_components"]) {
+          if (
+            results[0]["address_components"][i]["types"].indexOf(
+              "postal_code"
+            ) > -1
+          ) {
+            this.mapform.zipcode = Number(
+              results[0]["address_components"][i]["long_name"]
+            );
+            setTimeout(() => {
+              this.loading = false;
+              this.showReport = true;
+            }, 1000);
+            
+          }
+        }
+      });
     },
     sitePin(latLng) {
       //clear others
@@ -443,7 +454,6 @@ export default {
 </style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .swiper-container {
   float: left;
   width: 70%;

@@ -70,7 +70,36 @@ export default {
         pride: 50,
         rail: 50
       },
-      data: {},
+      data: {
+        park: {
+          sum: 0,
+          max: 1.201385924
+        },
+        school: {
+          sum: 0,
+          max: 5.815748132
+        },
+        pride: {
+          sum: 0,
+          max: 2.31007695
+        },
+        hospital: {
+          sum: 0,
+          max: 0.340240332
+        },
+        rail: {
+          sum: 0,
+          max: 0.373340781
+        },
+        salary: {
+          sum: 0,
+          max: 61968
+        },
+        population: {
+          sum: 0,
+          max: 70008
+        }
+      },
       score: 0,
       loading: false
     };
@@ -122,17 +151,11 @@ export default {
 
       result +=
         population_percentage *
-        this.calculateScore(
-          this.data["population"]["sum"] / area_size,
-          this.data["population"]["max"]
-        );
+        (this.data["population"]["sum"] / this.data["population"]["max"]);
 
       result +=
         earnings_percentage *
-        this.calculateScore(
-          this.data["salary"]["sum"] / area_size,
-          this.data["salary"]["max"]
-        );
+        (this.data["salary"]["sum"] / this.data["salary"]["max"]);
 
       result +=
         park_percentage *
@@ -230,8 +253,4 @@ export default {
 </style>
 
 <style scoped>
-.score_txt {
-}
-.slider {
-}
 </style>
