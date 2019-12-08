@@ -203,7 +203,7 @@ export default {
       // This example uses a local copy of the GeoJSON stored at
       // script.src = "https://afrsscdn.hopeness.net/static/all_geo_jsonp.js";
       process.env.NODE_ENV === "production";
-      script.src = "/static/geo_jsonp.js";
+      script.src = "https://afrsscdn.hopeness.net/static/geo_jsonp.js";
       document.getElementsByTagName("head")[0].appendChild(script);
     },
     initSearchBox() {
@@ -409,7 +409,7 @@ export default {
 }
 .el-dialog {
   border-radius: 20;
-  background-color: #f0f1f4;
+  background-color: #f0f1f4 !important;
 }
 .el-dialog__header,
 .el-dialog__footer {

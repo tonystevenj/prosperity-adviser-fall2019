@@ -165,13 +165,6 @@ export default {
         );
 
       result +=
-        park_percentage *
-        this.calculateScore(
-          this.data["park"]["sum"] / area_size,
-          this.data["park"]["max"]
-        );
-
-      result +=
         school_percentage *
         this.calculateScore(
           this.data["school"]["sum"] / area_size,

@@ -39,20 +39,12 @@ export default {
     };
   },
   mounted() {
-    // console.log(this.latitude, this.longitude, this.radius)
     this.chart = echarts.init(this.$refs.wordcloud);
     this.draw(this.defaultWords);
     this.request();
   },
   methods: {
     request() {
-      // api获取真实数据进行替换
-      console.log({
-            latitude: this.latitude,
-            longitude: this.longitude,
-            radius: this.radius,
-            category: this.category
-          })
       this.axios
         .get("/api/report/reviews", {
           params: {

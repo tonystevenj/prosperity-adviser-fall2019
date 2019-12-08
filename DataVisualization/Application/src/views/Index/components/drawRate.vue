@@ -38,13 +38,6 @@ export default {
   },
   methods: {
     request() {
-      // api获取真实数据进行替换
-      console.log({
-        latitude: this.latitude,
-        longitude: this.longitude,
-        radius: this.radius,
-        category: this.category
-      });
       this.axios
         .get("/api/report/feature", {
           params: {
