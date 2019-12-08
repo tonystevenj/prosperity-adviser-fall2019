@@ -55,6 +55,10 @@ export default {
     radius: {
       type: Number,
       required: true
+    },
+    zipcode: {
+      type: Number,
+      required: true
     }
   },
   components: {},
@@ -70,8 +74,7 @@ export default {
         rail: 50
       },
       score: 0,
-      loading: false,
-
+      loading: false
     };
   },
   mounted() {
@@ -86,7 +89,9 @@ export default {
             latitude: this.latitude,
             longitude: this.longitude,
             radius: this.radius,
-            category: this.category,
+            zipcode: this.zipcode,
+            population_percentage: this.percent.population / 100,
+            salary_percentage: this.percent.earnings / 100,
             park_percentage: this.percent.park / 100,
             school_percentage: this.percent.school / 100,
             pride_percentage: this.percent.pride / 100,
@@ -127,5 +132,6 @@ export default {
 <style scoped>
 .score_txt {
 }
-.slider {}
+.slider {
+}
 </style>
