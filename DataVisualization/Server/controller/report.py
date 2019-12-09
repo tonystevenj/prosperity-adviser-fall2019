@@ -117,7 +117,11 @@ def reviews():
         nparray = np.array(result_45)
     if (len(nparray) == 0):
         return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
-    output = re.full_process(nparray)  # 输入形式：(n,2)
+    try:
+        output = re.full_process(nparray)  # 输入形式：(n,2)
+    except Exception as e:
+        print("reviews api", e)
+        return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
     list_dic_out = []
     for i in range(len(output)):
         list_dic_out.append({'business_id': str(output[i, 0]),
