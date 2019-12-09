@@ -179,7 +179,11 @@ def feature():
             group = 2
             dataTmp.append(ret)
 
-    response = bfg.Business_Feature_Graph(dataTmp, group)
+    try:
+        response = bfg.Business_Feature_Graph(dataTmp, group)
+    except Exception as e:
+        print('feature api', e)
+        response = []
 
     return Response(json.dumps(response), mimetype='application/json')
 
@@ -388,5 +392,5 @@ def score_data():
     if exists:
         result['salary']['sum'] = ret['median_earnings']
         result['population']['sum'] = ret['population']
-    
+
     return Response(json.dumps(result), mimetype='application/json')

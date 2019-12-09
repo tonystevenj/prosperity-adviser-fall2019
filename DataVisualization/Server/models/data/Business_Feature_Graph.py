@@ -76,6 +76,8 @@ def Business_Feature_Graph_Old(input_file, processed_csv, restaurant_group):
 
 
 def Business_Feature_Graph(business_list, restaurant_group):
+    if len(business_list) == 0:
+        return []
     bdata = pd.DataFrame.from_dict(business_list)
     graphdata = business_top_features(bdata, restaurant_group)
     return graphdata
