@@ -91,7 +91,8 @@ export default {
       }
       let option = {
         title: {
-          text: "Crime"
+          text: "Crime",
+          textAlign: "auto"
         },
         tooltip: {
           trigger: "axis",
@@ -102,10 +103,18 @@ export default {
             }
           }
         },
+        grid: {
+          top: 50,
+          bottom: 70,
+          left: 50,
+          right: 50,
+        },
         legend: {
           type: "scroll",
           data: legendData,
-          bottom: 0
+          left: 30,
+          right: 30,
+          bottom: 10
         },
         xAxis: xAxisData,
         yAxis: {
