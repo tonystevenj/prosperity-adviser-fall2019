@@ -127,6 +127,10 @@ export default {
         };
       }
       this.chart.setOption({
+        title: {
+          text: "Feature",
+          textAlign: "auto"
+        },
         tooltip: {
           trigger: "axis",
           axisPointer: {

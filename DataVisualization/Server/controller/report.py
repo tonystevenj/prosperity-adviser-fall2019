@@ -17,6 +17,8 @@ def business():
     items = data.radius('Business', longitude, latitude, radius)
     result = {
         'open_count': 0,
+        'stars45': 0,
+        'stars03': 0,
         'close_count': 0,
         'median_earnings': 0,
         'population': 0,
@@ -29,6 +31,10 @@ def business():
         if exists:
             if ret['is_open'] == '1':
                 result['open_count'] += 1
+                if float(ret['stars']) >= 4:
+                    result['stars45'] += 1
+                else:
+                    result['stars03'] += 1
             else:
                 result['close_count'] += 1
             result['business'].append({

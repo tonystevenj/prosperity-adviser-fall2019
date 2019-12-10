@@ -71,6 +71,10 @@ export default {
     draw(words) {
       // https://github.com/ecomfe/echarts-wordcloud
       this.chart.setOption({
+        title: {
+          text: "Word Cloud",
+          textAlign: "auto"
+        },
         series: [
           {
             type: "wordCloud",
