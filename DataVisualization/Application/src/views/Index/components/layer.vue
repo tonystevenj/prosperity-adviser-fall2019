@@ -8,7 +8,7 @@
             <i class="el-icon-s-shop" style="color: #6ac6c5;"></i>
           </div>
           <div class="detail">
-            <div class="key">Total</div>
+            <div class="key">Open</div>
             <div class="value">{{ topdata['open_count'] }}</div>
           </div>
         </div>
