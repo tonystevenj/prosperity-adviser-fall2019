@@ -18,7 +18,7 @@ def business():
     result = {
         'open_count': 0,
         'close_count': 0,
-        'total_earners': 0,
+        'median_earnings': 0,
         'population': 0,
         'business': []
     }
