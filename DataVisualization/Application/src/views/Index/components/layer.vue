@@ -107,6 +107,12 @@
         />
       </el-col>
     </el-row>
+    <!-- 犯罪率 -->
+    <el-row :gutter="32" class="row">
+      <el-col :span="24">
+        <Crime :zipcode="zipcode" />
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -116,6 +122,7 @@ import Comment from "./drawComment";
 import WordCloud from "./drawWordCloud";
 import Table from "./drawTable";
 import Panel from "./drawPanel";
+import Crime from "./drawCrime";
 
 export default {
   name: "Layer",
@@ -143,6 +150,7 @@ export default {
     WordCloud,
     Table,
     Panel,
+    Crime
   },
   data() {
     return {

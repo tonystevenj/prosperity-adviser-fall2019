@@ -10,3 +10,4 @@ def dispatch(app):
     app.add_url_rule('/api/report/table', view_func=report.table, methods=['GET'])
     app.add_url_rule('/api/report/score', view_func=report.score, methods=['GET'])
     app.add_url_rule('/api/report/score_data', view_func=report.score_data, methods=['GET'])
+    app.add_url_rule('/api/report/crime', view_func=report.crime, methods=['GET'])

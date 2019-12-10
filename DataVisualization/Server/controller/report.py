@@ -5,6 +5,7 @@ from ..models import data
 import numpy as np
 from ..models.data import Business_Feature_Graph as bfg
 import math
+import pandas as pd
 
 
 def business():
@@ -397,4 +398,23 @@ def score_data():
         result['salary']['sum'] = ret['median_earnings']
         result['population']['sum'] = ret['population']
 
+    return Response(json.dumps(result), mimetype='application/json')
+
+
+def crime():
+    zipcode = request.args.get('zipcode')
+    result = {}
+    ret, exists = data.getItem('Crime', zipcode)
+    if exists:
+        for i in ret:
+            # http://dmcoders.com/2018/03/10/python-pandasdatatime/#%E4%B8%89%E6%9C%80%E5%90%8E%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BE%BF%E5%87%BD%E6%95%B0resample%E8%BF%9B%E8%A1%8C%E5%88%86%E7%BB%84%E8%81%9A%E5%90%88%E8%BF%90%E7%AE%97%E7%AD%89%E6%93%8D%E4%BD%9C
+            pdData = pd.DataFrame.from_dict(ret[i])
+            pdData['occurred on'] = pd.to_datetime(pdData['occurred on'])
+            pdData = pdData.set_index('occurred on', drop=True)
+            pdData['value'] = 1
+            df2 = pdData.resample('M')['value'].sum()
+            tmpJSON = df2.to_json()
+            tmpDict = json.loads(tmpJSON)
+            result[i] = tmpDict
+            
     return Response(json.dumps(result), mimetype='application/json')
