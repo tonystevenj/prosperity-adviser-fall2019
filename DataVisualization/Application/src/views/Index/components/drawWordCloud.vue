@@ -72,7 +72,7 @@ export default {
       // https://github.com/ecomfe/echarts-wordcloud
       this.chart.setOption({
         title: {
-          text: "Word Cloud",
+          text: "Reviews",
           textAlign: "auto"
         },
         series: [

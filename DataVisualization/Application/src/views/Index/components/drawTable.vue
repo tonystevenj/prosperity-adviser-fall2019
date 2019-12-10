@@ -2,7 +2,7 @@
   <el-tabs v-model="activeName">
     <el-tab-pane label="Business" name="business">
       <el-table :data="businessData" style="width: 100%" height="400" v-loading="loading" empty-text="No data.">
-        <el-table-column type="index" width="40"></el-table-column>
+        <el-table-column type="index" width="50"></el-table-column>
         <el-table-column prop="name" label="Name" width="200"></el-table-column>
         <el-table-column prop="distance" label="Distance" width="120"></el-table-column>
         <el-table-column prop="food_type" label="Food Type" width="260"></el-table-column>
@@ -10,7 +10,7 @@
     </el-tab-pane>
     <el-tab-pane label="Park" name="park">
       <el-table :data="parkData" style="width: 100%" height="400" v-loading="loading" empty-text="No data.">
-        <el-table-column type="index" width="40"></el-table-column>
+        <el-table-column type="index" width="50"></el-table-column>
         <el-table-column prop="name" label="Name" width="200"></el-table-column>
         <el-table-column prop="distance" label="Distance" width="120"></el-table-column>
         <el-table-column prop="adress" label="Address" width="260"></el-table-column>
@@ -18,7 +18,7 @@
     </el-tab-pane>
     <el-tab-pane label="School" name="school">
       <el-table :data="schoolData" style="width: 100%" height="400" v-loading="loading" empty-text="No data.">
-        <el-table-column type="index" width="40"></el-table-column>
+        <el-table-column type="index" width="50"></el-table-column>
         <el-table-column prop="school name" label="Name" width="200"></el-table-column>
         <el-table-column prop="distance" label="Distance" width="120"></el-table-column>
         <el-table-column prop="address" label="Address" width="260"></el-table-column>
@@ -26,7 +26,7 @@
     </el-tab-pane>
     <el-tab-pane label="Tourist Attraction" name="pride">
       <el-table :data="prideData" style="width: 100%" height="400" v-loading="loading" empty-text="No data.">
-        <el-table-column type="index" width="40"></el-table-column>
+        <el-table-column type="index" width="50"></el-table-column>
         <el-table-column prop="place_name" label="Name" width="200"></el-table-column>
         <el-table-column prop="distance" label="Distance" width="120"></el-table-column>
         <el-table-column prop="address_" label="Address" width="260"></el-table-column>
@@ -34,8 +34,8 @@
     </el-tab-pane>
     <el-tab-pane label="Light rail" name="rail">
       <el-table :data="railData" style="width: 100%" height="400" v-loading="loading" empty-text="No data.">
-        <el-table-column type="index" width="40"></el-table-column>
-        <el-table-column prop="location" label="Name" width="200"></el-table-column>
+        <el-table-column type="index" width="50"></el-table-column>
+        <el-table-column prop="location" label="Name" width="420"></el-table-column>
         <el-table-column prop="distance" label="Distance" width="120"></el-table-column>
       </el-table>
     </el-tab-pane>
