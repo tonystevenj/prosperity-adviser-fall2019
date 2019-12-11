@@ -5,6 +5,7 @@ from ..models import data
 import numpy as np
 from ..models.data import Business_Feature_Graph as bfg
 import math
+import pandas as pd
 
 
 def business():
@@ -16,8 +17,10 @@ def business():
     items = data.radius('Business', longitude, latitude, radius)
     result = {
         'open_count': 0,
+        'stars45': 0,
+        'stars03': 0,
         'close_count': 0,
-        'total_earners': 0,
+        'median_earnings': 0,
         'population': 0,
         'business': []
     }
@@ -28,6 +31,10 @@ def business():
         if exists:
             if ret['is_open'] == '1':
                 result['open_count'] += 1
+                if float(ret['stars']) >= 4:
+                    result['stars45'] += 1
+                else:
+                    result['stars03'] += 1
             else:
                 result['close_count'] += 1
             result['business'].append({
@@ -117,7 +124,11 @@ def reviews():
         nparray = np.array(result_45)
     if (len(nparray) == 0):
         return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
-    output = re.full_process(nparray)  # 输入形式：(n,2)
+    try:
+        output = re.full_process(nparray)  # 输入形式：(n,2)
+    except Exception as e:
+        print("reviews api", e)
+        return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
     list_dic_out = []
     for i in range(len(output)):
         list_dic_out.append({'business_id': str(output[i, 0]),
@@ -179,7 +190,11 @@ def feature():
             group = 2
             dataTmp.append(ret)
 
-    response = bfg.Business_Feature_Graph(dataTmp, group)
+    try:
+        response = bfg.Business_Feature_Graph(dataTmp, group)
+    except Exception as e:
+        print('feature api', e)
+        response = []
 
     return Response(json.dumps(response), mimetype='application/json')
 
@@ -388,5 +403,24 @@ def score_data():
     if exists:
         result['salary']['sum'] = ret['median_earnings']
         result['population']['sum'] = ret['population']
-    
+
+    return Response(json.dumps(result), mimetype='application/json')
+
+
+def crime():
+    zipcode = request.args.get('zipcode')
+    result = {}
+    ret, exists = data.getItem('Crime', zipcode)
+    if exists:
+        for i in ret:
+            # http://dmcoders.com/2018/03/10/python-pandasdatatime/#%E4%B8%89%E6%9C%80%E5%90%8E%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BE%BF%E5%87%BD%E6%95%B0resample%E8%BF%9B%E8%A1%8C%E5%88%86%E7%BB%84%E8%81%9A%E5%90%88%E8%BF%90%E7%AE%97%E7%AD%89%E6%93%8D%E4%BD%9C
+            pdData = pd.DataFrame.from_dict(ret[i])
+            pdData['occurred on'] = pd.to_datetime(pdData['occurred on'])
+            pdData = pdData.set_index('occurred on', drop=True)
+            pdData['value'] = 1
+            df2 = pdData.resample('M')['value'].sum()
+            tmpJSON = df2.to_json()
+            tmpDict = json.loads(tmpJSON)
+            result[i] = tmpDict
+            
     return Response(json.dumps(result), mimetype='application/json')

@@ -10,5 +10,6 @@ from . import school
 from . import pride
 from . import rail
 from . import traffic
+from . import crime
 
 __all__ = ['getObj', 'getItem', 'getItems', 'radius', 'load']

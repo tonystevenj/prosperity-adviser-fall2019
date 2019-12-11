@@ -6,31 +6,31 @@
       </el-form>
     </el-card>
     <div class="block" style="margin-top: 20px;">
-      <span class="demonstration">Population density</span>
+      <span class="demonstration">Population density weighting factor</span>
       <el-slider class="slider" v-model="percent.population" @input="calculate"></el-slider>
     </div>
     <div class="block">
-      <span class="demonstration">Median earnings</span>
+      <span class="demonstration">Median earnings weighting factor</span>
       <el-slider class="slider" v-model="percent.earnings" @input="calculate"></el-slider>
     </div>
     <div class="block">
-      <span class="demonstration">Park density</span>
+      <span class="demonstration">Park density weighting factor</span>
       <el-slider class="slider" v-model="percent.park" @input="calculate"></el-slider>
     </div>
     <div class="block">
-      <span class="demonstration">School density</span>
+      <span class="demonstration">School density weighting factor</span>
       <el-slider class="slider" v-model="percent.school" @input="calculate"></el-slider>
     </div>
     <div class="block">
-      <span class="demonstration">Hospital density</span>
+      <span class="demonstration">Hospital density weighting factor</span>
       <el-slider class="slider" v-model="percent.hospital" @input="calculate"></el-slider>
     </div>
     <div class="block">
-      <span class="demonstration">Light rail density</span>
+      <span class="demonstration">Light rail density weighting factor</span>
       <el-slider class="slider" v-model="percent.rail" @input="calculate"></el-slider>
     </div>
     <div class="block">
-      <span class="demonstration">Aourist attraction density</span>
+      <span class="demonstration">Aourist attraction density weighting factor</span>
       <el-slider class="slider" v-model="percent.pride" @input="calculate"></el-slider>
     </div>
   </div>

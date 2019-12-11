@@ -8,7 +8,7 @@
             <i class="el-icon-s-shop" style="color: #6ac6c5;"></i>
           </div>
           <div class="detail">
-            <div class="key">Total</div>
+            <div class="key">Open</div>
             <div class="value">{{ topdata['open_count'] }}</div>
           </div>
         </div>
@@ -59,13 +59,13 @@
     <!-- 标题 -->
     <el-row :gutter="32" class="row">
       <el-col :span="8">
-        <span class="star_type">4 - 5 stars</span>
+        <div class="star_type">4 - 5 stars ({{topdata.stars45}} items)</div>
       </el-col>
       <el-col :span="8">
-        <span class="star_type">0 - 3 stars</span>
+        <div class="star_type">0 - 3 stars ({{topdata.stars03}} items)</div>
       </el-col>
       <el-col :span="8">
-        <span class="star_type">Closed</span>
+        <div class="star_type">Closed ({{topdata.close_count}} items)</div>
       </el-col>
     </el-row>
     <!-- 评分相关性 -->
@@ -107,6 +107,12 @@
         />
       </el-col>
     </el-row>
+    <!-- 犯罪率 -->
+    <el-row :gutter="32" class="row">
+      <el-col :span="24">
+        <Crime :zipcode="zipcode" />
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -116,6 +122,7 @@ import Comment from "./drawComment";
 import WordCloud from "./drawWordCloud";
 import Table from "./drawTable";
 import Panel from "./drawPanel";
+import Crime from "./drawCrime";
 
 export default {
   name: "Layer",
@@ -143,11 +150,14 @@ export default {
     WordCloud,
     Table,
     Panel,
+    Crime
   },
   data() {
     return {
       topdata: {
         open_count: 0,
+        stars45: 0,
+        stars03: 0,
         close_count: 0,
         median_earnings: 0,
         population: 0
@@ -173,6 +183,8 @@ export default {
         })
         .then(response => {
           this.topdata["open_count"] = response.data["open_count"];
+          this.topdata["stars45"] = response.data["stars45"];
+          this.topdata["stars03"] = response.data["stars03"];
           this.topdata["close_count"] = response.data["close_count"];
           this.topdata["median_earnings"] = response.data["median_earnings"];
           this.topdata["population"] = response.data["population"];
@@ -217,6 +229,7 @@ export default {
 }
 .star_type {
   text-align: center;
+  font-weight: bold;
   font-size: 18px;
 }
 .diagram_type {

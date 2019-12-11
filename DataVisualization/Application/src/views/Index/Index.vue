@@ -189,7 +189,7 @@ export default {
         //   google.maps.MapTypeId.TERRAIN,
         //   google.maps.MapTypeId.STYLED_MAP
         // ],
-        styles: mapstyle,
+        // styles: mapstyle,
         // Restricting Map Bounds
         // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/control-bounds-restriction?hl=zh-CN
         restriction: {
