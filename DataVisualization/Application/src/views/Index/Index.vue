@@ -204,7 +204,7 @@ export default {
       var script = document.createElement("script");
       // This example uses a local copy of the GeoJSON stored at
       process.env.NODE_ENV === "production";
-      script.src = "/static/geo_jsonp.js";
+      script.src = "./static/geo_jsonp.js";
       document.getElementsByTagName("head")[0].appendChild(script);
     },
     initSearchBox() {
@@ -513,7 +513,7 @@ export default {
 .banner {
   width: 100%;
   height: 400px;
-  background: url("/static/banner_1.jpg") no-repeat center top;
+  background: url("../../../static/banner_1.jpg") no-repeat center top;
   background-size: cover;
   -moz-background-size: 100% 100%;
 }
