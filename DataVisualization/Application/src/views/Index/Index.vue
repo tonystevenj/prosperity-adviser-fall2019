@@ -65,7 +65,7 @@
               <el-slider
                 label="Scope"
                 id="scope"
-                v-model="mapform.radius"
+                v-model="mapform.radius_tmp"
                 vertical
                 :min="1"
                 :max="30"
@@ -139,10 +139,11 @@ export default {
         30: "30"
       },
       mapform: {
-        longitude: 0,
-        latitude: 0,
+        longitude: -112.05709983455688,
+        latitude: 33.451329291863644,
         radius: 1,
-        zipcode: 0,
+        radius_tmp: 1,
+        zipcode: 85006,
         place: "",
         searchbox: ""
       },
@@ -157,6 +158,7 @@ export default {
         west: -125.770392,
         east: -62.366074
       },
+      searchbox: null,
       centerMarker:
         "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
     };
@@ -201,9 +203,8 @@ export default {
       // Create a <script> tag and set the USGS URL as the source.
       var script = document.createElement("script");
       // This example uses a local copy of the GeoJSON stored at
-      // script.src = "https://afrsscdn.hopeness.net/static/all_geo_jsonp.js";
       process.env.NODE_ENV === "production";
-      script.src = "https://afrsscdn.hopeness.net/static/geo_jsonp.js";
+      script.src = "/static/geo_jsonp.js";
       document.getElementsByTagName("head")[0].appendChild(script);
     },
     initSearchBox() {
@@ -211,20 +212,34 @@ export default {
       var input = document.getElementById("searchbox");
       var button = document.getElementById("calculate");
       var scope = document.getElementById("scope");
-      var searchBox = new google.maps.places.SearchBox(input);
+      this.searchBox = new google.maps.places.SearchBox(input);
       this.gmap.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
       this.gmap.controls[google.maps.ControlPosition.TOP_CENTER].push(button);
       this.gmap.controls[google.maps.ControlPosition.LEFT_CENTER].push(scope);
 
       this.gmap.addListener("bounds_changed", () => {
-        searchBox.setBounds(this.gmap.getBounds());
+        this.searchBox.setBounds(this.gmap.getBounds());
       });
 
-      var markers = [];
       // Listen for the event fired when the user selects a prediction and retrieve
       // more details for that place.
-      searchBox.addListener("places_changed", () => {
-        var places = searchBox.getPlaces();
+      this.searchBox.addListener("places_changed", this.searchMap);
+    },
+    searchMap() {
+      {
+        this.loading = true;
+        // this.mapform.latitude = e.latLng.lat();
+        // this.mapform.longitude = e.latLng.lng();
+
+        // let e = new google.maps.LatLng({lat: this.mapform.latitude, lng: this.mapform.longitude});
+        // this.sitePin(e);
+
+        // setTimeout(() => {
+        //   this.loading = false;
+        //   this.showReport = true;
+        // }, 1000);
+        var markers = [];
+        var places = this.searchBox.getPlaces();
 
         if (places.length == 0) {
           return;
@@ -243,33 +258,39 @@ export default {
             console.log("Returned place contains no geometry");
             return;
           }
-          var icon = {
-            url: place.icon,
-            size: new google.maps.Size(71, 71),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(25, 25)
-          };
+          this.sitePin(place.geometry.location);
+          setTimeout(() => {
+            this.loading = false;
+            this.showReport = true;
+          }, 1000);
+          return;
+          // var icon = {
+          //   url: place.icon,
+          //   size: new google.maps.Size(71, 71),
+          //   origin: new google.maps.Point(0, 0),
+          //   anchor: new google.maps.Point(17, 34),
+          //   scaledSize: new google.maps.Size(25, 25)
+          // };
 
           // Create a marker for each place.
-          markers.push(
-            new google.maps.Marker({
-              map: this.gmap,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            })
-          );
+          // markers.push(
+          //   new google.maps.Marker({
+          //     map: this.gmap,
+          //     icon: icon,
+          //     title: place.name,
+          //     position: place.geometry.location
+          //   })
+          // );
 
-          if (place.geometry.viewport) {
-            // Only geocodes have viewport.
-            bounds.union(place.geometry.viewport);
-          } else {
-            bounds.extend(place.geometry.location);
-          }
+          // if (place.geometry.viewport) {
+          //   // Only geocodes have viewport.
+          //   bounds.union(place.geometry.viewport);
+          // } else {
+          //   bounds.extend(place.geometry.location);
+          // }
         });
-        this.gmap.fitBounds(bounds);
-      });
+        // this.gmap.fitBounds(bounds);
+      }
     },
     dataHandle(results) {
       var markers = [];
@@ -320,36 +341,41 @@ export default {
     },
     onclickmap(e) {
       this.loading = true;
-      this.mapform.latitude = e.latLng.lat();
-      this.mapform.longitude = e.latLng.lng();
+      // this.mapform.latitude = e.latLng.lat();
+      // this.mapform.longitude = e.latLng.lng();
 
       this.sitePin(e.latLng);
 
+      setTimeout(() => {
+        this.loading = false;
+        this.showReport = true;
+      }, 1000);
+
       // get zipcode
       // https://stackoverflow.com/questions/6764917/latitude-and-longitude-can-find-zip-code
-      var geocoder = new google.maps.Geocoder();
-      geocoder.geocode({ latLng: e.latLng }, (results, status) => {
-        if (status != "OK") {
-          this.$message.error("Network error, please try again!");
-          return;
-        }
-        for (var i in results[0]["address_components"]) {
-          if (
-            results[0]["address_components"][i]["types"].indexOf(
-              "postal_code"
-            ) > -1
-          ) {
-            this.mapform.zipcode = Number(
-              results[0]["address_components"][i]["long_name"]
-            );
-            setTimeout(() => {
-              this.loading = false;
-              this.showReport = true;
-            }, 1000);
-            
-          }
-        }
-      });
+      // var geocoder = new google.maps.Geocoder();
+      // geocoder.geocode({ latLng: e.latLng }, (results, status) => {
+      //   if (status != "OK") {
+      //     this.$message.error("Network error, please try again!");
+      //     return;
+      //   }
+      //   for (var i in results[0]["address_components"]) {
+      //     if (
+      //       results[0]["address_components"][i]["types"].indexOf(
+      //         "postal_code"
+      //       ) > -1
+      //     ) {
+      //       this.mapform.zipcode = Number(
+      //         results[0]["address_components"][i]["long_name"]
+      //       );
+      //       setTimeout(() => {
+      //         this.loading = false;
+      //         this.showReport = true;
+      //       }, 1000);
+
+      //     }
+      //   }
+      // });
     },
     sitePin(latLng) {
       //clear others
@@ -379,7 +405,7 @@ export default {
         fillColor: "#FF0000",
         fillOpacity: 0.2,
         center: latLng,
-        radius: this.mapform.radius * 1609.344
+        radius: this.mapform.radius_tmp * 1609.344
       });
 
       cityCircle.addListener("click", this.onclickmap);

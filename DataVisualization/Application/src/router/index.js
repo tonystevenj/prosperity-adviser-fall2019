@@ -11,7 +11,7 @@ axios.defaults.headers.post['Content-type'] = 'application/json'
 Vue.use(VueAxios, axios);
 
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   base: '/',
   routes: [
     {
