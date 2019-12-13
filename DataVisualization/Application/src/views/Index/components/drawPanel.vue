@@ -30,7 +30,7 @@
       <el-slider class="slider" v-model="percent.rail" @input="calculate"></el-slider>
     </div>
     <div class="block">
-      <span class="demonstration">Aourist attraction density weighting factor</span>
+      <span class="demonstration">Tourist Attraction density weighting factor</span>
       <el-slider class="slider" v-model="percent.pride" @input="calculate"></el-slider>
     </div>
   </div>
