@@ -2,10 +2,10 @@
   <el-header>
     <el-menu :default-active="activeIndex" mode="horizontal" background-color="#f6f6f6">
       <el-menu-item>
-        <el-menu-item class="logo">ARSS</el-menu-item>
+        <el-menu-item class="logo"><router-link to="/">ARSS</router-link></el-menu-item>
       </el-menu-item>
       <el-menu-item index="/">
-        <router-link :to="{name: 'Index'}">
+        <router-link to="/">
           <i class="el-icon-house" style="width:65%;">HOME</i>
         </router-link>
       </el-menu-item>
