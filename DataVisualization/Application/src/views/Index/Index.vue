@@ -9,6 +9,21 @@
         element-loading-background="rgba(255, 255, 255, 0.5)"
       >
         <div slot="header" class="clearfix">
+          <span>这里是标题</span>
+        </div>
+        <div class="text item">
+          <div class="clearfix">
+            这里是内容
+          </div>
+        </div>
+      </el-card>
+
+      <el-card
+        class="box-card gmap-box"
+        v-loading="loading"
+        element-loading-background="rgba(255, 255, 255, 0.5)"
+      >
+        <div slot="header" class="clearfix">
           <span>Dashboard</span>
         </div>
         <div class="text item">
