@@ -1,53 +1,7 @@
 <template>
-  <el-container>
-    <el-header>
-      <el-menu
-        :default-active="activeIndex"
-        mode="horizontal"
-        @select="handleSelect"
-        background-color="#f6f6f6"
-      >
-        <el-menu-item>
-          <el-menu-item class="logo">ARSS</el-menu-item>
-        </el-menu-item>
-        <el-menu-item index="1">
-          <i class="el-icon-house" style="width:65%;">HOME</i>
-        </el-menu-item>
-        <el-submenu index="2">
-          <template slot="title">
-            <i class="el-icon-box" style="width:65px;">UTILS</i>
-          </template>
-          <el-menu-item index="2-1">TOOL 1</el-menu-item>
-          <el-menu-item index="2-2">TOOL 3</el-menu-item>
-          <el-menu-item index="2-3">TOOL 3</el-menu-item>
-          <el-submenu index="2-4">
-            <template slot="title">MORE</template>
-            <el-menu-item index="2-4-1">TOOL 4</el-menu-item>
-            <el-menu-item index="2-4-2">TOOL 5</el-menu-item>
-            <el-menu-item index="2-4-3">TOOL 6</el-menu-item>
-          </el-submenu>
-        </el-submenu>
-        <el-menu-item index="3">
-          <i class="el-icon-discover" style="width:65%;">GUIDE</i>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-postcard" style="width:65%;">ABOUT</i>
-        </el-menu-item>
-      </el-menu>
-    </el-header>
-    <div class="banner">
-      <div>
-        <coverflow></coverflow>
-      </div>
-      <div class="banner_content">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix test">
-            <span style="font-weight: bold;">Assistant for Restaurant Site Selection</span>
-          </div>
-          <div>ARSS（Assistant of Restaurant Site Selection）is a web-based service that helps restaurant businesses to make better location-based decisions. Based on comprehensive databases and advanced big data processing technology; ARSS is totally committed to assists every restaurant owner to determine businesses location, accomplish cooperation target, and create value.</div>
-        </el-card>
-      </div>
-    </div>
+  <el-container direction="vertical">
+    <Header />
+    <Banner />
     <el-main>
       <el-card
         class="box-card gmap-box"
@@ -79,16 +33,8 @@
         </div>
       </el-card>
     </el-main>
-    <el-footer height="100px">
-      <div class="footer_link">
-        <span>
-          <el-link type="info" style="margin-left:10px;">Privacy Policy</el-link>
-          <el-link type="info" style="margin-left:10px;">Terms of Use</el-link>
-          <el-link type="info" style="margin-left:10px;">About</el-link>
-          <p style="color: #a6a9ad; font-weight: bold; font-size: 13px;">@2019</p>
-        </span>
-      </div>
-    </el-footer>
+
+    <Footer />
 
     <el-dialog
       class="report"
@@ -115,9 +61,11 @@
 </template>
 
 <script>
+import Header from "../components/Header";
+import Banner from "../components/Banner";
+import Footer from "../components/Footer";
 import mapstyle from "@/utils/mapstyles/mapstyle_mb.js";
 import Layer from "./components/layer";
-import coverflow from "./components/coverflow";
 
 const config = require("../../../config");
 
@@ -128,8 +76,10 @@ var shapes = [];
 export default {
   name: "Index",
   components: {
-    Layer,
-    coverflow
+    Header,
+    Banner,
+    Footer,
+    Layer
   },
   data() {
     return {
@@ -411,9 +361,6 @@ export default {
       cityCircle.addListener("click", this.onclickmap);
       shapes.push(cityCircle);
     },
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
     onSubmit() {
       console.log("submit!");
     },
@@ -430,9 +377,6 @@ export default {
 
 
 <style>
-.banner_content .el-card__header {
-  border-bottom-color: rgba(0, 0, 0, 0.6);
-}
 .el-dialog {
   border-radius: 20;
   background-color: #f0f1f4 !important;
@@ -480,18 +424,6 @@ export default {
 </style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.swiper-container {
-  float: left;
-  width: 70%;
-  height: 360px;
-  margin-top: 40px;
-  margin-left: 30px;
-}
-
-.el-header {
-  padding: 0;
-  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 1);
-}
 .el-footer {
   background-color: rgb(240, 240, 240);
   border-top-left-radius: 20px;
@@ -502,37 +434,6 @@ export default {
 .el-footer .footer_link {
   margin-top: 20px;
   text-align: center;
-}
-.menu-height {
-  height: 80px;
-  line-height: 80px;
-}
-.logo {
-  font-size: 28px;
-}
-.banner {
-  width: 100%;
-  height: 400px;
-  background: url("../../../static/banner_1.jpg") no-repeat center top;
-  background-size: cover;
-  -moz-background-size: 100% 100%;
-}
-.banner_content {
-  float: right;
-  width: 24%;
-  height: 360px;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-color: black;
-  margin-top: 20px;
-  margin-right: 30px;
-  border-radius: 8px;
-}
-.banner_content .box-card {
-  background: none;
-  border: none;
-  margin: 20px;
-  color: #dddddd;
-  box-shadow: none;
 }
 .el-card {
   padding: 0px;
