@@ -56,16 +56,43 @@
         <Table :latitude="latitude" :longitude="longitude" :radius="radius" />
       </el-col>
     </el-row>
+    <!-- 犯罪率 -->
+    <el-row :gutter="32" class="row">
+      <el-col :span="24">
+        <Crime :zipcode="zipcode" />
+      </el-col>
+    </el-row>
     <!-- 标题 -->
+    <br>
+    <br>
+    <br>
+    <el-row :gutter="32" class="row">
+        <div class="star_type">Features summary of surrounding restaurants</div>
+    </el-row>
+    <el-row :gutter="32" class="row">
+      <el-col :span="32">
+        <div class="star_type">There are {{topdata.stars45+topdata.stars03+topdata.close_count}} restaurants in total, and they are divided into three group: star 4-5,star 0-3 and closed for ever</div>
+      </el-col>
+      
+    </el-row>
+    <!-- 相关性标题 -->
+    <br>
+    <br>
+    <br>
+    <el-row :gutter="32" class="row">
+      <el-col :span="12">
+        <div class="star_type">Analysis 1: Most important factors to improve prosperity</div>
+      </el-col>
+    </el-row>
     <el-row :gutter="32" class="row">
       <el-col :span="8">
-        <div class="star_type">4 - 5 stars ({{topdata.stars45}} items)</div>
+        <div class="star_type">Restaurants with 4 - 5 stars ({{topdata.stars45}})</div>
       </el-col>
       <el-col :span="8">
-        <div class="star_type">0 - 3 stars ({{topdata.stars03}} items)</div>
+        <div class="star_type">Restaurants with 0 - 3 stars ({{topdata.stars03}})</div>
       </el-col>
       <el-col :span="8">
-        <div class="star_type">Closed ({{topdata.close_count}} items)</div>
+        <div class="star_type">Closed restaurants ({{topdata.close_count}})</div>
       </el-col>
     </el-row>
     <!-- 评分相关性 -->
@@ -78,6 +105,27 @@
       </el-col>
       <el-col :span="8">
         <Rate :latitude="latitude" :longitude="longitude" :radius="radius" :category="category[2]" />
+      </el-col>
+    </el-row>
+    
+    <!-- 大字报标题 -->
+    <br>
+    <br>
+    <br>
+    <el-row :gutter="32" class="row">
+      <el-col :span="10">
+        <div class="star_type">Analysis 2: Most frequency words in users review</div>
+      </el-col>
+    </el-row>
+    <el-row :gutter="32" class="row">
+      <el-col :span="8">
+        <div class="star_type">Restaurants with 4 - 5 stars ({{topdata.stars45}})</div>
+      </el-col>
+      <el-col :span="8">
+        <div class="star_type">Restaurants with 0 - 3 stars ({{topdata.stars03}})</div>
+      </el-col>
+      <el-col :span="8">
+        <div class="star_type">Closed restaurants ({{topdata.close_count}})</div>
       </el-col>
     </el-row>
     <!-- 大字报 -->
@@ -107,12 +155,7 @@
         />
       </el-col>
     </el-row>
-    <!-- 犯罪率 -->
-    <el-row :gutter="32" class="row">
-      <el-col :span="24">
-        <Crime :zipcode="zipcode" />
-      </el-col>
-    </el-row>
+    
   </div>
 </template>
 
