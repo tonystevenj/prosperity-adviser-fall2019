@@ -14,10 +14,9 @@
       <el-menu-item index="/">
         <i class="el-icon-house" style="width:65%;">HOME</i>
       </el-menu-item>
-      <el-menu-item index="/">
+      <!-- <el-menu-item index="/">
         <i class="el-icon-discover" style="width:65%;">GUIDE</i>
-      </el-menu-item>
-
+      </el-menu-item> -->
       <el-menu-item index="/about">
         <i class="el-icon-postcard" style="width:65%;">ABOUT</i>
       </el-menu-item>
