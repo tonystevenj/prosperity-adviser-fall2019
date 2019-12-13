@@ -112,7 +112,6 @@
                 <th>Data Source</th>
                 <th>Dataset</th>
                 <th>Size</th>
-                <br />
                 <th>Description</th>
                 <th>Web Link</th>
               </tr>
