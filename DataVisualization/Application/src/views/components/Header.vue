@@ -1,22 +1,25 @@
 <template>
   <el-header>
-    <el-menu :default-active="activeIndex" mode="horizontal" background-color="#f6f6f6">
+    <el-menu
+      :default-active="activeIndex"
+      @select="headerSelect"
+      mode="horizontal"
+      background-color="#f6f6f6"
+    >
       <el-menu-item>
-        <el-menu-item class="logo"><router-link to="/">ARSS</router-link></el-menu-item>
+        <el-menu-item class="logo">
+          <router-link to="/">ARSS</router-link>
+        </el-menu-item>
       </el-menu-item>
       <el-menu-item index="/">
-        <router-link to="/">
-          <i class="el-icon-house" style="width:65%;">HOME</i>
-        </router-link>
+        <i class="el-icon-house" style="width:65%;">HOME</i>
       </el-menu-item>
-      <el-menu-item index="/guide">
+      <el-menu-item index="/">
         <i class="el-icon-discover" style="width:65%;">GUIDE</i>
       </el-menu-item>
 
       <el-menu-item index="/about">
-        <router-link to="/about">
-          <i class="el-icon-postcard" style="width:65%;">ABOUT</i>
-        </router-link>
+        <i class="el-icon-postcard" style="width:65%;">ABOUT</i>
       </el-menu-item>
     </el-menu>
   </el-header>
@@ -31,7 +34,11 @@ export default {
       activeIndex: this.$route.path
     };
   },
-  methods: {}
+  methods: {
+    headerSelect(key, keyPath) {
+      this.$router.push({ path: key });
+    }
+  }
 };
 </script>
 
