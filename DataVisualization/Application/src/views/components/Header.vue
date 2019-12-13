@@ -6,17 +6,13 @@
       mode="horizontal"
       background-color="#f6f6f6"
     >
-      <el-menu-item>
-        <el-menu-item class="logo">
-          <router-link to="/">ARSS</router-link>
-        </el-menu-item>
-      </el-menu-item>
+      <el-menu-item class="logo"><a href="#/">ARSS</a></el-menu-item>
       <el-menu-item index="/">
         <i class="el-icon-house" style="width:65%;">HOME</i>
       </el-menu-item>
       <!-- <el-menu-item index="/">
         <i class="el-icon-discover" style="width:65%;">GUIDE</i>
-      </el-menu-item> -->
+      </el-menu-item>-->
       <el-menu-item index="/about">
         <i class="el-icon-postcard" style="width:65%;">ABOUT</i>
       </el-menu-item>
@@ -35,6 +31,9 @@ export default {
   },
   methods: {
     headerSelect(key, keyPath) {
+      if (key == null || this.$route.path == key) {
+        return;
+      }
       this.$router.push({ path: key });
     }
   }
