@@ -3,14 +3,14 @@
     <Header />
     <Banner />
     <el-main>
-      <!-- 块开始 -->
-
       <el-card class="box-card" element-loading-background="rgba(255, 255, 255, 0.5)">
         <div slot="header" class="title clearfix">
           <span>Introduction</span>
         </div>
         <div class="text item">
           <div class="markdown clearfix">
+            <!-- 块开始 -->
+
             <p>
               <img src="/Users/zhoulinlin/Desktop/daimages/title.jpeg" alt="avatar" />
             </p>
@@ -395,25 +395,25 @@ export default {
   /* font-family: "" */
 }
 .markdown table {
-    font-family: verdana,arial,sans-serif;
-    font-size:11px;
-    color:#333333;
-    border-width: 1px;
-    border-color: #666666;
-    border-collapse: collapse;
+  font-family: verdana, arial, sans-serif;
+  font-size: 11px;
+  color: #333333;
+  border-width: 1px;
+  border-color: #666666;
+  border-collapse: collapse;
 }
 .markdown table th {
-    border-width: 1px;
-    padding: 8px;
-    border-style: solid;
-    border-color: #666666;
-    background-color: #dedede;
+  border-width: 1px;
+  padding: 8px;
+  border-style: solid;
+  border-color: #666666;
+  background-color: #dedede;
 }
 .markdown table td {
-    border-width: 1px;
-    padding: 8px;
-    border-style: solid;
-    border-color: #666666;
-    background-color: #ffffff;
+  border-width: 1px;
+  padding: 8px;
+  border-style: solid;
+  border-color: #666666;
+  background-color: #ffffff;
 }
 </style>
