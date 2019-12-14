@@ -2,10 +2,13 @@
   <el-footer height="100px">
     <div class="footer_link">
       <span>
-        <el-link type="info" style="margin-left:10px;">Privacy Policy</el-link>
-        <el-link type="info" style="margin-left:10px;">Terms of Use</el-link>
-        <el-link type="info" style="margin-left:10px;">About</el-link>
-        <p style="color: #a6a9ad; font-weight: bold; font-size: 13px;">@2019</p>
+        <p style="color: #a6a9ad; font-weight: bold; font-size: 13px;">
+          By Group 7: Peng Hou (phou001@fiu.edu), Hongjing Wang (hwang064@fiu.edu), Zheya Wu (zwu014@fiu.edu),
+          Yan Xiao (yxiao001@fiu.edu), Linlin Zhou (lzhou012@fiu.edu)
+        </p>
+
+        <p style="color: #a6a9ad; font-weight: bold; font-size: 13px;">Professor: Giri Narasimhan</p>
+        <p style="color: #a6a9ad; font-weight: bold; font-size: 13px;">Fall 2019 Data Science.</p>
       </span>
     </div>
   </el-footer>
