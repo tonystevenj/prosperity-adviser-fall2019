@@ -251,6 +251,9 @@
             <div class="center">
               <img class="image" src="../../../static/figure11.png" />
             </div>
+            <div class="center" style="font-size:15px;font-weight:bold">
+              <p>Fifure: Result of Site Score</p>
+            </div>
             <p>As shown, there are 7 terms in the form, every term has 100 scaled score, and the seekbar is used for setting the weight among 7 terms. It works just like your final grade in your college class, for example, the &quot;park&quot; as your &quot;midterm exam&quot;, &quot;school&quot; is &quot;homework&quot;, &quot;earning&quot; is &quot;final exam&quot;, your final grade is based on every grade of single term multiply it&#39;s weight, and in our project, the weight is adjustable by yourself! So, the question is, how to give out score for single term.</p>
             <h3 id="calculate-score-for-single-term">Calculate score for single term</h3>
             <p>Here we use park data as sample, the pipe line for other data is almostly same. So, tell a location is good or not among the whole city, user need choose a small area which he wants to be reported. We temporarily call this location A. We give the density of park in this area, compare with the max density of the whole city, give out the score. For density of location A, it&#39;s easy to calculate, because we can easily get the amount of park from our data set, and the area size also easily calculate because the location A is a circle, and the radius can be set by user. i.e. the area size of A is set by user. So, the key question is how to calculate the max density of the whole city.</p>
@@ -261,10 +264,16 @@
             <div class="center">
               <img class="image" src="../../../static/figure12.png" />
             </div>
+            <div class="center" style="font-size:15px;font-weight:bold">
+              <p>Fifure: Parks Location in Phoenix</p>
+            </div>
             <p>It&#39;s easy to see the most dense part in the graph is approximately at (-112,08,33.45). So we need to calculate the density around this point, the result can be think as the max density of this city.</p>
             <p>So we dicide do a K-mean cluster to get those compact point together, like below graph:</p>
             <div class="center">
               <img class="image" src="../../../static/figure13.png" />
+            </div>
+            <div class="center" style="font-size:15px;font-weight:bold">
+              <p>Fifure: Cluster Result</p>
             </div>
             <p>
               *It&#39;s obviously in this graph that the most density part is successfully clustered together as blue. (you need to do many times of k-mean to see if the result is what you want, because k-mean result is different with different cluster amount and initial points)
@@ -272,6 +281,9 @@
             </p>
             <div class="center">
               <img class="image" src="../../../static/figure14.png" />
+            </div>
+            <div class="center" style="font-size:15px;font-weight:bold">
+              <p>Fifure: Result of Convex Hull</p>
             </div>
             <p>
               So the red points in above figure is the convex hull points of cluster-blue. And pink circled pair is points with longest distance among these shell points. And other shell point are divided into two parts, in this case, every part has four points, and blue-circled pair is the shortest pair between two parts. So, now we can calculate the area size according to ellipse formula: Pi
@@ -281,7 +293,7 @@
             <hr />
             <p>A number of data preprocessing steps were applied to the Yelp business data, including flattening business Json data file attributes, removing restaurants afficiated with other business types, identifying restaurant cuisine type, and converting the coordinate systems of supplemental data to latitude and longitude-based geographical coordinate system. The raw Yelp json file uses double quote mark for the first and two levels of attributes and single quote mark for the third level attribute. The python json package can only identify the attributes within double quote mark, and the attributes within a single quote mark have to be expanded by writing codes. A hospital or a shopping mall listed in the yelp data can also have the category of restaurant because there is a restaurant within it. The corresponding star scores may be for the hospital or shopping mall, not just for restaurants. Such types of restaurants have to be excluded from the analysis. In this study, these types of restaurants as well as restaurant cuisine types were extracted based on comparisons with the complete list of yelp categories for businesses. The web application developed in this project requires the use of latitude and longitude-based geographical coordinate system in order to calculate the distances between selected restaurant site and its neighboring facilities. However, the supplemental data such as parks, hospitals, schools, and so on use different coordinate systems, which have to be converted to latitude and longitude either by python Geopandas library or Google Earth.</p>
 
-            <table>
+            <!-- <table>
               <thead>
                 <tr>
                   <th>Name</th>
@@ -298,7 +310,11 @@
                   <td>Hospitals, Restaurants, Health & Medical</td>
                 </tr>
               </tbody>
-            </table>
+            </table> -->
+            <div class="center">
+              <img class="image" src="../../../static/table3.png" />
+            </div>
+
 
             <h3 id="feature-selection">Feature Selection</h3>
             <p>As a new restaurant owner, it is interesting to see what types of restaurants having been open or closed at the intended restaurant site, and what types of services these restaurants have provided. To help with that, the most important features that affect a restaurant star score were extracted using random forest regression analysis in this project. The attributes that are related to restaurant characteristics were used as independent varables and the scores of restaurants were treated as a dependent variable. Before conducting regression analysis, the attributes with large missing data that is greater than 90% were removed from analysis. The remaining text attributes were then converted to categorical variables. The restaurant data was divided into training and testing data sets and fit to the random forest regressor of python sklearn package. The mean absolute percentage error (MAPE) between the predicted restaurant scores and the actual scores was calculated and the prediction accuracy of this analysis, defined as 100% minus mean percentage absolute error, is 80.25%. The table below lists the top 10 features identified by random forest regression analysis and their corresponding importance scores. As shown in this table, attributes of cuisine type, wheelchair accessibility, catering capability, provision of outdoor seating, alcohol provision, parking lot, noise level, provision of WiFi, parking for bikes, and restaurant prices are important features that affect the star scores of restaurants.</p>
@@ -353,8 +369,13 @@
               </tbody>
             </table>
             <p>The percentage distributions of possible values for these features are displayed in the user interface in the format of stacked bar charts. Three charts for three categories of restaurants, that is, one category for open restaurants with a score greater than or equal to 4, one category for open restaurants with score less than 4, and the third category of closed restaurants. As shown in the charts below, the y-axis lists the top 10 features from the most important feature at the top to the least important feature at the bottom. The x-axis shows the percentage of each possible value for each feature. By looking at the distribution of each feature value and comparing them among three restaurant groups, user can identify which type of food is dominant in study area and can get good star scores, and also determine if they want to provide the services such as WiFi, wheel chair services, and so on. For example, the charts below indicate that american food is popular in the selected area and can get a score of greater than four.</p>
-
-            <table>
+            <div class="center">
+              <img class="image" src="../../../static/figure9.png" />
+            </div>
+            <div class="center">
+              <img class="image" src="../../../static/figure10.png" />
+            </div>
+            <!-- <table>
               <thead>
                 <tr>
                   <th>X</th>
@@ -520,13 +541,16 @@
                   <td>33.4534726</td>
                 </tr>
               </tbody>
-            </table>
+            </table> -->
 
             <h2 id="3-key-factors-in-users-opinion-">3. Key Factors in Users&#39; Opinion</h2>
             <hr />
             <p>We divide all restaurants in area A into three groups: star 0-3, star 4-5 and closed. In this part, we try to give different features of three groups in users&#39; eyes. Then we add all reviews of one single restaurant together, as terms of this restaurant given by users. And do the TF-IDF, output the term-weight list for every restaurant and get top 10 terms. Collect all keywords in same group, sum the weight of same words, as the keywords of the whole group.</p>
             <div class="center">
               <img class="image" src="../../../static/figure15.png" />
+            </div>
+            <div class="center" style="font-size:15px;font-weight:bold">
+              <p>Fifure: Pipeline of TF-IDF</p>
             </div>
             <p>Significance: By given this data, we can figure out what factors customer cares most.</p>
             <p>Result sample:</p>
@@ -537,6 +561,10 @@
                 src="../../../static/figure16.png"
               />
             </div>
+            <div class="center" style="font-size:15px;font-weight:bold">
+              <p>Fifure: Result of TF-IDF</p>
+            </div>
+            
             <p>
               This is a real result of a certain point in the map. As we can see, in this case, for the first figure, we can figure out that maybe it&#39;s better to sell tacos, users in this area seems like tacos. And for the last figure, we can see people in this area seems don&#39;t like coffee. So on and so for. There are many interesting results you can conclude from these graph.
               <br />​
