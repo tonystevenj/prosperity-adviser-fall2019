@@ -15,7 +15,7 @@
           <div class="clearfix">
             This is a project which can help you decide where to open a restaurant and how to do well if you have one.(Temporarily, our data is limited in Phoenix city)
             Just click where you potentially want a restaurant, there will be a report to give you surrounding information and analysis of this area based on Yelp dataset.
-            See more details about algorithms, please go to ABOUT.
+            See more details about algorithms, please go to <router-link to="/introduction"><b>INTRODUCTION</b></router-link>.
           </div>
         </div>
       </el-card>
@@ -50,20 +50,6 @@
         </div>
       </el-card>
 
-      <el-card
-        class="box-card gmap-box"
-        v-loading="loading"
-        element-loading-background="rgba(255, 255, 255, 0.5)"
-      >
-        <div slot="header" class="clearfix">
-          <span>这里是标题</span>
-        </div>
-        <div class="text item">
-          <div class="clearfix">
-            这里是内容
-          </div>
-        </div>
-      </el-card>
     </el-main>
 
     <Footer />
