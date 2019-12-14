@@ -78,7 +78,10 @@
                 <td>135 MB</td>
                 <td>Business characteristics</td>
                 <td>
-                  <a href="https://www.yelp.com/dataset">https://www.yelp.com/dataset</a>
+                  <a
+                    href="https://www.yelp.com/dataset"
+                    target="_blank"
+                  >https://www.yelp.com/dataset</a>
                 </td>
               </tr>
               <tr>
@@ -86,7 +89,10 @@
                 <td>2.4 GB</td>
                 <td>User characteristics</td>
                 <td>
-                  <a href="https://www.yelp.com/dataset">https://www.yelp.com/dataset</a>
+                  <a
+                    href="https://www.yelp.com/dataset"
+                    target="_blank"
+                  >https://www.yelp.com/dataset</a>
                 </td>
               </tr>
               <tr>
@@ -94,7 +100,10 @@
                 <td>399 MB</td>
                 <td>Checkin timestamp</td>
                 <td>
-                  <a href="https://www.yelp.com/dataset">https://www.yelp.com/dataset</a>
+                  <a
+                    href="https://www.yelp.com/dataset"
+                    target="_blank"
+                  >https://www.yelp.com/dataset</a>
                 </td>
               </tr>
               <tr>
@@ -102,7 +111,10 @@
                 <td>25 MB</td>
                 <td>Photo caption and classification</td>
                 <td>
-                  <a href="https://www.yelp.com/dataset">https://www.yelp.com/dataset</a>
+                  <a
+                    href="https://www.yelp.com/dataset"
+                    target="_blank"
+                  >https://www.yelp.com/dataset</a>
                 </td>
               </tr>
               <tr>
@@ -110,7 +122,10 @@
                 <td>5.2 GB</td>
                 <td>User review</td>
                 <td>
-                  <a href="https://www.yelp.com/dataset">https://www.yelp.com/dataset</a>
+                  <a
+                    href="https://www.yelp.com/dataset"
+                    target="_blank"
+                  >https://www.yelp.com/dataset</a>
                 </td>
               </tr>
               <tr>
@@ -118,7 +133,10 @@
                 <td>238 MB</td>
                 <td>User suggestions</td>
                 <td>
-                  <a href="https://www.yelp.com/dataset">https://www.yelp.com/dataset</a>
+                  <a
+                    href="https://www.yelp.com/dataset"
+                    target="_blank"
+                  >https://www.yelp.com/dataset</a>
                 </td>
               </tr>
               <tr>
@@ -127,7 +145,10 @@
                 <td>975 MB</td>
                 <td>Population and earning information</td>
                 <td>
-                  <a href="https://factfinder.census">https://factfinder.census</a>
+                  <a
+                    href="https://factfinder.census.gov"
+                    target="_blank"
+                  >https://factfinder.census.gov</a>
                 </td>
               </tr>
               <tr>
@@ -138,6 +159,7 @@
                 <td>
                   <a
                     href="https://mapping-phoenix.opendata.arcgis.com/"
+                    target="_blank"
                   >https://mapping-phoenix.opendata.arcgis.com/</a>
                 </td>
               </tr>
@@ -148,6 +170,7 @@
                 <td>
                   <a
                     href="https://mapping-phoenix.opendata.arcgis.com/"
+                    target="_blank"
                   >https://mapping-phoenix.opendata.arcgis.com/</a>
                 </td>
               </tr>
@@ -158,6 +181,7 @@
                 <td>
                   <a
                     href="https://mapping-phoenix.opendata.arcgis.com/"
+                    target="_blank"
                   >https://mapping-phoenix.opendata.arcgis.com/</a>
                 </td>
               </tr>
@@ -168,6 +192,7 @@
                 <td>
                   <a
                     href="https://mapping-phoenix.opendata.arcgis.com/"
+                    target="_blank"
                   >https://mapping-phoenix.opendata.arcgis.com/</a>
                 </td>
               </tr>
@@ -178,6 +203,7 @@
                 <td>
                   <a
                     href="https://mapping-phoenix.opendata.arcgis.com/"
+                    target="_blank"
                   >https://mapping-phoenix.opendata.arcgis.com/</a>
                 </td>
               </tr>
@@ -188,6 +214,7 @@
                 <td>
                   <a
                     href="https://mapping-phoenix.opendata.arcgis.com/"
+                    target="_blank"
                   >https://mapping-phoenix.opendata.arcgis.com/</a>
                 </td>
               </tr>
@@ -199,6 +226,7 @@
                 <td>
                   <a
                     href="https://nces.ed.gov/ccd/elsi/expressTables.aspx"
+                    target="_blank"
                   >https://nces.ed.gov/ccd/elsi/expressTables.aspx</a>
                 </td>
               </tr>
