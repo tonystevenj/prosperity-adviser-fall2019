@@ -252,7 +252,7 @@
               <img class="image" src="../../../static/figure11.png" />
             </div>
             <div class="center" style="font-size:15px;font-weight:bold">
-              <p>Fifure: Result of Site Score</p>
+              <p>Figure: Result of Site Score</p>
             </div>
             <p>As shown, there are 7 terms in the form, every term has 100 scaled score, and the seekbar is used for setting the weight among 7 terms. It works just like your final grade in your college class, for example, the &quot;park&quot; as your &quot;midterm exam&quot;, &quot;school&quot; is &quot;homework&quot;, &quot;earning&quot; is &quot;final exam&quot;, your final grade is based on every grade of single term multiply it&#39;s weight, and in our project, the weight is adjustable by yourself! So, the question is, how to give out score for single term.</p>
             <h3 id="calculate-score-for-single-term">Calculate score for single term</h3>
@@ -265,7 +265,7 @@
               <img class="image" src="../../../static/figure12.png" />
             </div>
             <div class="center" style="font-size:15px;font-weight:bold">
-              <p>Fifure: Parks Location in Phoenix</p>
+              <p>Figure: Parks Location in Phoenix</p>
             </div>
             <p>It&#39;s easy to see the most dense part in the graph is approximately at (-112,08,33.45). So we need to calculate the density around this point, the result can be think as the max density of this city.</p>
             <p>So we dicide do a K-mean cluster to get those compact point together, like below graph:</p>
@@ -273,7 +273,7 @@
               <img class="image" src="../../../static/figure13.png" />
             </div>
             <div class="center" style="font-size:15px;font-weight:bold">
-              <p>Fifure: Cluster Result</p>
+              <p>Figure: Cluster Result</p>
             </div>
             <p>
               *It&#39;s obviously in this graph that the most density part is successfully clustered together as blue. (you need to do many times of k-mean to see if the result is what you want, because k-mean result is different with different cluster amount and initial points)
@@ -283,7 +283,7 @@
               <img class="image" src="../../../static/figure14.png" />
             </div>
             <div class="center" style="font-size:15px;font-weight:bold">
-              <p>Fifure: Result of Convex Hull</p>
+              <p>Figure: Result of Convex Hull</p>
             </div>
             <p>
               So the red points in above figure is the convex hull points of cluster-blue. And pink circled pair is points with longest distance among these shell points. And other shell point are divided into two parts, in this case, every part has four points, and blue-circled pair is the shortest pair between two parts. So, now we can calculate the area size according to ellipse formula: Pi
@@ -550,7 +550,7 @@
               <img class="image" src="../../../static/figure15.png" />
             </div>
             <div class="center" style="font-size:15px;font-weight:bold">
-              <p>Fifure: Pipeline of TF-IDF</p>
+              <p>Figure: Pipeline of TF-IDF</p>
             </div>
             <p>Significance: By given this data, we can figure out what factors customer cares most.</p>
             <p>Result sample:</p>
@@ -562,7 +562,7 @@
               />
             </div>
             <div class="center" style="font-size:15px;font-weight:bold">
-              <p>Fifure: Result of TF-IDF</p>
+              <p>Figure: Result of TF-IDF</p>
             </div>
             
             <p>
