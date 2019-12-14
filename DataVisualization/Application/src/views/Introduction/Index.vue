@@ -4,7 +4,7 @@
     <Banner />
     <el-main>
       <el-card class="box-card" element-loading-background="rgba(255, 255, 255, 0.5)">
-        <div slot="header" class="title clearfix">
+        <div slot="header" class="title clearfix" style="color:#2486b9">
           <span>Introduction</span>
         </div>
         <div class="text item">
@@ -20,7 +20,7 @@
         </div>
       </el-card>
       <el-card class="box-card" element-loading-background="rgba(255, 255, 255, 0.5)">
-        <div slot="header" class="title clearfix">
+        <div slot="header" class="title clearfix" style="color:#2486b9">
           <span>Motivation</span>
         </div>
         <div class="text item">
@@ -35,7 +35,7 @@
         </div>
       </el-card>
       <el-card class="box-card" element-loading-background="rgba(255, 255, 255, 0.5)">
-        <div slot="header" class="title clearfix">
+        <div slot="header" class="title clearfix" style="color:#2486b9">
           <span>Aims</span>
         </div>
         <div class="text item">
@@ -52,7 +52,7 @@
         </div>
       </el-card>
       <el-card class="box-card" element-loading-background="rgba(255, 255, 255, 0.5)">
-        <div slot="header" class="title clearfix">
+        <div slot="header" class="title clearfix" style="color:#2486b9">
           <span>Datasets</span>
         </div>
         <div class="text item">
@@ -237,14 +237,14 @@
         </div>
       </el-card>
       <el-card class="box-card" element-loading-background="rgba(255, 255, 255, 0.5)">
-        <div slot="header" class="title clearfix">
+        <div slot="header" class="title clearfix" style="color:#2486b9">
           <span>Methodology</span>
         </div>
         <div class="text item">
           <div class="markdown clearfix">
             <!-- 块开始 -->
 
-            <h2 id="1-location-score-calculation-">1. Location Score Calculation</h2>
+            <h2 id="1-location-score-calculation-" style="color:#158bb8">1. Location Score Calculation</h2>
             <hr />
             <p>In our project, the first question to solve is: Is the place a good one to open a restaurant? To answer this question, we considered several factors that may affect the population flow in common sense: earnings, popultion, nearby schools, parks, train stations, hospital, tourist attraction (the dataset of those factors are given in forms of longitude and latitude).</p>
             <p>The final score ouput is in 100 scale, like this:</p>
@@ -289,7 +289,7 @@
               So the red points in above figure is the convex hull points of cluster-blue. And pink circled pair is points with longest distance among these shell points. And other shell point are divided into two parts, in this case, every part has four points, and blue-circled pair is the shortest pair between two parts. So, now we can calculate the area size according to ellipse formula: Pi
               <em>a</em>b(a=distance of pink-circled pair, b=istance of blue-circled pair). Then the density of cluster-blue can be easily calculated, which is the max park density of Phoenix city.
             </p>
-            <h2 id="data-preprocessing">2. Data Preprocessing</h2>
+            <h2 id="data-preprocessing" style="color:#158bb8">2. Data Preprocessing</h2>
             <hr />
             <p>A number of data preprocessing steps were applied to the Yelp business data, including flattening business Json data file attributes, removing restaurants afficiated with other business types, identifying restaurant cuisine type, and converting the coordinate systems of supplemental data to latitude and longitude-based geographical coordinate system. The raw Yelp json file uses double quote mark for the first and two levels of attributes and single quote mark for the third level attribute. The python json package can only identify the attributes within double quote mark, and the attributes within a single quote mark have to be expanded by writing codes. A hospital or a shopping mall listed in the yelp data can also have the category of restaurant because there is a restaurant within it. The corresponding star scores may be for the hospital or shopping mall, not just for restaurants. Such types of restaurants have to be excluded from the analysis. In this study, these types of restaurants as well as restaurant cuisine types were extracted based on comparisons with the complete list of yelp categories for businesses. The web application developed in this project requires the use of latitude and longitude-based geographical coordinate system in order to calculate the distances between selected restaurant site and its neighboring facilities. However, the supplemental data such as parks, hospitals, schools, and so on use different coordinate systems, which have to be converted to latitude and longitude either by python Geopandas library or Google Earth.</p>
 
@@ -543,7 +543,7 @@
               </tbody>
             </table> -->
 
-            <h2 id="3-key-factors-in-users-opinion-">3. Key Factors in Users&#39; Opinion</h2>
+            <h2 id="3-key-factors-in-users-opinion-" style="color:#158bb8">3. Key Factors in Users&#39; Opinion</h2>
             <hr />
             <p>We divide all restaurants in area A into three groups: star 0-3, star 4-5 and closed. In this part, we try to give different features of three groups in users&#39; eyes. Then we add all reviews of one single restaurant together, as terms of this restaurant given by users. And do the TF-IDF, output the term-weight list for every restaurant and get top 10 terms. Collect all keywords in same group, sum the weight of same words, as the keywords of the whole group.</p>
             <div class="center">
@@ -570,7 +570,7 @@
               <br />​
             </p>
 
-            <h2>4. How this project run</h2>
+            <h2 style="color:#158bb8">4. How this project run</h2>
 
             <p>We use Python to develop the project Including data processing, data analysis, and a web server, this webserver bases on Flask. And also, we use NumPy, Pandas, and Scikit-learn to analyze datasets. We have many datasets with geographic information, so we create a geo index with Redis. So, you can see, we input the longitude and latitude, Redis will create a geo index of this dataset. When we query this index use longitude, latitude, and radius, it will return a list of points nearby that point we input and sorted by distance.</p>
             <p>On the frontend, we use NodeJS to develop, bases on Vue and Element UI. These libraries help us fast to develop the frontend. Next, we use the Google Maps API to develop the map function. And the last, we have many diagrams bases on Apache Echarts. It's very professional at data visualization and easy to use.</p>
@@ -648,7 +648,7 @@
         </div>
       </el-card>
       <el-card class="box-card" element-loading-background="rgba(255, 255, 255, 0.5)">
-        <div slot="header" class="title clearfix">
+        <div slot="header" class="title clearfix" style="color:#2486b9">
           <span>​Summary</span>
         </div>
         <div class="text item">
