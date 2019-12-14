@@ -67,21 +67,16 @@
     <br>
     <br>
     <el-row :gutter="32" class="row">
-        <div class="star_type">Features summary of surrounding restaurants</div>
+        <div class="star_type" style="font-size:30px">Features summary of surrounding restaurants</div>
     </el-row>
     <el-row :gutter="32" class="row">
-      <el-col :span="32">
         <div class="star_type">There are {{topdata.stars45+topdata.stars03+topdata.close_count}} restaurants in total, and they are divided into three group: star 4-5,star 0-3 and closed for ever</div>
-      </el-col>
-      
     </el-row>
     <!-- 相关性标题 -->
     <br>
-    <br>
-    <br>
     <el-row :gutter="32" class="row">
-      <el-col :span="12">
-        <div class="star_type">Analysis 1: Most important factors to improve prosperity</div>
+      <el-col :span="32">
+        <div class="star_type" style="font-size:20px">Analysis 1: Most important factors to improve prosperity</div>
       </el-col>
     </el-row>
     <el-row :gutter="32" class="row">
@@ -113,8 +108,8 @@
     <br>
     <br>
     <el-row :gutter="32" class="row">
-      <el-col :span="10">
-        <div class="star_type">Analysis 2: Most frequency words in users review</div>
+     <el-col :span="32">
+        <div class="star_type" style="font-size:20px">Analysis 2: Most frequency words in users review</div>
       </el-col>
     </el-row>
     <el-row :gutter="32" class="row">
