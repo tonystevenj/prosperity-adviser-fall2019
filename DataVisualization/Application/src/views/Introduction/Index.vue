@@ -531,12 +531,89 @@
             <p>Significance: By given this data, we can figure out what factors customer cares most.</p>
             <p>Result sample:</p>
             <div class="center">
-              <img class="image" src="../../../static/figure16.png" />
+              <img
+                class="image"
+                style="max-width: 800px; width: 800px;"
+                src="../../../static/figure16.png"
+              />
             </div>
             <p>
               This is a real result of a certain point in the map. As we can see, in this case, for the first figure, we can figure out that maybe it&#39;s better to sell tacos, users in this area seems like tacos. And for the last figure, we can see people in this area seems don&#39;t like coffee. So on and so for. There are many interesting results you can conclude from these graph.
               <br />​
             </p>
+
+            <h2>4. How this project run</h2>
+
+            <p>We use Python to develop the project Including data processing, data analysis, and a web server, this webserver bases on Flask. And also, we use NumPy, Pandas, and Scikit-learn to analyze datasets. We have many datasets with geographic information, so we create a geo index with Redis. So, you can see, we input the longitude and latitude, Redis will create a geo index of this dataset. When we query this index use longitude, latitude, and radius, it will return a list of points nearby that point we input and sorted by distance.</p>
+            <p>On the frontend, we use NodeJS to develop, bases on Vue and Element UI. These libraries help us fast to develop the frontend. Next, we use the Google Maps API to develop the map function. And the last, we have many diagrams bases on Apache Echarts. It's very professional at data visualization and easy to use.</p>
+
+            <div class="icon_list">
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <img class="icon" src="../../../static/python_icon.png" />
+                  <span>Python 3</span>
+                </el-col>
+                <el-col :span="12">
+                  <img class="icon" src="../../../static/nodejs_icon.png" />
+                  <span>Node.js</span>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <img class="icon" src="../../../static/flask_icon.png" />
+                  <span>Flask</span>
+                </el-col>
+                <el-col :span="12">
+                  <img class="icon" src="../../../static/vue_icon.png" />
+                  <span>Vue.js</span>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <img class="icon" src="../../../static/numpy_icon.png" />
+                  <span>NumPy</span>
+                </el-col>
+                <el-col :span="12">
+                  <img class="icon" src="../../../static/element_icon.png" />
+                  <span>Element UI</span>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <img class="icon" src="../../../static/pandas_icon.png" />
+                  <span>Pandas</span>
+                </el-col>
+                <el-col :span="12">
+                  <img class="icon" src="../../../static/googlemap_icon.png" />
+                  <span>Google Maps API</span>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <img class="icon" src="../../../static/scikitlearn_icon.png" />
+                  <span>scikit-learn</span>
+                </el-col>
+                <el-col :span="12">
+                  <img class="icon" src="../../../static/echarts_icon.png" />
+                  <span>Apache Echarts</span>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <img class="icon" src="../../../static/redis_icon.png" />
+                  <span>Redis</span>
+                </el-col>
+                <el-col :span="12"></el-col>
+              </el-row>
+            </div>
+
+            <p>The server process initiate will load and process all of the datasets. It will divide each dataset into two parts. One part has longitude and latitude and used to create the geo index. The other part is stored in memory, and it used to do some data analysis.</p>
+            <p>Then, the server starts, it will provide some APIs, when receiving a request, it will get some data from geo index and memory, then do some analysis, and return the result to the browser.</p>
+
+            <div class="center">
+              <img class="image" src="../../../static/figure17.png" />
+            </div>
+            <p>When you select a point on the map of the website, it can get the longitude, latitude, and zip code, and then, it will send some requests to the server. After that, it will draw some diagrams use the result from the server.</p>
 
             <!-- 块结束 -->
           </div>
@@ -638,5 +715,18 @@ export default {
   border-style: solid;
   border-color: #666666;
   background-color: #ffffff;
+}
+.markdown .icon_list {
+  width: 600px;
+  margin: 20px auto;
+}
+.markdown .icon {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+.markdown .icon_list span {
+  font-size: 30px;
+  padding-left: 10px;
 }
 </style>

@@ -9,13 +9,23 @@
         element-loading-background="rgba(255, 255, 255, 0.5)"
       >
         <div slot="header" class="clearfix">
-          <span>Brief Inroduction</span>
+          <span>
+            <h2>Brief Inroduction</h2>
+          </span>
         </div>
         <div class="text item">
-          <div class="clearfix">
+          <div class="clearfix" style="font-size: 16px;">
             This is a project which can help you decide where to open a restaurant and how to do well if you have one.(Temporarily, our data is limited in Phoenix city)
             Just click where you potentially want a restaurant, there will be a report to give you surrounding information and analysis of this area based on Yelp dataset.
-            See more details about algorithms, please go to <router-link to="/introduction"><b>INTRODUCTION</b></router-link>.
+            See more details about algorithms, please go to
+            <router-link to="/introduction">
+              <b>INTRODUCTION</b>
+            </router-link>.
+            <br />
+            <br />
+            <p style="color: #E01515; font-style: italic;">
+              <b>*</b> This is a sample website for static display only. The report’s data is from a chosen geographic coordinates.
+            </p>
           </div>
         </div>
       </el-card>
@@ -26,7 +36,7 @@
         element-loading-background="rgba(255, 255, 255, 0.5)"
       >
         <div slot="header" class="clearfix">
-          <span>Dashboard</span>
+          <span><h2>Dashboard</h2></span>
         </div>
         <div class="text item">
           <div class="clearfix">
@@ -49,7 +59,6 @@
           </div>
         </div>
       </el-card>
-
     </el-main>
 
     <Footer />
