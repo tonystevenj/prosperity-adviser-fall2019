@@ -221,7 +221,7 @@
             <p>In our project, the first question to solve is: Is the place a good one to open a restaurant? To answer this question, we considered several factors that may affect the population flow in common sense: earnings, popultion, nearby schools, parks, train stations, hospital, tourist attraction (the dataset of those factors are given in forms of longitude and latitude).</p>
             <p>The final score ouput is in 100 scale, like this:</p>
             <div class="center">
-              <el-image class="image" src="../../../static/figure11.png" lazy></el-image>
+              <img class="image" src="../../../static/figure11.png" />
             </div>
             <p>As shown, there are 7 terms in the form, every term has 100 scaled score, and the seekbar is used for setting the weight among 7 terms. It works just like your final grade in your college class, for example, the &quot;park&quot; as your &quot;midterm exam&quot;, &quot;school&quot; is &quot;homework&quot;, &quot;earning&quot; is &quot;final exam&quot;, your final grade is based on every grade of single term multiply it&#39;s weight, and in our project, the weight is adjustable by yourself! So, the question is, how to give out score for single term.</p>
             <h3 id="calculate-score-for-single-term">Calculate score for single term</h3>
@@ -231,19 +231,19 @@
             >Calculate the max density of the whole city</h3>
             <p>The parks are presented by points with longitude and latitude. Shown as below, you can think the whole plane is the map of Phoenix City, points are parks.</p>
             <div class="center">
-              <el-image class="image" src="../../../static/figure12.png" lazy></el-image>
+              <img class="image" src="../../../static/figure12.png" />
             </div>
             <p>It&#39;s easy to see the most dense part in the graph is approximately at (-112,08,33.45). So we need to calculate the density around this point, the result can be think as the max density of this city.</p>
             <p>So we dicide do a K-mean cluster to get those compact point together, like below graph:</p>
             <div class="center">
-              <el-image class="image" src="../../../static/figure13.png" lazy></el-image>
+              <img class="image" src="../../../static/figure13.png" />
             </div>
             <p>
               *It&#39;s obviously in this graph that the most density part is successfully clustered together as blue. (you need to do many times of k-mean to see if the result is what you want, because k-mean result is different with different cluster amount and initial points)
               <br />To calculate the density of blue cluster, we need the amount and area size, the amount is easy to count but for area size, we used an approximate algorithm to do it: First, we find the convex hull (using Jarvis March algorithm) of those points, it&#39;s likely a ellipse. we set the longest distance of a pair among those hull points as the longer radius and divide other points into two groups using the line formed by longer radius, calculate the shortest distance between two groups, set the value as the shorter radius of our ellipse. Then we can calculate the max density of the area.
             </p>
             <div class="center">
-              <el-image class="image" src="../../../static/figure14.png" lazy></el-image>
+              <img class="image" src="../../../static/figure14.png" />
             </div>
             <p>
               So the red points in above figure is the convex hull points of cluster-blue. And pink circled pair is points with longest distance among these shell points. And other shell point are divided into two parts, in this case, every part has four points, and blue-circled pair is the shortest pair between two parts. So, now we can calculate the area size according to ellipse formula: Pi
@@ -495,14 +495,15 @@
             </table>
 
             <h2 id="3-key-factors-in-users-opinion-">3. Key Factors in Users&#39; Opinion</h2>
+            <hr />
             <p>We divide all restaurants in area A into three groups: star 0-3, star 4-5 and closed. In this part, we try to give different features of three groups in users&#39; eyes. Then we add all reviews of one single restaurant together, as terms of this restaurant given by users. And do the TF-IDF, output the term-weight list for every restaurant and get top 10 terms. Collect all keywords in same group, sum the weight of same words, as the keywords of the whole group.</p>
             <div class="center">
-              <el-image class="image" src="../../../static/figure15.png" lazy></el-image>
+              <img class="image" src="../../../static/figure15.png" />
             </div>
             <p>Significance: By given this data, we can figure out what factors customer cares most.</p>
             <p>Result sample:</p>
             <div class="center">
-              <el-image class="image" src="../../../static/figure16.png" lazy></el-image>
+              <img class="image" src="../../../static/figure16.png" />
             </div>
             <p>
               This is a real result of a certain point in the map. As we can see, in this case, for the first figure, we can figure out that maybe it&#39;s better to sell tacos, users in this area seems like tacos. And for the last figure, we can see people in this area seems don&#39;t like coffee. So on and so for. There are many interesting results you can conclude from these graph.
