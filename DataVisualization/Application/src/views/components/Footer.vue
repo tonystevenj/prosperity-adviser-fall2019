@@ -3,8 +3,8 @@
     <div class="footer_link">
       <span>
         <p style="color: #a6a9ad; font-weight: bold; font-size: 13px;">
-          By Group 7: Peng Hou (phou001@fiu.edu), Hongjing Wang (hwang064@fiu.edu), Zheya Wu (zwu014@fiu.edu),
-          Yan Xiao (yxiao001@fiu.edu), Linlin Zhou (lzhou012@fiu.edu)
+          By Group 7: Peng Hou <a href="mailto:phou001@fiu.edu">phou001@fiu.edu</a>, Hongjing Wang <a href="mailto:hwang064@fiu.edu">hwang064@fiu.edu</a>, Zheya Wu <a href="mailto:zwu014@fiu.edu">zwu014@fiu.edu</a>,
+          Yan Xiao <a href="mailto:yxiao001@fiu.edu">yxiao001@fiu.edu</a>, Linlin Zhou <a href="mailto:lzhou012@fiu.edu">lzhou012@fiu.edu</a>
         </p>
 
         <p style="color: #a6a9ad; font-weight: bold; font-size: 13px;">Professor: Giri Narasimhan</p>
