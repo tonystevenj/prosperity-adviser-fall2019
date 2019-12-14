@@ -236,6 +236,49 @@
           </div>
         </div>
       </el-card>
+
+
+      <el-card class="box-card" element-loading-background="rgba(255, 255, 255, 0.5)">
+        <div slot="header" class="title clearfix" style="color:#2486b9">
+          <span>Data Preprocessing</span>
+        </div>
+        <div class="text item">
+          <div class="markdown clearfix">
+            <!-- 块开始 -->
+                        <p>A number of data preprocessing steps were applied to the Yelp business data, including flattening business Json data file attributes, removing restaurants afficiated with other business types, identifying restaurant cuisine type, and converting the coordinate systems of supplemental data to latitude and longitude-based geographical coordinate system. The raw Yelp json file uses double quote mark for the first and two levels of attributes and single quote mark for the third level attribute. The python json package can only identify the attributes within double quote mark, and the attributes within a single quote mark have to be expanded by writing codes. A hospital or a shopping mall listed in the yelp data can also have the category of restaurant because there is a restaurant within it. The corresponding star scores may be for the hospital or shopping mall, not just for restaurants. Such types of restaurants have to be excluded from the analysis. In this study, these types of restaurants as well as restaurant cuisine types were extracted based on comparisons with the complete list of yelp categories for businesses. The web application developed in this project requires the use of latitude and longitude-based geographical coordinate system in order to calculate the distances between selected restaurant site and its neighboring facilities. However, the supplemental data such as parks, hospitals, schools, and so on use different coordinate systems, which have to be converted to latitude and longitude either by python Geopandas library or Google Earth.</p>
+
+            <!-- <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Categories</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Phoenix Children's Hospital</td>
+                  <td>Doctors, Cardiologists, Health & Medical, Emergency Medicine, Restaurants, Pediatricians, Hospitals, Mediterranean</td>
+                </tr>
+                <tr>
+                  <td>Mendy's Place</td>
+                  <td>Hospitals, Restaurants, Health & Medical</td>
+                </tr>
+              </tbody>
+            </table> -->
+            <div class="center">
+              <img class="image" src="../../../static/table3.png" />
+            </div>
+            <div class="center">
+              <img class="image" src="../../../static/figure9.png" />
+            </div>
+            <div class="center">
+              <img class="image" src="../../../static/figure10.png" />
+            </div>
+            
+            <!-- 块结束 -->
+          </div>
+        </div>
+      </el-card>
       <el-card class="box-card" element-loading-background="rgba(255, 255, 255, 0.5)">
         <div slot="header" class="title clearfix" style="color:#2486b9">
           <span>Methodology</span>
@@ -289,34 +332,10 @@
               So the red points in above figure is the convex hull points of cluster-blue. And pink circled pair is points with longest distance among these shell points. And other shell point are divided into two parts, in this case, every part has four points, and blue-circled pair is the shortest pair between two parts. So, now we can calculate the area size according to ellipse formula: Pi
               <em>a</em>b(a=distance of pink-circled pair, b=istance of blue-circled pair). Then the density of cluster-blue can be easily calculated, which is the max park density of Phoenix city.
             </p>
-            <h2 id="data-preprocessing" style="color:#158bb8">2. Data Preprocessing</h2>
+
+            
+            <h2 id="1-location-score-calculation-" style="color:#158bb8">2. Key Factors of restaurant's feature</h2>
             <hr />
-            <p>A number of data preprocessing steps were applied to the Yelp business data, including flattening business Json data file attributes, removing restaurants afficiated with other business types, identifying restaurant cuisine type, and converting the coordinate systems of supplemental data to latitude and longitude-based geographical coordinate system. The raw Yelp json file uses double quote mark for the first and two levels of attributes and single quote mark for the third level attribute. The python json package can only identify the attributes within double quote mark, and the attributes within a single quote mark have to be expanded by writing codes. A hospital or a shopping mall listed in the yelp data can also have the category of restaurant because there is a restaurant within it. The corresponding star scores may be for the hospital or shopping mall, not just for restaurants. Such types of restaurants have to be excluded from the analysis. In this study, these types of restaurants as well as restaurant cuisine types were extracted based on comparisons with the complete list of yelp categories for businesses. The web application developed in this project requires the use of latitude and longitude-based geographical coordinate system in order to calculate the distances between selected restaurant site and its neighboring facilities. However, the supplemental data such as parks, hospitals, schools, and so on use different coordinate systems, which have to be converted to latitude and longitude either by python Geopandas library or Google Earth.</p>
-
-            <!-- <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Categories</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Phoenix Children's Hospital</td>
-                  <td>Doctors, Cardiologists, Health & Medical, Emergency Medicine, Restaurants, Pediatricians, Hospitals, Mediterranean</td>
-                </tr>
-                <tr>
-                  <td>Mendy's Place</td>
-                  <td>Hospitals, Restaurants, Health & Medical</td>
-                </tr>
-              </tbody>
-            </table> -->
-            <div class="center">
-              <img class="image" src="../../../static/table3.png" />
-            </div>
-
-
-            <h3 id="feature-selection">Feature Selection</h3>
             <p>As a new restaurant owner, it is interesting to see what types of restaurants having been open or closed at the intended restaurant site, and what types of services these restaurants have provided. To help with that, the most important features that affect a restaurant star score were extracted using random forest regression analysis in this project. The attributes that are related to restaurant characteristics were used as independent varables and the scores of restaurants were treated as a dependent variable. Before conducting regression analysis, the attributes with large missing data that is greater than 90% were removed from analysis. The remaining text attributes were then converted to categorical variables. The restaurant data was divided into training and testing data sets and fit to the random forest regressor of python sklearn package. The mean absolute percentage error (MAPE) between the predicted restaurant scores and the actual scores was calculated and the prediction accuracy of this analysis, defined as 100% minus mean percentage absolute error, is 80.25%. The table below lists the top 10 features identified by random forest regression analysis and their corresponding importance scores. As shown in this table, attributes of cuisine type, wheelchair accessibility, catering capability, provision of outdoor seating, alcohol provision, parking lot, noise level, provision of WiFi, parking for bikes, and restaurant prices are important features that affect the star scores of restaurants.</p>
             <table>
               <thead>
@@ -369,12 +388,7 @@
               </tbody>
             </table>
             <p>The percentage distributions of possible values for these features are displayed in the user interface in the format of stacked bar charts. Three charts for three categories of restaurants, that is, one category for open restaurants with a score greater than or equal to 4, one category for open restaurants with score less than 4, and the third category of closed restaurants. As shown in the charts below, the y-axis lists the top 10 features from the most important feature at the top to the least important feature at the bottom. The x-axis shows the percentage of each possible value for each feature. By looking at the distribution of each feature value and comparing them among three restaurant groups, user can identify which type of food is dominant in study area and can get good star scores, and also determine if they want to provide the services such as WiFi, wheel chair services, and so on. For example, the charts below indicate that american food is popular in the selected area and can get a score of greater than four.</p>
-            <div class="center">
-              <img class="image" src="../../../static/figure9.png" />
-            </div>
-            <div class="center">
-              <img class="image" src="../../../static/figure10.png" />
-            </div>
+            
             <!-- <table>
               <thead>
                 <tr>
@@ -542,7 +556,13 @@
                 </tr>
               </tbody>
             </table> -->
-
+            <div class="center">
+              <img
+                class="image"
+                style="max-width: 800px; width: 800px;"
+                src="../../../static/figure8.png"
+              />
+            </div>
             <h2 id="3-key-factors-in-users-opinion-" style="color:#158bb8">3. Key Factors in Users&#39; Opinion</h2>
             <hr />
             <p>We divide all restaurants in area A into three groups: star 0-3, star 4-5 and closed. In this part, we try to give different features of three groups in users&#39; eyes. Then we add all reviews of one single restaurant together, as terms of this restaurant given by users. And do the TF-IDF, output the term-weight list for every restaurant and get top 10 terms. Collect all keywords in same group, sum the weight of same words, as the keywords of the whole group.</p>
