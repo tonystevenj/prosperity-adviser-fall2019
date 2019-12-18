@@ -63,9 +63,9 @@ def reviews():
     radius = request.args.get('radius')
     # print("哈哈",category)
     IDs = data.radius('Business', longitude, latitude, radius)
-    result_0 = []
-    result_13 = []
-    result_45 = []
+    result_0 = ""
+    result_13 = ""
+    result_45 = ""
     reviewInfo_closed = {
         'reviewAmount': 0,
         'businessAmount': 0,
@@ -90,17 +90,17 @@ def reviews():
             isopen = ret2['is_open']
             # print("哈哈", type(isopen), isopen)  # int
             if float(isopen) == 0:
-                result_0.append([id['key'], ret])
+                result_0 += ret
                 reviewInfo_closed['reviewAmount'] += int(ret2['review_count'])
                 reviewInfo_closed['businessAmount'] += 1
             else:
                 if float(star) >= 4:
-                    result_45.append([id['key'], ret])
+                    result_45 += ret
                     reviewInfo_star45['reviewAmount'] += int(
                         ret2['review_count'])
                     reviewInfo_star45['businessAmount'] += 1
                 else:
-                    result_13.append([id['key'], ret])
+                    result_13 += ret
                     reviewInfo_star13['reviewAmount'] += int(
                         ret2['review_count'])
                     reviewInfo_star13['businessAmount'] += 1
@@ -115,13 +115,18 @@ def reviews():
         return Response(json.dumps(reviewInfo_star45), mimetype='application/json')
 
     re, bool = data.getObj("Reviews")
+    result=[['closed',result_0],['star 1 3',result_13],['star 4 5',result_45]]
     nparray = None
-    if category == 'closed':
-        nparray = np.array(result_0)
-    elif category == 'star13':
-        nparray = np.array(result_13)
-    elif category == 'star45':
-        nparray = np.array(result_45)
+
+    # if category == 'closed':
+    #     nparray = np.array(result_0)
+    # elif category == 'star13':
+    #     nparray = np.array(result_13)
+    # elif category == 'star45':
+    #     nparray = np.array(result_45)
+    if category == "reviewsfeature":
+        nparray = np.array(result)
+        # print(nparray.shape)
     if (len(nparray) == 0):
         return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
     try:
@@ -131,27 +136,27 @@ def reviews():
         return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
     list_dic_out = []
     for i in range(len(output)):
-        list_dic_out.append({'business_id': str(output[i, 0]),
+        list_dic_out.append({'category': str(output[i, 0]),
                              'reviews': str(output[i, 1]),
                              'weights': str(output[i, 2])
                              })
-    # return Response(json.dumps(list_dic_out), mimetype='application/json')
+    return Response(json.dumps(list_dic_out), mimetype='application/json')
 
-    # calculate top 10 words for whole region:
-    whole_words = {}
-    for i in range(len(output)):
-        shop = output[i]
-        for j in range(len(shop[1])):
-            if shop[1][j] in whole_words:
-                whole_words[shop[1][j]] += shop[2][j]
-            else:
-                whole_words[shop[1][j]] = shop[2][j]
-        # whole_words: {food:0.231,mecian:0.3421,....}
-    # sort dict(map) according to value
-    # 这里牛皮，python真的比java省生命多了
-    L = sorted(whole_words.items(), key=lambda item: item[1], reverse=True)
-    # if u want top 20. then change the number below to 20
-    return Response(json.dumps(L), mimetype='application/json')
+    # # calculate top 10 words for whole region:
+    # whole_words = {}
+    # for i in range(len(output)):
+    #     shop = output[i]
+    #     for j in range(len(shop[1])):
+    #         if shop[1][j] in whole_words:
+    #             whole_words[shop[1][j]] += shop[2][j]
+    #         else:
+    #             whole_words[shop[1][j]] = shop[2][j]
+    #     # whole_words: {food:0.231,mecian:0.3421,....}
+    # # sort dict(map) according to value
+    # # 这里牛皮，python真的比java省生命多了
+    # L = sorted(whole_words.items(), key=lambda item: item[1], reverse=True)
+    # # if u want top 20. then change the number below to 20
+    # return Response(json.dumps(L), mimetype='application/json')
 
 
 def parks():
@@ -261,7 +266,7 @@ def score():
     longitude = request.args.get('longitude')
     latitude = request.args.get('latitude')
     radius = int(request.args.get('radius'))
-    area_size = math.pi*radius*radius
+    area_size = math.pi * radius * radius
     park_percentage = float(request.args.get('park_percentage'))
     school_percentage = float(request.args.get('school_percentage'))
     pride_percentage = float(request.args.get('pride_percentage'))
@@ -271,15 +276,15 @@ def score():
     population_percentage = float(request.args.get('population_percentage'))
     zipcode = request.args.get('zipcode')
     # convert 5 percentage into 100% in total:
-    sum = park_percentage+school_percentage+pride_percentage + \
-        hospital_percentage+rail_percentage+salary_percentage+population_percentage
-    park_percentage = park_percentage/sum
-    school_percentage = school_percentage/sum
-    pride_percentage = pride_percentage/sum
-    hospital_percentage = hospital_percentage/sum
-    rail_percentage = rail_percentage/sum
-    salary_percentage = salary_percentage/sum
-    population_percentage = population_percentage/sum
+    sum = park_percentage + school_percentage + pride_percentage + \
+          hospital_percentage + rail_percentage + salary_percentage + population_percentage
+    park_percentage = park_percentage / sum
+    school_percentage = school_percentage / sum
+    pride_percentage = pride_percentage / sum
+    hospital_percentage = hospital_percentage / sum
+    rail_percentage = rail_percentage / sum
+    salary_percentage = salary_percentage / sum
+    population_percentage = population_percentage / sum
     result = 0
 
     maxdata = {
@@ -295,32 +300,33 @@ def score():
     def calculateScore(current, max):
         if current > max:
             return 1
-        return current/max
+        return current / max
+
     # park数据
     items = data.radius('Park', longitude, latitude, radius)
-    park_score = calculateScore(len(items)/area_size, maxdata['park'])
-    result += park_score*park_percentage
+    park_score = calculateScore(len(items) / area_size, maxdata['park'])
+    result += park_score * park_percentage
 
     # school数据
     items = data.radius('School', longitude, latitude, radius)
     School_score = calculateScore(len(items) / area_size, maxdata['school'])
-    result += School_score*school_percentage
+    result += School_score * school_percentage
 
     # Hospital数据
     items = data.radius('Hospital', longitude, latitude, radius)
     Hospital_score = calculateScore(
         len(items) / area_size, maxdata['hospital'])
-    result += Hospital_score*hospital_percentage
+    result += Hospital_score * hospital_percentage
 
     # Pride数据
     items = data.radius('Pride', longitude, latitude, radius)
     Pride_score = calculateScore(len(items) / area_size, maxdata['pride'])
-    result += Pride_score*pride_percentage
+    result += Pride_score * pride_percentage
 
     # Rail数据
     items = data.radius('Rail', longitude, latitude, radius)
     Rail_score = calculateScore(len(items) / area_size, maxdata['rail'])
-    result += Rail_score*rail_percentage
+    result += Rail_score * rail_percentage
 
     # salary数据
     ret, exists = data.getItem('Population', zipcode)
@@ -330,9 +336,9 @@ def score():
         median_earnings = ret['median_earnings']
         population = ret['population']
 
-    result += (median_earnings/maxdata['salary'])*salary_percentage
+    result += (median_earnings / maxdata['salary']) * salary_percentage
     # population数据
-    result += (population/maxdata['population'])*population_percentage
+    result += (population / maxdata['population']) * population_percentage
     # print(salary_percentage)
     # print(population_percentage)
     # print((median_earnings / maxdata['salary']) * salary_percentage)
@@ -422,5 +428,5 @@ def crime():
             tmpJSON = df2.to_json()
             tmpDict = json.loads(tmpJSON)
             result[i] = tmpDict
-            
+
     return Response(json.dumps(result), mimetype='application/json')
