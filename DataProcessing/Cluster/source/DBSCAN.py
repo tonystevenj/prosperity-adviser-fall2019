@@ -12,11 +12,11 @@ def showCluster(points2D, labels):
     centroidMark = ['dr', 'db', 'dg', 'dk', 'dy', 'dw','dc']
     for i in range(len(points2D)):
         plt.plot(points2D[i][0], points2D[i][1], colorMark[labels[i]])
-
     plt.show()
 
 dataset_path = '..'
 datafilepath = os.path.join(dataset_path, "Data/parks.csv")
+# datafilepath = "../Data/parks.csv" # 上面两句话跟他等价
 data = pd.read_csv(datafilepath).to_numpy(str).T[0:2].T
 data_convert = data.astype(float)
 print(len(data_convert))
