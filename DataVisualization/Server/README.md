@@ -78,9 +78,8 @@ python -m Server run
 > http://127.0.0.1:8080/api/report/park?longitude=-112.073843&latitude=33.447999&radius=1
 
 #### reviews大字报数据
-> 1. 关闭的店： http://127.0.0.1:8080/api/report/reviews?longitude=-112.073843&latitude=33.447999&radius=0.1&category=closed
-> 2. 1-3星的店：http://127.0.0.1:8080/api/report/reviews?longitude=-112.073843&latitude=33.447999&radius=0.1&category=star13
-> 3. 4-5星的店：http://127.0.0.1:8080/api/report/reviews?longitude=-112.073843&latitude=33.447999&radius=0.1&category=star45
+> 所有数据： http://127.0.0.1:8080/api/report/reviews?longitude=-112.073843&latitude=33.447999&radius=0.1&category=reviewsfeature
+
 #### Part 1, score 数据
 >  http://127.0.0.1:8080/api/report/score?longitude=-112.073843&latitude=33.447999&radius=1&park_percentage=0.5&school_percentage=0.5&pride_percentage=0.5&hospital_percentage=0.5&rail_percentage=0.5
 

@@ -36,6 +36,9 @@ class Reviews():
     def _my_TF_IDF(self, text):
 
         myStopWords = ['00','got',
+                       'going' ,'way', 'better', 'happy',
+                       'said','bit',"awesome","excellent","better","sure",
+                       'know' ,'say', 'work', 'wasn',
                        'time', 'restaurant', 'night', 'downtown','don', 'didn',
                        'delicious' ,'love' , 'amazing' , 'little',
                        'come','went','definitely','pretty','people','hour',
@@ -81,8 +84,10 @@ class Reviews():
             now[0] = words[i]
             now[1] = weights[i]
             now = now[:, (now[1] * -1).argsort()]
-            outnowWords = now[0][:10].flatten().T
-            outnowWeights = now[1][:10].flatten().T
+            # outnowWords = now[0][:10].flatten().T
+            # outnowWeights = now[1][:10].flatten().T # 取前10 个
+            outnowWords = now[0][:30].flatten().T
+            outnowWeights = now[1][:30].flatten().T
             output[i][1] = outnowWords
             output[i][2] = outnowWeights
         # return output.T[:2].T
