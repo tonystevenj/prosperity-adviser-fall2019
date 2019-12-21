@@ -50,3 +50,6 @@ out1=vectorizer.get_feature_names()
 out2=vectorizer.fit_transform(corpus).toarray()
 print(out1)
 print(out2)
+print(vectorizer.vocabulary_)
+print(vectorizer.idf_)
+vectorizer.vocabulary={'first': 1, 'document': 0, 'second': 3, 'third': 4, 'one': 2}

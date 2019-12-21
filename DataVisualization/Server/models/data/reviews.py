@@ -10,15 +10,15 @@ class Reviews():
     def load(self):
         dataPath = env.getDataPath()
         try:
-            reviews = pd.read_csv(dataPath+"yelp_dataset/review_Phoenix.csv", sep=',', header=None, engine='python')
+            reviews = pd.read_csv(dataPath+"yelp_dataset/newReviewAfterStopwords.csv")
         except:
             return
-        reviews.columns = reviews.iloc[0]
-        new3 = reviews.drop(0)
-        new3.reset_index(drop=True, inplace=True)
-        new4 = new3.drop(['review_id', 'cool', 'useful', 'user_id', 'funny', 'date', 'stars'], axis=1)
-        new5= new4.groupby('business_id').agg(lambda x: '&'.join(set(x))).reset_index()
-        self.data =new5.to_numpy()
+        # reviews.columns = reviews.iloc[0]
+        # new3 = reviews.drop(0)
+        # new3.reset_index(drop=True, inplace=True)
+        # new4 = new3.drop(['review_id', 'cool', 'useful', 'user_id', 'funny', 'date', 'stars'], axis=1)
+        # new5= new4.groupby('business_id').agg(lambda x: '&'.join(set(x))).reset_index()
+        self.data =reviews.to_numpy().T[1:3].T
         # print("哈哈",self.data.shape) : (4003,2)
         items = {}
         geoItems = {}

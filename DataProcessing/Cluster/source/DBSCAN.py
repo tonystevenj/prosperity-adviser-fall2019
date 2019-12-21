@@ -20,7 +20,7 @@ datafilepath = os.path.join(dataset_path, "Data/parks.csv")
 data = pd.read_csv(datafilepath).to_numpy(str).T[0:2].T
 data_convert = data.astype(float)
 print(len(data_convert))
-clustering = DBSCAN(eps=0.01, min_samples=4).fit(data_convert)
+clustering = DBSCAN(eps=0.03, min_samples=4).fit(data_convert)
 print(len(clustering.labels_))
 print(clustering.labels_)
 print(clustering)

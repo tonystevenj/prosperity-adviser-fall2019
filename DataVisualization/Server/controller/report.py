@@ -55,17 +55,21 @@ def business():
 
     return Response(json.dumps(result), mimetype='application/json')
 
-
+import datetime as d
 def reviews():
+    print("进入review")
+    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     category = request.args.get('category')
     latitude = request.args.get('latitude')
     longitude = request.args.get('longitude')
     radius = request.args.get('radius')
     # print("哈哈",category)
     IDs = data.radius('Business', longitude, latitude, radius)
-    result_0 = ""
-    result_13 = ""
-    result_45 = ""
+    print("redius反应时间")
+    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    result_0 = []
+    result_13 = []
+    result_45 = []
     reviewInfo_closed = {
         'reviewAmount': 0,
         'businessAmount': 0,
@@ -90,17 +94,17 @@ def reviews():
             isopen = ret2['is_open']
             # print("哈哈", type(isopen), isopen)  # int
             if float(isopen) == 0:
-                result_0 += ret
+                result_0 .append(ret)
                 reviewInfo_closed['reviewAmount'] += int(ret2['review_count'])
                 reviewInfo_closed['businessAmount'] += 1
             else:
                 if float(star) >= 4:
-                    result_45 += ret
+                    result_45 .append(ret)
                     reviewInfo_star45['reviewAmount'] += int(
                         ret2['review_count'])
                     reviewInfo_star45['businessAmount'] += 1
                 else:
-                    result_13 += ret
+                    result_13 .append(ret)
                     reviewInfo_star13['reviewAmount'] += int(
                         ret2['review_count'])
                     reviewInfo_star13['businessAmount'] += 1
@@ -115,7 +119,7 @@ def reviews():
         return Response(json.dumps(reviewInfo_star45), mimetype='application/json')
 
     re, bool = data.getObj("Reviews")
-    result=[['closed',result_0],['star 1 3',result_13],['star 4 5',result_45]]
+    result=[['closed'," ".join(result_0)],['star 1 3'," ".join(result_13)],['star 4 5'," ".join(result_45)]]
     nparray = None
 
     # if category == 'closed':
@@ -129,17 +133,23 @@ def reviews():
         # print(nparray.shape)
     if (len(nparray) == 0):
         return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
-    try:
-        output = re.full_process(nparray)  # 输入形式：(n,2)
-    except Exception as e:
-        print("reviews api", e)
-        return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
+    print("数据准备完成")
+    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    # try:
+    output = re.full_process(nparray)  # 输入形式：(n,2)
+    # except Exception as e:
+    #     print("reviews api", e)
+    #     return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
+    print("TF-IDF时间")
+    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     list_dic_out = []
     for i in range(len(output)):
         list_dic_out.append({'category': str(output[i, 0]),
                              'reviews': str(output[i, 1]),
                              'weights': str(output[i, 2])
                              })
+    print("字典输出时间")
+    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     return Response(json.dumps(list_dic_out), mimetype='application/json')
 
     # # calculate top 10 words for whole region:
@@ -194,13 +204,11 @@ def feature():
         elif category == 'star13' and ret['is_open'] == '1' and float(ret['stars']) > 0 and float(ret['stars']) < 4:
             group = 2
             dataTmp.append(ret)
-
     try:
         response = bfg.Business_Feature_Graph(dataTmp, group)
     except Exception as e:
         print('feature api', e)
         response = []
-
     return Response(json.dumps(response), mimetype='application/json')
 
 
