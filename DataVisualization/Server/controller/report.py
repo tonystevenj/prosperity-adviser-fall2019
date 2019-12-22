@@ -224,9 +224,12 @@ def reviews():
     termslist=[]
     # 排序:
     for k in range(3):
+        reviews = terms.copy()
+        weight = second_tf_idf[k]
+        print("&&&&&&&&&&&&&&&&&&&&7")
+        print(reviews)
+        print(weight)
         for i in range(len(second_tf_idf[k])):
-            reviews=terms.copy()
-            weight=second_tf_idf[k]
             # 冒泡排序:
             for i in range(len(weight)-1):
                 for j in range(len(weight)-1):
@@ -238,7 +241,11 @@ def reviews():
                         tem2 = reviews[i]
                         reviews[i] = reviews[i + 1]
                         reviews[i + 1] = tem2
-            termslist.append(reviews)
+        termslist.append(reviews)
+        print(reviews)
+        print(weight)
+        print("&&&&&&&&&&&&&&&&&&&&7")
+
     labels = ['closed', 'star13', 'star45']
     list_dic_out = []
     for i in range(len(second_tf_idf)):
