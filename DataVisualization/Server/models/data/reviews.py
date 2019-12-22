@@ -10,7 +10,8 @@ class Reviews():
     def load(self):
         dataPath = env.getDataPath()
         try:
-            reviews = pd.read_csv(dataPath+"yelp_dataset/newReviewAfterStopwords.csv")
+            reviews1 = pd.read_csv(dataPath+"yelp_dataset/newReviewAfterStopwords.csv")
+            reviews2 = pd.read_csv(dataPath+"yelp_dataset/newTipAfterStopwords.csv")
         except:
             return
         # reviews.columns = reviews.iloc[0]
@@ -18,12 +19,22 @@ class Reviews():
         # new3.reset_index(drop=True, inplace=True)
         # new4 = new3.drop(['review_id', 'cool', 'useful', 'user_id', 'funny', 'date', 'stars'], axis=1)
         # new5= new4.groupby('business_id').agg(lambda x: '&'.join(set(x))).reset_index()
-        self.data =reviews.to_numpy().T[1:3].T
+        frames = [reviews2, reviews1]
+        all = pd.concat(frames)
+        self.data =all.to_numpy().T[1:3].T
+        # print(self.data)
         # print("哈哈",self.data.shape) : (4003,2)
         items = {}
         geoItems = {}
         for i in range(len(self.data)):
-            items[self.data[i][0]]=self.data[i][1]
+            if self.data[i][0] in items:
+                now = items[self.data[i][0]]
+                # print("哈哈")
+                items[self.data[i][0]] = ' '.join([str(now),str(self.data[i][1])])
+            else:
+                # print("完事2")
+                items[self.data[i][0]]=str(self.data[i][1])
+        # print("完事")
         return items, geoItems
     def full_process(self,data_to_process):
         data_to_process=data_to_process.T

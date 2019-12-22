@@ -52,10 +52,11 @@ def processToMiddata(fPath, toName="midData"):
     reviews.columns = reviews.iloc[0]
     new3 = reviews.drop(0)
     new3.reset_index(drop=True, inplace=True)
-    new4 = new3.drop(['review_id', 'cool', 'useful', 'user_id', 'funny', 'date', 'stars'], axis=1)
+    new4 = new3.drop(['compliment_count','date','user_id'], axis=1)
     new5 = new4.groupby('business_id').agg(lambda x: '&'.join(set(x))).reset_index()
     new6 = new5.to_numpy()
     print(new6[0])
+    # return
     for info in new6:
         review = info[1]
         newwords = []
@@ -68,10 +69,10 @@ def processToMiddata(fPath, toName="midData"):
         # print(newreview)
         info[1] = str(newreview)
     print(new6.shape)
-    df=pd.DataFrame(new6).to_csv("newReviewAfterStopwords.csv")
+    df=pd.DataFrame(new6).to_csv("newTipAfterStopwords.csv")
     # np.savetxt("newReviewAfterStopwords.csv", new6, delimiter=';', fmt='%s', encoding='utf8')
     # for i in range(len(new5)):
     #     new5[i:i+1].to_csv(f'midDataes_Single/{new5.iloc[i,0]}.csv')
 
 
-processToMiddata("Data/review_Phoenix.csv")
+processToMiddata("Data/tip_Phoenix.csv")
