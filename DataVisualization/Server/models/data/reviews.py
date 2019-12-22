@@ -46,10 +46,10 @@ class Reviews():
 
     def _my_TF_IDF(self, text):
 
-        myStopWords = ['00','got',
+        myStopWords = ['00','got','ll',
                        'going' ,'way', 'better', 'happy',
                        'said','bit',"awesome","excellent","better","sure",
-                       'know' ,'say', 'work', 'wasn',
+                       'know' ,'say', 'work', 'wasn','want','day','live','roll','location','hound','perfect',
                        'time', 'restaurant', 'night', 'downtown','don', 'didn',
                        'delicious' ,'love' , 'amazing' , 'little',
                        'come','went','definitely','pretty','people','hour',

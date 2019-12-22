@@ -142,15 +142,114 @@ def reviews():
     #     return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
     print("TF-IDF时间")
     print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
-    list_dic_out = []
+    # list_dic_out = []
+    # for i in range(len(output)):
+    #     list_dic_out.append({'category': str(output[i, 0]),
+    #                          'reviews': str(output[i, 1]),
+    #                          'weights': str(output[i, 2])
+    #                          })
+    # print("字典输出时间")
+    #
+    # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    # return Response(json.dumps(list_dic_out), mimetype='application/json')
+
+    # do iterative TF-IDF:
+    allinfodict={}
+    print(output)
+    print(output[0, 1])
+    print(output[0, 1][0])
     for i in range(len(output)):
-        list_dic_out.append({'category': str(output[i, 0]),
-                             'reviews': str(output[i, 1]),
-                             'weights': str(output[i, 2])
+        for j in range(len(output[i, 1])):
+            if str(output[i,1][j]) in allinfodict:
+                allinfodict[str(output[i,1][j])][i]=int(output[i, 2][j]*100)
+            else:
+                allinfodict[str(output[i,1][j])]=[0,0,0]
+                allinfodict[str(output[i,1][j])][i]=int(output[i, 2][j]*100)
+    terms=[]
+    matrix=[]
+    for key in allinfodict:
+        terms.append(key)
+        matrix.append(allinfodict[key])
+    matrix=np.array(matrix).T.tolist()
+    print('呱呱',matrix[0])
+    print('呱呱',matrix[1])
+    print('呱呱',matrix[2])
+    def steven_tf_idf(matrix, terms):
+        # matrix: (3,5), 表示三个文档，5个words
+        # terms: len=5, 表示5个words
+        # 算法参考:https://stackoverflow.com/questions/36966019/how-aretf-idf-calculated-by-the-scikit-learn-tfidfvectorizer
+        matrixnew = np.array(matrix)
+        print("哈哈", matrixnew)
+        output = np.zeros(matrixnew.shape)
+        if len(matrixnew.T) != len(terms):
+            print("lenth do not match!")
+            return
+        ducomentsnum = len(matrixnew)
+        linesums = []
+        for i in range(len(matrixnew)):
+            linesum = 0
+            for num in matrixnew[i]:
+                linesum += num
+            linesums.append(linesum)
+
+        # 包含词条w的文档数
+        ducomentsnumwithWs = []
+        tem = matrixnew.T
+        for i in range(len(tem)):
+            ducomentsnumwithW = 0
+            for j in range(len(tem[i])):
+                if tem[i][j] != 0:
+                    ducomentsnumwithW += 1
+            ducomentsnumwithWs.append(ducomentsnumwithW)
+
+        # 找最大的tf:
+        maxlinetfs = []
+        for i in range(len(matrixnew)):
+            tem = 0
+            for j in range(len(matrixnew[i])):
+                tf = matrixnew[i][j] / linesums[i]
+                tem = max(tf, tem)
+            maxlinetfs.append(tem)
+
+        # 计算tf-idf
+        for i in range(len(matrixnew)):
+            for j in range(len(matrixnew[i])):
+                tf = (matrixnew[i][j] / linesums[i]) / maxlinetfs[i]
+                idf = math.log((ducomentsnum + 1) / (ducomentsnumwithWs[j] + 1), math.e) + 1
+                output[i][j] = tf * idf
+        return output
+
+    second_tf_idf=steven_tf_idf(matrix,terms)
+
+    termslist=[]
+    # 排序:
+    for k in range(3):
+        for i in range(len(second_tf_idf[k])):
+            reviews=terms.copy()
+            weight=second_tf_idf[k]
+            # 冒泡排序:
+            for i in range(len(weight)-1):
+                for j in range(len(weight)-1):
+                    if weight[i]<weight[i+1]:
+                        tem = weight[i]
+                        weight[i] = weight[i+1]
+                        weight[i+1]=tem
+
+                        tem2 = reviews[i]
+                        reviews[i] = reviews[i + 1]
+                        reviews[i + 1] = tem2
+            termslist.append(reviews)
+    labels = ['closed', 'star13', 'star45']
+    list_dic_out = []
+    for i in range(len(second_tf_idf)):
+        list_dic_out.append({'category': str(labels[i]),
+                             'reviews': str(termslist[i]),
+                             'weights': str(second_tf_idf[i])
                              })
     print("字典输出时间")
     print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     return Response(json.dumps(list_dic_out), mimetype='application/json')
+
 
     # # calculate top 10 words for whole region:
     # whole_words = {}
