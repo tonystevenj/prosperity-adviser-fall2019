@@ -56,16 +56,38 @@
         <Table :latitude="latitude" :longitude="longitude" :radius="radius" />
       </el-col>
     </el-row>
+    <!-- 犯罪率 -->
+    <el-row :gutter="32" class="row">
+      <el-col :span="24">
+        <Crime :zipcode="zipcode" />
+      </el-col>
+    </el-row>
     <!-- 标题 -->
+    <br>
+    <br>
+    <br>
+    <el-row :gutter="32" class="row">
+        <div class="star_type" style="font-size:30px">Features summary of surrounding restaurants</div>
+    </el-row>
+    <el-row :gutter="32" class="row">
+        <div class="star_type">There are {{topdata.stars45+topdata.stars03+topdata.close_count}} restaurants in total, and they are divided into three group: star 4-5,star 0-3 and closed for ever</div>
+    </el-row>
+    <!-- 相关性标题 -->
+    <br>
+    <el-row :gutter="32" class="row">
+      <el-col :span="32">
+        <div class="star_type" style="font-size:20px">Analysis 1: Most important factors to improve prosperity</div>
+      </el-col>
+    </el-row>
     <el-row :gutter="32" class="row">
       <el-col :span="8">
-        <div class="star_type">4 - 5 stars ({{topdata.stars45}} items)</div>
+        <div class="star_type">Restaurants with 4 - 5 stars ({{topdata.stars45}})</div>
       </el-col>
       <el-col :span="8">
-        <div class="star_type">0 - 3 stars ({{topdata.stars03}} items)</div>
+        <div class="star_type">Restaurants with 0 - 3 stars ({{topdata.stars03}})</div>
       </el-col>
       <el-col :span="8">
-        <div class="star_type">Closed ({{topdata.close_count}} items)</div>
+        <div class="star_type">Closed restaurants ({{topdata.close_count}})</div>
       </el-col>
     </el-row>
     <!-- 评分相关性 -->
@@ -78,6 +100,27 @@
       </el-col>
       <el-col :span="8">
         <Rate :latitude="latitude" :longitude="longitude" :radius="radius" :category="category[2]" />
+      </el-col>
+    </el-row>
+    
+    <!-- 大字报标题 -->
+    <br>
+    <br>
+    <br>
+    <el-row :gutter="32" class="row">
+     <el-col :span="32">
+        <div class="star_type" style="font-size:20px">Analysis 2: Most frequency words in users review</div>
+      </el-col>
+    </el-row>
+    <el-row :gutter="32" class="row">
+      <el-col :span="8">
+        <div class="star_type">Restaurants with 4 - 5 stars ({{topdata.stars45}})</div>
+      </el-col>
+      <el-col :span="8">
+        <div class="star_type">Restaurants with 0 - 3 stars ({{topdata.stars03}})</div>
+      </el-col>
+      <el-col :span="8">
+        <div class="star_type">Closed restaurants ({{topdata.close_count}})</div>
       </el-col>
     </el-row>
     <!-- 大字报 -->
@@ -107,12 +150,7 @@
         />
       </el-col>
     </el-row>
-    <!-- 犯罪率 -->
-    <el-row :gutter="32" class="row">
-      <el-col :span="24">
-        <Crime :zipcode="zipcode" />
-      </el-col>
-    </el-row>
+    
   </div>
 </template>
 
@@ -171,27 +209,41 @@ export default {
   },
   methods: {
     request() {
+      let data = {
+        open_count: 150,
+        stars45: 82,
+        stars03: 68,
+        close_count: 95,
+        median_earnings: 21183,
+        population: 25097
+      };
+      this.topdata["open_count"] = data["open_count"];
+      this.topdata["stars45"] = data["stars45"];
+      this.topdata["stars03"] = data["stars03"];
+      this.topdata["close_count"] = data["close_count"];
+      this.topdata["median_earnings"] = data["median_earnings"];
+      this.topdata["population"] = data["population"];
       // api获取真实数据进行替换
-      this.axios
-        .get("/api/report/business", {
-          params: {
-            latitude: this.latitude,
-            longitude: this.longitude,
-            radius: this.radius,
-            zipcode: this.zipcode
-          }
-        })
-        .then(response => {
-          this.topdata["open_count"] = response.data["open_count"];
-          this.topdata["stars45"] = response.data["stars45"];
-          this.topdata["stars03"] = response.data["stars03"];
-          this.topdata["close_count"] = response.data["close_count"];
-          this.topdata["median_earnings"] = response.data["median_earnings"];
-          this.topdata["population"] = response.data["population"];
-        })
-        .catch(response => {
-          console.log(response);
-        });
+      // this.axios
+      //   .get("/api/report/business", {
+      //     params: {
+      //       latitude: this.latitude,
+      //       longitude: this.longitude,
+      //       radius: this.radius,
+      //       zipcode: this.zipcode
+      //     }
+      //   })
+      //   .then(response => {
+      //     this.topdata["open_count"] = response.data["open_count"];
+      //     this.topdata["stars45"] = response.data["stars45"];
+      //     this.topdata["stars03"] = response.data["stars03"];
+      //     this.topdata["close_count"] = response.data["close_count"];
+      //     this.topdata["median_earnings"] = response.data["median_earnings"];
+      //     this.topdata["population"] = response.data["population"];
+      //   })
+      //   .catch(response => {
+      //     console.log(response);
+      //   });
     }
   }
 };

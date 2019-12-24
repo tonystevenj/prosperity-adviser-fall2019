@@ -7,7 +7,7 @@
 
        <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
-        <img src="https://afrsscdn.hopeness.net/static/databases.png" class="img-xys">
+        <img src="../../../static/databases.png" class="img-xys">
         <div style="padding: 10px;">
           <strong>Comprehensive Databases</strong>
           <div class="bottom">Based on Yelp, census org and other credible datasets.</div>
@@ -18,7 +18,7 @@
 
        <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
-        <img src="https://afrsscdn.hopeness.net/static/review.png" class="img-xys">
+        <img src="../../../static/review.png" class="img-xys">
         <div style="padding: 10px;">
           <strong>Review’s Key Words</strong>
           <div class="bottom">Visualized high-frequency key words of targeted business circle.</div>
@@ -29,7 +29,7 @@
 
         <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
-        <img src="https://afrsscdn.hopeness.net/static/facilities.png" class="img-xys">
+        <img src="../../../static/facilities.png" class="img-xys">
         <div style="padding: 10px;">
           <strong>Communal facilities</strong>
           <div class="bottom">Popular communal facilities in the targeted area.</div>
@@ -39,7 +39,7 @@
 
        <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
-        <img src="https://afrsscdn.hopeness.net/static/competitors.png" class="img-xys">
+        <img src="../../../static/competitors.png" class="img-xys">
         <div style="padding: 10px;">
           <strong>Nearby Competitors</strong>
           <div class="bottom">Specific information of selected nearby restaurants.</div>
@@ -49,7 +49,7 @@
 
         <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
-        <img src="https://afrsscdn.hopeness.net/static/people.png" class="img-xys">
+        <img src="../../../static/people.png" class="img-xys">
         <div style="padding: 10px;">
           <strong>Potential Customers</strong>
           <div class="bottom">Authoritative population data of selected area.</div>
@@ -59,7 +59,7 @@
 
         <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
-        <img src="https://afrsscdn.hopeness.net/static/income.png" class="img-xys">
+        <img src="../../../static/income.png" class="img-xys">
         <div style="padding: 10px;">
           <strong>Consumption Ability</strong>
           <div class="bottom">Reliable income data of selected area.</div>
@@ -69,14 +69,13 @@
 
         <swiper-slide>
        <el-card :body-style="{ padding: '0px' }">
-        <img src="https://afrsscdn.hopeness.net/static/store.png" class="img-xys">
+        <img src="../../../static/store.png" class="img-xys">
         <div style="padding: 10px;">
           <strong>Possible Risks</strong>
           <div class="bottom">Nearby closed restaurants’ yelp review key word.</div>
         </div>
         </el-card>
         </swiper-slide>
-
 
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>

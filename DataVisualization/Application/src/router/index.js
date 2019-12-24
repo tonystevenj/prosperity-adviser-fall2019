@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/views/Index'
+import Introduction from '@/views/Introduction'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
@@ -11,13 +12,18 @@ axios.defaults.headers.post['Content-type'] = 'application/json'
 Vue.use(VueAxios, axios);
 
 export default new Router({
-  mode: 'history',
+  // mode: 'hash',
   base: '/',
   routes: [
     {
       path: '/',
       name: 'Index',
       component: Index
+    },
+    {
+      path: '/introduction',
+      name: 'Introduction',
+      component: Introduction
     }
   ]
 })
