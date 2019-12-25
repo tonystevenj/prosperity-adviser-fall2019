@@ -209,41 +209,27 @@ export default {
   },
   methods: {
     request() {
-      let data = {
-        open_count: 150,
-        stars45: 82,
-        stars03: 68,
-        close_count: 95,
-        median_earnings: 21183,
-        population: 25097
-      };
-      this.topdata["open_count"] = data["open_count"];
-      this.topdata["stars45"] = data["stars45"];
-      this.topdata["stars03"] = data["stars03"];
-      this.topdata["close_count"] = data["close_count"];
-      this.topdata["median_earnings"] = data["median_earnings"];
-      this.topdata["population"] = data["population"];
       // api获取真实数据进行替换
-      // this.axios
-      //   .get("/api/report/business", {
-      //     params: {
-      //       latitude: this.latitude,
-      //       longitude: this.longitude,
-      //       radius: this.radius,
-      //       zipcode: this.zipcode
-      //     }
-      //   })
-      //   .then(response => {
-      //     this.topdata["open_count"] = response.data["open_count"];
-      //     this.topdata["stars45"] = response.data["stars45"];
-      //     this.topdata["stars03"] = response.data["stars03"];
-      //     this.topdata["close_count"] = response.data["close_count"];
-      //     this.topdata["median_earnings"] = response.data["median_earnings"];
-      //     this.topdata["population"] = response.data["population"];
-      //   })
-      //   .catch(response => {
-      //     console.log(response);
-      //   });
+      this.axios
+        .get("/api/report/business", {
+          params: {
+            latitude: this.latitude,
+            longitude: this.longitude,
+            radius: this.radius,
+            zipcode: this.zipcode
+          }
+        })
+        .then(response => {
+          this.topdata["open_count"] = response.data["open_count"];
+          this.topdata["stars45"] = response.data["stars45"];
+          this.topdata["stars03"] = response.data["stars03"];
+          this.topdata["close_count"] = response.data["close_count"];
+          this.topdata["median_earnings"] = response.data["median_earnings"];
+          this.topdata["population"] = response.data["population"];
+        })
+        .catch(response => {
+          console.log(response);
+        });
     }
   }
 };

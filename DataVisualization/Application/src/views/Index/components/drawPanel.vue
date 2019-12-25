@@ -110,26 +110,23 @@ export default {
   methods: {
     request() {
       this.loading = true;
-      this.data = {"park": {"sum": 13, "max": 1.201385924}, "school": {"sum": 10, "max": 5.815748132}, "pride": {"sum": 6, "max": 2.31007695}, "hospital": {"sum": 2, "max": 0.340240332}, "rail": {"sum": 3, "max": 0.373340781}, "salary": {"sum": 21183.0, "max": 61968}, "population": {"sum": 25097.0, "max": 70008}};
-      this.calculate();
-      this.loading = false;
-      // this.axios
-      //   .get("/api/report/score_data", {
-      //     params: {
-      //       latitude: this.latitude,
-      //       longitude: this.longitude,
-      //       radius: this.radius,
-      //       zipcode: this.zipcode
-      //     }
-      //   })
-      //   .then(response => {
-      //     this.data = response.data;
-      //     this.calculate();
-      //     this.loading = false;
-      //   })
-      //   .catch(response => {
-      //     console.log(response);
-      //   });
+      this.axios
+        .get("/api/report/score_data", {
+          params: {
+            latitude: this.latitude,
+            longitude: this.longitude,
+            radius: this.radius,
+            zipcode: this.zipcode
+          }
+        })
+        .then(response => {
+          this.data = response.data;
+          this.calculate();
+          this.loading = false;
+        })
+        .catch(response => {
+          console.log(response);
+        });
     },
     calculate() {
       let result = 0;

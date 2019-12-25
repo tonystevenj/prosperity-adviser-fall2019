@@ -46,7 +46,7 @@
               <el-slider
                 label="Scope"
                 id="scope"
-                v-model="mapform.radius_tmp"
+                v-model="mapform.radius"
                 vertical
                 :min="1"
                 :max="30"
@@ -116,11 +116,10 @@ export default {
         30: "30"
       },
       mapform: {
-        longitude: -112.05709983455688,
-        latitude: 33.451329291863644,
+        longitude: 0,
+        latitude: 0,
         radius: 1,
-        radius_tmp: 1,
-        zipcode: 85006,
+        zipcode: 0,
         place: "",
         searchbox: ""
       },
@@ -168,7 +167,7 @@ export default {
         //   google.maps.MapTypeId.TERRAIN,
         //   google.maps.MapTypeId.STYLED_MAP
         // ],
-        // styles: mapstyle,
+        styles: mapstyle,
         // Restricting Map Bounds
         // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/control-bounds-restriction?hl=zh-CN
         restriction: {
@@ -205,16 +204,16 @@ export default {
     searchMap() {
       {
         this.loading = true;
-        // this.mapform.latitude = e.latLng.lat();
-        // this.mapform.longitude = e.latLng.lng();
+        this.mapform.latitude = e.latLng.lat();
+        this.mapform.longitude = e.latLng.lng();
 
-        // let e = new google.maps.LatLng({lat: this.mapform.latitude, lng: this.mapform.longitude});
-        // this.sitePin(e);
+        let e = new google.maps.LatLng({lat: this.mapform.latitude, lng: this.mapform.longitude});
+        this.sitePin(e);
 
-        // setTimeout(() => {
-        //   this.loading = false;
-        //   this.showReport = true;
-        // }, 1000);
+        setTimeout(() => {
+          this.loading = false;
+          this.showReport = true;
+        }, 1000);
         var markers = [];
         var places = this.searchBox.getPlaces();
 
@@ -240,33 +239,32 @@ export default {
             this.loading = false;
             this.showReport = true;
           }, 1000);
-          return;
-          // var icon = {
-          //   url: place.icon,
-          //   size: new google.maps.Size(71, 71),
-          //   origin: new google.maps.Point(0, 0),
-          //   anchor: new google.maps.Point(17, 34),
-          //   scaledSize: new google.maps.Size(25, 25)
-          // };
+          var icon = {
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(25, 25)
+          };
 
           // Create a marker for each place.
-          // markers.push(
-          //   new google.maps.Marker({
-          //     map: this.gmap,
-          //     icon: icon,
-          //     title: place.name,
-          //     position: place.geometry.location
-          //   })
-          // );
+          markers.push(
+            new google.maps.Marker({
+              map: this.gmap,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            })
+          );
 
-          // if (place.geometry.viewport) {
-          //   // Only geocodes have viewport.
-          //   bounds.union(place.geometry.viewport);
-          // } else {
-          //   bounds.extend(place.geometry.location);
-          // }
+          if (place.geometry.viewport) {
+            // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+          } else {
+            bounds.extend(place.geometry.location);
+          }
         });
-        // this.gmap.fitBounds(bounds);
+        this.gmap.fitBounds(bounds);
       }
     },
     dataHandle(results) {
@@ -318,8 +316,8 @@ export default {
     },
     onclickmap(e) {
       this.loading = true;
-      // this.mapform.latitude = e.latLng.lat();
-      // this.mapform.longitude = e.latLng.lng();
+      this.mapform.latitude = e.latLng.lat();
+      this.mapform.longitude = e.latLng.lng();
 
       this.sitePin(e.latLng);
 
@@ -330,29 +328,29 @@ export default {
 
       // get zipcode
       // https://stackoverflow.com/questions/6764917/latitude-and-longitude-can-find-zip-code
-      // var geocoder = new google.maps.Geocoder();
-      // geocoder.geocode({ latLng: e.latLng }, (results, status) => {
-      //   if (status != "OK") {
-      //     this.$message.error("Network error, please try again!");
-      //     return;
-      //   }
-      //   for (var i in results[0]["address_components"]) {
-      //     if (
-      //       results[0]["address_components"][i]["types"].indexOf(
-      //         "postal_code"
-      //       ) > -1
-      //     ) {
-      //       this.mapform.zipcode = Number(
-      //         results[0]["address_components"][i]["long_name"]
-      //       );
-      //       setTimeout(() => {
-      //         this.loading = false;
-      //         this.showReport = true;
-      //       }, 1000);
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ latLng: e.latLng }, (results, status) => {
+        if (status != "OK") {
+          this.$message.error("Network error, please try again!");
+          return;
+        }
+        for (var i in results[0]["address_components"]) {
+          if (
+            results[0]["address_components"][i]["types"].indexOf(
+              "postal_code"
+            ) > -1
+          ) {
+            this.mapform.zipcode = Number(
+              results[0]["address_components"][i]["long_name"]
+            );
+            setTimeout(() => {
+              this.loading = false;
+              this.showReport = true;
+            }, 1000);
 
-      //     }
-      //   }
-      // });
+          }
+        }
+      });
     },
     sitePin(latLng) {
       //clear others
@@ -382,7 +380,7 @@ export default {
         fillColor: "#FF0000",
         fillOpacity: 0.2,
         center: latLng,
-        radius: this.mapform.radius_tmp * 1609.344
+        radius: this.mapform.radius * 1609.344
       });
 
       cityCircle.addListener("click", this.onclickmap);
