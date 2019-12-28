@@ -565,14 +565,15 @@
             </div>
             <h2 id="3-key-factors-in-users-opinion-" style="color:#158bb8">3. Key Factors in Users&#39; Opinion</h2>
             <hr />
-            <p>We divide all restaurants in area A into three groups: star 0-3, star 4-5 and closed. In this part, we try to give different features of three groups in users&#39; eyes. Then we add all reviews of one single restaurant together, as terms of this restaurant given by users. And do the TF-IDF, output the term-weight list for every restaurant and get top 10 terms. Collect all keywords in same group, sum the weight of same words, as the keywords of the whole group.</p>
+            <p>We divide all restaurants in area A into three groups: star 0-3, star 4-5 and closed. In this part, we try to give different features of three groups in users' eyes. We add all reviews of one same group, as features of this group given by users. And do the TF-IDF, output the term-weight list for every restaurant and get top 30 terms. Then, treat the output as new term frequency, do another TF-IDF algorithm. Pipe line as follow:
+            </p>
             <div class="center">
-              <img class="image" src="../../../static/figure15.png" />
+              <img class="image" src="../../../static/picture1.png" />
             </div>
             <div class="center" style="font-size:15px;font-weight:bold">
               <p>Figure: Pipeline of TF-IDF</p>
             </div>
-            <p>Significance: By given this data, we can figure out what factors customer cares most.</p>
+            <p>Significance: By given this data, we can figure out what feature costomers mentioned most, and that kind of reflects factors customers care most.</p>
             <p>Result sample:</p>
             <div class="center">
               <img

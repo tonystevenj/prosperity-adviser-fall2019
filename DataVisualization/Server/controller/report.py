@@ -57,16 +57,16 @@ def business():
 
 import datetime as d
 def reviews():
-    print("进入review")
-    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    # print("进入review")
+    # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     category = request.args.get('category')
     latitude = request.args.get('latitude')
     longitude = request.args.get('longitude')
     radius = request.args.get('radius')
     # print("哈哈",category)
     IDs = data.radius('Business', longitude, latitude, radius)
-    print("redius反应时间")
-    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    # print("redius反应时间")
+    # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     result_0 = []
     result_13 = []
     result_45 = []
@@ -133,15 +133,15 @@ def reviews():
         # print(nparray.shape)
     if (len(nparray) == 0):
         return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
-    print("数据准备完成")
-    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    # print("数据准备完成")
+    # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     # try:
     output = re.full_process(nparray)  # 输入形式：(n,2)
     # except Exception as e:
     #     print("reviews api", e)
     #     return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
-    print("TF-IDF时间")
-    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    # print("TF-IDF时间")
+    # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     # list_dic_out = []
     # for i in range(len(output)):
     #     list_dic_out.append({'category': str(output[i, 0]),
@@ -155,9 +155,9 @@ def reviews():
 
     # do iterative TF-IDF:
     allinfodict={}
-    print(output)
-    print(output[0, 1])
-    print(output[0, 1][0])
+    # print(output)
+    # print(output[0, 1])
+    # print(output[0, 1][0])
     for i in range(len(output)):
         for j in range(len(output[i, 1])):
             if str(output[i,1][j]) in allinfodict:
@@ -171,15 +171,15 @@ def reviews():
         terms.append(key)
         matrix.append(allinfodict[key])
     matrix=np.array(matrix).T.tolist()
-    print('呱呱',matrix[0])
-    print('呱呱',matrix[1])
-    print('呱呱',matrix[2])
+    # print('呱呱',matrix[0])
+    # print('呱呱',matrix[1])
+    # print('呱呱',matrix[2])
     def steven_tf_idf(matrix, terms):
         # matrix: (3,5), 表示三个文档，5个words
         # terms: len=5, 表示5个words
         # 算法参考:https://stackoverflow.com/questions/36966019/how-aretf-idf-calculated-by-the-scikit-learn-tfidfvectorizer
         matrixnew = np.array(matrix)
-        print("哈哈", matrixnew)
+        # print("哈哈", matrixnew)
         output = np.zeros(matrixnew.shape)
         if len(matrixnew.T) != len(terms):
             print("lenth do not match!")
@@ -226,9 +226,9 @@ def reviews():
     for k in range(3):
         reviews = terms.copy()
         weight = second_tf_idf[k]
-        print("&&&&&&&&&&&&&&&&&&&&7")
-        print(reviews)
-        print(weight)
+        # print("&&&&&&&&&&&&&&&&&&&&7")
+        # print(reviews)
+        # print(weight)
         for i in range(len(second_tf_idf[k])):
             # 冒泡排序:
             for i in range(len(weight)-1):
@@ -242,9 +242,9 @@ def reviews():
                         reviews[i] = reviews[i + 1]
                         reviews[i + 1] = tem2
         termslist.append(reviews)
-        print(reviews)
-        print(weight)
-        print("&&&&&&&&&&&&&&&&&&&&7")
+        # print(reviews)
+        # print(weight)
+        # print("&&&&&&&&&&&&&&&&&&&&7")
 
     labels = ['closed', 'star13', 'star45']
     list_dic_out = []
@@ -253,8 +253,8 @@ def reviews():
                              'reviews': str(termslist[i]),
                              'weights': str(second_tf_idf[i])
                              })
-    print("字典输出时间")
-    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    # print("字典输出时间")
+    # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     return Response(json.dumps(list_dic_out), mimetype='application/json')
 
 
