@@ -204,8 +204,6 @@ export default {
     searchMap() {
       {
         this.loading = true;
-        this.mapform.latitude = e.latLng.lat();
-        this.mapform.longitude = e.latLng.lng();
 
         let e = new google.maps.LatLng({lat: this.mapform.latitude, lng: this.mapform.longitude});
         this.sitePin(e);
@@ -239,23 +237,6 @@ export default {
             this.loading = false;
             this.showReport = true;
           }, 1000);
-          var icon = {
-            url: place.icon,
-            size: new google.maps.Size(71, 71),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(25, 25)
-          };
-
-          // Create a marker for each place.
-          markers.push(
-            new google.maps.Marker({
-              map: this.gmap,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            })
-          );
 
           if (place.geometry.viewport) {
             // Only geocodes have viewport.
@@ -280,7 +261,7 @@ export default {
         // https://developers.google.com/maps/documentation/javascript/markers?hl=zh-CN
         var marker = new google.maps.Marker({
           map: this.gmap,
-          title: "testtest",
+          title: "center",
           position: latLng
         });
 

@@ -62,21 +62,39 @@
         <Crime :zipcode="zipcode" />
       </el-col>
     </el-row>
-    <!-- 标题 -->
-    <br>
-    <br>
-    <br>
+
+    <!-- 聚合大字报 -->
     <el-row :gutter="32" class="row">
-        <div class="star_type" style="font-size:30px">Features summary of surrounding restaurants</div>
+      <el-col :span="24">
+        <WordCloud
+          :latitude="latitude"
+          :longitude="longitude"
+          :radius="radius"
+          :category="category[2]"
+        />
+      </el-col>
+    </el-row>
+
+    <!-- 标题 -->
+    <br />
+    <br />
+    <br />
+    <el-row :gutter="32" class="row">
+      <div class="star_type" style="font-size:30px">Features summary of surrounding restaurants</div>
     </el-row>
     <el-row :gutter="32" class="row">
-        <div class="star_type">There are {{topdata.stars45+topdata.stars03+topdata.close_count}} restaurants in total, and they are divided into three group: star 4-5,star 0-3 and closed for ever</div>
+      <div
+        class="star_type"
+      >There are {{topdata.stars45+topdata.stars03+topdata.close_count}} restaurants in total, and they are divided into three group: star 4-5,star 0-3 and closed for ever</div>
     </el-row>
     <!-- 相关性标题 -->
-    <br>
+    <br />
     <el-row :gutter="32" class="row">
       <el-col :span="32">
-        <div class="star_type" style="font-size:20px">Analysis 1: Most important factors to improve prosperity</div>
+        <div
+          class="star_type"
+          style="font-size:20px"
+        >Analysis 1: Most important factors to improve prosperity</div>
       </el-col>
     </el-row>
     <el-row :gutter="32" class="row">
@@ -102,14 +120,17 @@
         <Rate :latitude="latitude" :longitude="longitude" :radius="radius" :category="category[2]" />
       </el-col>
     </el-row>
-    
+
     <!-- 大字报标题 -->
-    <br>
-    <br>
-    <br>
+    <br />
+    <br />
+    <br />
     <el-row :gutter="32" class="row">
-     <el-col :span="32">
-        <div class="star_type" style="font-size:20px">Analysis 2: Most frequency words in users review</div>
+      <el-col :span="24">
+        <div
+          class="star_type"
+          style="font-size:20px"
+        >Analysis 2: Most frequency words in users review</div>
       </el-col>
     </el-row>
     <el-row :gutter="32" class="row">
@@ -123,6 +144,7 @@
         <div class="star_type">Closed restaurants ({{topdata.close_count}})</div>
       </el-col>
     </el-row>
+
     <!-- 大字报 -->
     <el-row :gutter="32" class="row">
       <el-col :span="8">
@@ -150,7 +172,6 @@
         />
       </el-col>
     </el-row>
-    
   </div>
 </template>
 
@@ -200,7 +221,7 @@ export default {
         median_earnings: 0,
         population: 0
       },
-      category: ["star45", "star13", "closed"]
+      category: ["star45info", "star13info", "closedinfo", "reviewsfeature"]
     };
   },
   created() {},
