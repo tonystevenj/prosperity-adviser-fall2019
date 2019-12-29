@@ -141,7 +141,14 @@ def reviews():
     # # 三个字段全为空
     if (len(nparray[0][1]) == 0) and (len(nparray[1][1]) == 0) and (len(nparray[2][1]) == 0):
         # return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
-        return Response(json.dumps([None, None]), mimetype='application/json')
+        labels1 = ['closed', 'star13', 'star45']
+        list_dic_out1 = []
+        for i in range(3):
+                list_dic_out1.append({'category': str(labels1[i]),
+                                     'reviews': None,
+                                     'weights': None
+                                     })
+        return Response(json.dumps(list_dic_out1), mimetype='application/json')
     # print("数据准备完成")
     # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     # try:
