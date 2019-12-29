@@ -623,7 +623,7 @@ def pop_age():
             'value': float(ret['60 to 64 years']) + float(ret['65 to 69 years'])
         })
         result['age'].append({
-            'name': '40 to 49',
+            'name': '70 to 79',
             'value': float(ret['70 to 74 years']) + float(ret['75 to 79 years'])
         })
         result['age'].append({
