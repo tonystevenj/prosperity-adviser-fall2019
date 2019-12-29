@@ -2,7 +2,7 @@
   <div style="margin-top: 0px;">
     <el-card class="box-card score_frame clearfix">
       <el-form :inline="true" class="score_txt">
-        <el-form-item label="Summary score:">{{ score }}</el-form-item>
+        <el-form-item label="Investment Score:">{{ score }}</el-form-item>
       </el-form>
     </el-card>
     <div class="block" style="margin-top: 20px;">

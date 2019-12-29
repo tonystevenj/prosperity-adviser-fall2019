@@ -1,5 +1,10 @@
 <template>
+
   <div>
+    <!-- 标题 -->
+    <el-row :gutter="32" class="row">
+      <div class="star_type" style="font-size:30px">Part 1: Info and Investment Score of This Area</div>
+    </el-row>
     <!-- 顶部4个栏 -->
     <el-row :gutter="32" class="row">
       <el-col :span="6">
@@ -76,7 +81,7 @@
     <br />
     <br />
     <el-row :gutter="32" class="row">
-      <div class="star_type" style="font-size:30px">Features summary of surrounding restaurants</div>
+      <div class="star_type" style="font-size:30px">Part 2: Features Summary of Surrounding Restaurants</div>
     </el-row>
     <el-row :gutter="32" class="row">
       <div
@@ -122,7 +127,7 @@
     <br />
     <br />
     <el-row :gutter="32" class="row">
-      <el-col :span="24">
+      <el-col :span="32">
         <div
           class="star_type"
           style="font-size:20px"
