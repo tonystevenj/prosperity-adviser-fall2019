@@ -1,38 +1,47 @@
 # -*- coding: utf-8 -*-
 import csv
+import unicodedata
 from ...librarys import env
 from . import base
 
 
-class Park():
+class PopRace():
     """
-    公园数据
+    Population race
     """
 
     def load(self):
         dataPath = env.getDataPath()
-        fp = open(dataPath + 'parks.csv', 'r', encoding='utf8')
+        fp = open(
+            dataPath + 'pop-sdc-azzcta-service-area-statistics.csv', 'r', encoding='utf8')
         fpcsv = csv.reader(fp)
-        next(fpcsv)
+        titles = next(fpcsv)
         items = {}
         geoItems = {}
         for line in fpcsv:
-            # 商家数据
-            items[line[2]] = {
-                'longitude': line[0],
-                'latitude': line[1],
-                'name': line[2],
-                'adress': line[3],
-                'zipcode': line[6],
-                'url': line[7],
-            }
-            # 经纬度数据
-            geoItems[line[2]] = {
-                'longitude': line[0],
-                'latitude': line[1],
-            }
+            tmpItem = {}
+            for i in range(len(line)):
+                tmpItem[titles[i].lower()] = line[i]
+            zipcode = tmpItem['geography'][6:11]
+            if self.is_number(zipcode):
+                items[zipcode] = tmpItem
         fp.close()
         return items, geoItems
 
+    def is_number(self, s):
+        try:
+            float(s)
+            return True
+        except ValueError:
+            pass
 
-base.regObj(Park())
+        try:
+            unicodedata.numeric(s)
+            return True
+        except (TypeError, ValueError):
+            pass
+
+        return False
+
+
+base.regObj(PopRace())

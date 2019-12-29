@@ -89,6 +89,16 @@ export default {
           }
         ]
       };
+      if (title == "Gender") {
+        option["series"][0]["label"] = {
+          normal: {
+            show: true,
+            position: "inside",
+            formatter: "{b}:{d}%"
+          }
+        };
+      }
+      console.log(option)
       chartObj.setOption(option);
     }
   }

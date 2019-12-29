@@ -67,6 +67,9 @@
       <el-col :span="16">
         <PopAge :zipcode="zipcode" />
       </el-col>
+      <el-col :span="8">
+        <PopRace :zipcode="zipcode" />
+      </el-col>
     </el-row>
 
     <!-- 犯罪率 -->
@@ -196,6 +199,7 @@ import Table from "./drawTable";
 import Panel from "./drawPanel";
 import Crime from "./drawCrime";
 import PopAge from "./drawPopAge";
+import PopRace from "./drawPopRace";
 
 export default {
   name: "Layer",
@@ -224,7 +228,8 @@ export default {
     Table,
     Panel,
     Crime,
-    PopAge
+    PopAge,
+    PopRace
   },
   data() {
     return {

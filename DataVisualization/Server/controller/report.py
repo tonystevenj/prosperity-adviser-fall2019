@@ -582,7 +582,7 @@ def pop_age():
         'age': []
     }
     ret, exists = data.getItem('PopAge', zipcode)
-    print(ret)
+
     if exists:
         malePercent = round(float(ret['male']) /
                             float(ret['total population']), 2)
@@ -630,5 +630,22 @@ def pop_age():
             'name': '80 and over',
             'value': float(ret['80 to 84 years']) + float(ret[' 85 years and over'])
         })
+
+    return Response(json.dumps(result), mimetype='application/json')
+
+
+def pop_race():
+    zipcode = request.args.get('zipcode')
+    result = []
+    ret, exists = data.getItem('PopRace', zipcode)
+
+    if exists:
+        for i in ret:
+            if i == 'geography' or i == ' total population ':
+                continue
+            result.append({
+                'name': i,
+                'value': float(ret[i])
+            })
 
     return Response(json.dumps(result), mimetype='application/json')
