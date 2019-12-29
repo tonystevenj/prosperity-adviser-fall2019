@@ -131,10 +131,19 @@ def reviews():
     # elif category == 'star45':
     #     nparray = np.array(result_45)
     if category == "reviewsfeature":
+        # print(result)
         nparray = np.array(result)
-        # print(nparray.shape)
-    if (len(nparray) == 0):
-        return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
+    #     print(nparray.shape)
+    #     print(nparray)
+    #     print(nparray[0])
+    #     print("&&&&&&&&&&&&&&&")
+    #     print(len(nparray[0][1]))
+    #     print(len(nparray[1][1]))
+    #     print(len(nparray[2][1]))
+    # # 三个字段全为空
+    if (len(nparray[0][1]) == 0) and (len(nparray[1][1]) == 0) and (len(nparray[2][1]) == 0):
+        # return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
+        return Response(json.dumps([None, None]), mimetype='application/json')
     # print("数据准备完成")
     # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     # try:
@@ -223,9 +232,8 @@ def reviews():
                 output[i][j] = tf * idf
         return output
 
-    second_tf_idf = steven_tf_idf(matrix, terms)
-
-    termslist = []
+    second_tf_idf=steven_tf_idf(matrix,terms)
+    termslist=[]
     # 排序:
     for k in range(3):
         reviews = terms.copy()
@@ -255,10 +263,18 @@ def reviews():
     labels = ['closed', 'star13', 'star45']
     list_dic_out = []
     for i in range(len(second_tf_idf)):
-        list_dic_out.append({'category': str(labels[i]),
-                             'reviews': termslist[i],
-                             'weights': second_tf_idf_list[i]
-                             })
+        # print(second_tf_idf_list[i][0])
+        # print(type(second_tf_idf_list[i][0]))
+        if not math.isnan(second_tf_idf_list[i][0]):
+            list_dic_out.append({'category': str(labels[i]),
+                                 'reviews': termslist[i],
+                                 'weights': second_tf_idf_list[i]
+                                 })
+        else:
+            list_dic_out.append({'category': str(labels[i]),
+                                 'reviews': None,
+                                 'weights': None
+                                 })
     # print("字典输出时间")
     # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     return Response(json.dumps(list_dic_out), mimetype='application/json')
