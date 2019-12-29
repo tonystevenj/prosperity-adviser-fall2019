@@ -73,21 +73,23 @@ export default {
         })
         .then(response => {
           var words = [];
-          for (var i in response.data) {
-            words.push({
-              name: response.data[i][0],
-              value: response.data[i][1]
-            });
-          }
           for (let i in response.data) {
             let words = [];
-            for (let j in response.data[i]["reviews"]) {
-              words.push({
-                name: response.data[i]["reviews"][j],
-                value: response.data[i]["weights"][j]
-              });
+            if (response.data[i]["reviews"] == null) {
+              words = [
+                {
+                  name: "No data",
+                  value: 1000
+                }
+              ];
+            } else {
+              for (let j in response.data[i]["reviews"]) {
+                words.push({
+                  name: response.data[i]["reviews"][j],
+                  value: response.data[i]["weights"][j]
+                });
+              }
             }
-
             switch (response.data[i]["category"]) {
               case "star45":
                 this.draw(this.chartStar45, words);
@@ -100,7 +102,6 @@ export default {
                 break;
             }
           }
-          // this.draw(words);
         })
         .catch(response => {
           console.log(response);
