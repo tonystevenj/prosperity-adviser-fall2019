@@ -141,7 +141,7 @@ def reviews():
     # # 三个字段全为空
     if (len(nparray[0][1]) == 0) and (len(nparray[1][1]) == 0) and (len(nparray[2][1]) == 0):
         # return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
-        return Response(json.dumps(["No data", 0]), mimetype='application/json')
+        return Response(json.dumps([None, None]), mimetype='application/json')
     # print("数据准备完成")
     # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     # try:
@@ -268,8 +268,8 @@ def reviews():
                                  })
         else:
             list_dic_out.append({'category': str(labels[i]),
-                                 'reviews': "No data",
-                                 'weights': 0
+                                 'reviews': None,
+                                 'weights': None
                                  })
     # print("字典输出时间")
     # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
