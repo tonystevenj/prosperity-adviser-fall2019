@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime as d
 import json
 from flask import Response, request
 from ..models import data
@@ -55,7 +56,7 @@ def business():
 
     return Response(json.dumps(result), mimetype='application/json')
 
-import datetime as d
+
 def reviews():
     # print("进入review")
     # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
@@ -119,7 +120,8 @@ def reviews():
         return Response(json.dumps(reviewInfo_star45), mimetype='application/json')
 
     re, bool = data.getObj("Reviews")
-    result=[['closed'," ".join(result_0)],['star 1 3'," ".join(result_13)],['star 4 5'," ".join(result_45)]]
+    result = [['closed', " ".join(result_0)], ['star 1 3', " ".join(result_13)], [
+        'star 4 5', " ".join(result_45)]]
     nparray = None
 
     # if category == 'closed':
@@ -154,26 +156,27 @@ def reviews():
     # return Response(json.dumps(list_dic_out), mimetype='application/json')
 
     # do iterative TF-IDF:
-    allinfodict={}
+    allinfodict = {}
     # print(output)
     # print(output[0, 1])
     # print(output[0, 1][0])
     for i in range(len(output)):
         for j in range(len(output[i, 1])):
-            if str(output[i,1][j]) in allinfodict:
-                allinfodict[str(output[i,1][j])][i]=int(output[i, 2][j]*100)
+            if str(output[i, 1][j]) in allinfodict:
+                allinfodict[str(output[i, 1][j])][i] = int(output[i, 2][j]*100)
             else:
-                allinfodict[str(output[i,1][j])]=[0,0,0]
-                allinfodict[str(output[i,1][j])][i]=int(output[i, 2][j]*100)
-    terms=[]
-    matrix=[]
+                allinfodict[str(output[i, 1][j])] = [0, 0, 0]
+                allinfodict[str(output[i, 1][j])][i] = int(output[i, 2][j]*100)
+    terms = []
+    matrix = []
     for key in allinfodict:
         terms.append(key)
         matrix.append(allinfodict[key])
-    matrix=np.array(matrix).T.tolist()
+    matrix = np.array(matrix).T.tolist()
     # print('呱呱',matrix[0])
     # print('呱呱',matrix[1])
     # print('呱呱',matrix[2])
+
     def steven_tf_idf(matrix, terms):
         # matrix: (3,5), 表示三个文档，5个words
         # terms: len=5, 表示5个words
@@ -215,13 +218,14 @@ def reviews():
         for i in range(len(matrixnew)):
             for j in range(len(matrixnew[i])):
                 tf = (matrixnew[i][j] / linesums[i]) / maxlinetfs[i]
-                idf = math.log((ducomentsnum + 1) / (ducomentsnumwithWs[j] + 1), math.e) + 1
+                idf = math.log((ducomentsnum + 1) /
+                               (ducomentsnumwithWs[j] + 1), math.e) + 1
                 output[i][j] = tf * idf
         return output
 
-    second_tf_idf=steven_tf_idf(matrix,terms)
+    second_tf_idf = steven_tf_idf(matrix, terms)
 
-    termslist=[]
+    termslist = []
     # 排序:
     for k in range(3):
         reviews = terms.copy()
@@ -233,10 +237,10 @@ def reviews():
             # 冒泡排序:
             for i in range(len(weight)-1):
                 for j in range(len(weight)-1):
-                    if weight[i]<weight[i+1]:
+                    if weight[i] < weight[i+1]:
                         tem = weight[i]
                         weight[i] = weight[i+1]
-                        weight[i+1]=tem
+                        weight[i+1] = tem
 
                         tem2 = reviews[i]
                         reviews[i] = reviews[i + 1]
@@ -245,7 +249,7 @@ def reviews():
         # print(reviews)
         # print(weight)
         # print("&&&&&&&&&&&&&&&&&&&&7")
-    
+
     second_tf_idf_list = second_tf_idf.tolist()
 
     labels = ['closed', 'star13', 'star45']
@@ -258,7 +262,6 @@ def reviews():
     # print("字典输出时间")
     # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     return Response(json.dumps(list_dic_out), mimetype='application/json')
-
 
     # # calculate top 10 words for whole region:
     # whole_words = {}
@@ -393,7 +396,8 @@ def score():
     zipcode = request.args.get('zipcode')
     # convert 5 percentage into 100% in total:
     sum = park_percentage + school_percentage + pride_percentage + \
-          hospital_percentage + rail_percentage + salary_percentage + population_percentage
+        hospital_percentage + rail_percentage + \
+        salary_percentage + population_percentage
     park_percentage = park_percentage / sum
     school_percentage = school_percentage / sum
     pride_percentage = pride_percentage / sum
@@ -545,4 +549,34 @@ def crime():
             tmpDict = json.loads(tmpJSON)
             result[i] = tmpDict
 
+    return Response(json.dumps(result), mimetype='application/json')
+
+
+def pop_age():
+    zipcode = request.args.get('zipcode')
+    result = {
+        'gender': [],
+        'age': []
+    }
+    ret, exists = data.getItem('PopAge', zipcode)
+    if exists:
+        malePercent = round(float(ret['male']) /
+                            float(ret['total population']), 2)
+        result['gender'].append({
+            'name': 'male',
+            'value': malePercent
+        })
+        result['gender'].append({
+            'name': 'female',
+            'value': 1 - malePercent
+        })
+        for i in ret:
+            if i == 'zipcode' or i == 'total population' or i == 'male' or i == 'female':
+                continue
+            else:
+                result['age'].append({
+                    'name': i,
+                    'value': float(ret[i])
+                })
+    print(result)
     return Response(json.dumps(result), mimetype='application/json')
