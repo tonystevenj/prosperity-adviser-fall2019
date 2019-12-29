@@ -43,18 +43,30 @@ export default {
           }
         })
         .then(response => {
-          this.draw(this.chartGender, "Gender", response.data["gender"])
-          this.draw(this.chartAge, "Age", response.data["age"])
+          this.draw(this.chartGender, "Gender", response.data["gender"]);
+          this.draw(this.chartAge, "Age", response.data["age"]);
         })
         .catch(response => {
           console.log(response);
         });
     },
     draw(chartObj, title, data) {
+      let legendData = [];
+      for (let i in data) {
+        let newName =
+          data[i]["name"].charAt(0).toUpperCase() + data[i]["name"].slice(1);
+        data[i]["name"] = newName;
+        legendData.push(newName);
+      }
       let option = {
         title: {
           text: title,
           x: "center"
+        },
+        legend: {
+          x: "center",
+          y: "bottom",
+          data: legendData
         },
         tooltip: {
           trigger: "item",

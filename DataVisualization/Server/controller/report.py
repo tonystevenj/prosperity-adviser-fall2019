@@ -146,10 +146,10 @@ def reviews():
         labels1 = ['closed', 'star13', 'star45']
         list_dic_out1 = []
         for i in range(3):
-                list_dic_out1.append({'category': str(labels1[i]),
-                                     'reviews': None,
-                                     'weights': None
-                                     })
+            list_dic_out1.append({'category': str(labels1[i]),
+                                  'reviews': None,
+                                  'weights': None
+                                  })
         return Response(json.dumps(list_dic_out1), mimetype='application/json')
     # print("数据准备完成")
     # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
@@ -239,8 +239,8 @@ def reviews():
                 output[i][j] = tf * idf
         return output
 
-    second_tf_idf=steven_tf_idf(matrix,terms)
-    termslist=[]
+    second_tf_idf = steven_tf_idf(matrix, terms)
+    termslist = []
     # 排序:
     for k in range(3):
         reviews = terms.copy()
@@ -582,6 +582,7 @@ def pop_age():
         'age': []
     }
     ret, exists = data.getItem('PopAge', zipcode)
+    print(ret)
     if exists:
         malePercent = round(float(ret['male']) /
                             float(ret['total population']), 2)
@@ -593,13 +594,41 @@ def pop_age():
             'name': 'female',
             'value': 1 - malePercent
         })
-        for i in ret:
-            if i == 'zipcode' or i == 'total population' or i == 'male' or i == 'female':
-                continue
-            else:
-                result['age'].append({
-                    'name': i,
-                    'value': float(ret[i])
-                })
-    print(result)
+        result['age'].append({
+            'name': 'under 10',
+            'value': float(ret['under 5 years']) + float(ret['5 to 9 years'])
+        })
+        result['age'].append({
+            'name': '10 to 19',
+            'value': float(ret['10 to 14 years']) + float(ret['15 to 19 years'])
+        })
+        result['age'].append({
+            'name': '20 to 29',
+            'value': float(ret['20 to 24 years']) + float(ret['25 to 29 years'])
+        })
+        result['age'].append({
+            'name': '30 to 39',
+            'value': float(ret['30 to 34 years']) + float(ret['35 to 39 years'])
+        })
+        result['age'].append({
+            'name': '40 to 49',
+            'value': float(ret['40 to 44 years']) + float(ret['45 to 49 years'])
+        })
+        result['age'].append({
+            'name': '50 to 59',
+            'value': float(ret['50 to 54 years']) + float(ret['55 to 59 years'])
+        })
+        result['age'].append({
+            'name': '60 to 69',
+            'value': float(ret['60 to 64 years']) + float(ret['65 to 69 years'])
+        })
+        result['age'].append({
+            'name': '40 to 49',
+            'value': float(ret['70 to 74 years']) + float(ret['75 to 79 years'])
+        })
+        result['age'].append({
+            'name': '80 and over',
+            'value': float(ret['80 to 84 years']) + float(ret[' 85 years and over'])
+        })
+
     return Response(json.dumps(result), mimetype='application/json')

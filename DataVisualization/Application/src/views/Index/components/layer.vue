@@ -56,6 +56,14 @@
         <Table :latitude="latitude" :longitude="longitude" :radius="radius" />
       </el-col>
     </el-row>
+    
+    <!-- Gender and age -->
+    <el-row :gutter="32" class="row">
+      <el-col :span="16">
+        <PopAge :zipcode="zipcode" />
+      </el-col>
+    </el-row>
+
     <!-- 犯罪率 -->
     <el-row :gutter="32" class="row">
       <el-col :span="24">
@@ -142,13 +150,6 @@
           :radius="radius"
           :category="category[3]"
         />
-      </el-col>
-    </el-row>
-
-    <!-- Gender and age -->
-    <el-row :gutter="32" class="row">
-      <el-col :span="16">
-        <PopAge :zipcode="zipcode" />
       </el-col>
     </el-row>
 
