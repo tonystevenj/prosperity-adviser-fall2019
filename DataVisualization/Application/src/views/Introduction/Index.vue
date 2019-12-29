@@ -11,29 +11,15 @@
           <div class="markdown clearfix">
             <!-- 块开始 -->
 
-            <p>Our project is called assistant for restaurant site selection (ARSS),a web-based service.</p>
-            <p>The goal of ARSS is to give restaurant owner a report about their businesses’ or their potential business’s local surrounding information and provide a suggestion score based on their customized weight factors.</p>
-            <p>Furthermore, it can give a report that if I want to or already have a restaurant here, what features I should care most to make my restaurant be more popular. Currently, this product is only work in Phoenix, Arizona.</p>
-
+            <p>This project is called Prosperty Adviser for Restaurants (PAFS), a web-based service based on Yelp's dataset.</p>
+            <p>The goal of PAFS is to give restaurant owner a report about their businesses’ or their potential business’s local surrounding information and provide a investment score based on their customized weight factors.</p>
+            <p>Furthermore, it can give a report that if I want to or already have a restaurant here, what features I should care most to make my restaurant more popular.</p>
+            <p>Currently, this product is only work in Phoenix, Arizona.</p>
             <!-- 块结束 -->
           </div>
         </div>
       </el-card>
-      <el-card class="box-card" element-loading-background="rgba(255, 255, 255, 0.5)">
-        <div slot="header" class="title clearfix" style="color:#2486b9">
-          <span>Motivation</span>
-        </div>
-        <div class="text item">
-          <div class="markdown clearfix">
-            <!-- 块开始 -->
 
-            <p>The idea was inspired by yelp dataset challenge’s winning projects. After reviewing these brilliant projects, our team member noticed yelp’s dataset is very versatile. It contains a variety of very important data about restaurants.</p>
-            <p>There are total number of 59387 restaurants’ core information that distributed in 10 different metropolitan areas. After we found some other related supporting datasets, we believed we could use yelp’s dataset to create a very useful project.</p>
-
-            <!-- 块结束 -->
-          </div>
-        </div>
-      </el-card>
       <el-card class="box-card" element-loading-background="rgba(255, 255, 255, 0.5)">
         <div slot="header" class="title clearfix" style="color:#2486b9">
           <span>Aims</span>
@@ -47,6 +33,20 @@
             <p>​ 1.Help our user to know more about their target locations’ surroundings, to see if that is a great place to open a restaurant.</p>
             <p>​ 2.If the user already owns a place, we want to help them to know their potentials and what they can improve.</p>
 
+            <!-- 块结束 -->
+          </div>
+        </div>
+      </el-card>
+            <el-card class="box-card" element-loading-background="rgba(255, 255, 255, 0.5)">
+        <div slot="header" class="title clearfix" style="color:#2486b9">
+          <span>Advantages</span>
+        </div>
+        <div class="text item">
+          <div class="markdown clearfix">
+            <!-- 块开始 -->
+
+            <p>Our project has several advantages. First, it is very practical. Our service turns technologies and data into a tool that can make benefit to the society. Second, our users can manage their factors’ preference. It allows user to adjust the weight of different factors based on their willing. The third and most important, it has huge potential. We can expand the service area by adding more cities’ restaurant data, different key factors’ data, and more advanced method and algorithms.</p>
+           
             <!-- 块结束 -->
           </div>
         </div>
@@ -669,24 +669,7 @@
           </div>
         </div>
       </el-card>
-      <el-card class="box-card" element-loading-background="rgba(255, 255, 255, 0.5)">
-        <div slot="header" class="title clearfix" style="color:#2486b9">
-          <span>​Summary</span>
-        </div>
-        <div class="text item">
-          <div class="markdown clearfix">
-            <!-- 块开始 -->
 
-            <p>We collected data from multiple authoritative source.​We used different method to analyze our datas.</p>
-            <p>The most important achievement about this project, is the universally applicability and the potential.</p>
-            <p>We can apply on more cities by adding more cities&#39; supporting data.</p>
-            <p>​We can make our report more comprehensive by using more factors.</p>
-            <p>​We can get more accurate analysis result by using more advanced method.</p>
-
-            <!-- 块结束 -->
-          </div>
-        </div>
-      </el-card>
     </el-main>
 
     <Footer />
