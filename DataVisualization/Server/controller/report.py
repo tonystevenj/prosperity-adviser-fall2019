@@ -245,13 +245,15 @@ def reviews():
         # print(reviews)
         # print(weight)
         # print("&&&&&&&&&&&&&&&&&&&&7")
+    
+    second_tf_idf_list = second_tf_idf.tolist()
 
     labels = ['closed', 'star13', 'star45']
     list_dic_out = []
     for i in range(len(second_tf_idf)):
         list_dic_out.append({'category': str(labels[i]),
-                             'reviews': str(termslist[i]),
-                             'weights': str(second_tf_idf[i])
+                             'reviews': termslist[i],
+                             'weights': second_tf_idf_list[i]
                              })
     # print("字典输出时间")
     # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))

@@ -63,18 +63,6 @@
       </el-col>
     </el-row>
 
-    <!-- 聚合大字报 -->
-    <el-row :gutter="32" class="row">
-      <el-col :span="24">
-        <WordCloud
-          :latitude="latitude"
-          :longitude="longitude"
-          :radius="radius"
-          :category="category[2]"
-        />
-      </el-col>
-    </el-row>
-
     <!-- 标题 -->
     <br />
     <br />
@@ -145,33 +133,45 @@
       </el-col>
     </el-row>
 
-    <!-- 大字报 -->
+    <!-- 聚合大字报 -->
     <el-row :gutter="32" class="row">
-      <el-col :span="8">
+      <el-col :span="24">
         <WordCloud
           :latitude="latitude"
           :longitude="longitude"
           :radius="radius"
-          :category="category[0]"
-        />
-      </el-col>
-      <el-col :span="8">
-        <WordCloud
-          :latitude="latitude"
-          :longitude="longitude"
-          :radius="radius"
-          :category="category[1]"
-        />
-      </el-col>
-      <el-col :span="8">
-        <WordCloud
-          :latitude="latitude"
-          :longitude="longitude"
-          :radius="radius"
-          :category="category[2]"
+          :category="category[3]"
         />
       </el-col>
     </el-row>
+
+    <!-- 大字报 -->
+    <!-- <el-row :gutter="32" class="row">
+      <el-col :span="8">
+        <WordCloud
+          :latitude="latitude"
+          :longitude="longitude"
+          :radius="radius"
+          :category="category[0]+'info'"
+        />
+      </el-col>
+      <el-col :span="8">
+        <WordCloud
+          :latitude="latitude"
+          :longitude="longitude"
+          :radius="radius"
+          :category="category[1]+'info'"
+        />
+      </el-col>
+      <el-col :span="8">
+        <WordCloud
+          :latitude="latitude"
+          :longitude="longitude"
+          :radius="radius"
+          :category="category[2]+'info'"
+        />
+      </el-col>
+    </el-row> -->
   </div>
 </template>
 
@@ -221,7 +221,7 @@ export default {
         median_earnings: 0,
         population: 0
       },
-      category: ["star45info", "star13info", "closedinfo", "reviewsfeature"]
+      category: ["star45", "star13", "closed", "reviewsfeature"]
     };
   },
   created() {},
