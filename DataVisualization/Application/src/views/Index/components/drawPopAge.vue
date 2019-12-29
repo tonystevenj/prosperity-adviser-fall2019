@@ -70,7 +70,7 @@ export default {
         },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
+          formatter: "{a} <br/>{b} : {d}%"
         },
         series: [
           {
@@ -79,6 +79,34 @@ export default {
             radius: "55%",
             center: ["50%", "50%"],
             data: data,
+            label: {
+              normal: {
+                show: true,
+                position: "inside",
+                formatter: "{d}%"
+              }
+            },
+            itemStyle: {
+              emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)"
+              }
+            }
+          },
+          {
+            name: title,
+            type: "pie",
+            radius: "55%",
+            center: ["50%", "50%"],
+            data: data,
+            label: {
+              normal: {
+                show: true,
+                position: "outside",
+                formatter: "{b}"
+              }
+            },
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -89,16 +117,6 @@ export default {
           }
         ]
       };
-      if (title == "Gender") {
-        option["series"][0]["label"] = {
-          normal: {
-            show: true,
-            position: "inside",
-            formatter: "{b}:{d}%"
-          }
-        };
-      }
-      console.log(option)
       chartObj.setOption(option);
     }
   }

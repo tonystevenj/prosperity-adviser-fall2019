@@ -56,7 +56,7 @@ export default {
         },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
+          formatter: "{a} <br/>{b} : {d}%"
         },
         series: [
           {
@@ -67,9 +67,9 @@ export default {
             data: data,
             label: {
               normal: {
-                show: false,
+                show: true,
                 position: "inside",
-                formatter: "{b}:{d}%"
+                formatter: "{d}%"
               }
             },
             itemStyle: {
