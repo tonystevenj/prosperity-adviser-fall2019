@@ -145,6 +145,13 @@
       </el-col>
     </el-row>
 
+    <!-- Gender and age -->
+    <el-row :gutter="32" class="row">
+      <el-col :span="16">
+        <PopAge :zipcode="zipcode" />
+      </el-col>
+    </el-row>
+
     <!-- 大字报 -->
     <!-- <el-row :gutter="32" class="row">
       <el-col :span="8">
@@ -171,7 +178,7 @@
           :category="category[2]+'info'"
         />
       </el-col>
-    </el-row> -->
+    </el-row>-->
   </div>
 </template>
 
@@ -182,6 +189,7 @@ import WordCloud from "./drawWordCloud";
 import Table from "./drawTable";
 import Panel from "./drawPanel";
 import Crime from "./drawCrime";
+import PopAge from "./drawPopAge";
 
 export default {
   name: "Layer",
@@ -209,7 +217,8 @@ export default {
     WordCloud,
     Table,
     Panel,
-    Crime
+    Crime,
+    PopAge
   },
   data() {
     return {
