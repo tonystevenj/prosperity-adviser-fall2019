@@ -180,7 +180,7 @@ export default {
       var script = document.createElement("script");
       // This example uses a local copy of the GeoJSON stored at
       process.env.NODE_ENV === "production";
-      script.src = "./static/geo_jsonp.js";
+      script.src = "//afrsscdn.hopeness.net/geo_jsonp.js";
       document.getElementsByTagName("head")[0].appendChild(script);
     },
     initSearchBox() {

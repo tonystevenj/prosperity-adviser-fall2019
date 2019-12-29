@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node build/build.js && qshell qupload -d qiniu.json && cp dist/index.html ../Server/templates/"
   },
   "dependencies": {
     "axios": "^0.19.0",
