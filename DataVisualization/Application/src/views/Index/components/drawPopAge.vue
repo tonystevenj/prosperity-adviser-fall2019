@@ -43,8 +43,12 @@ export default {
           }
         })
         .then(response => {
-          this.draw(this.chartGender, "Gender", response.data["gender"]);
-          this.draw(this.chartAge, "Age", response.data["age"]);
+          this.draw(
+            this.chartGender,
+            "Gender distribution",
+            response.data["gender"]
+          );
+          this.draw(this.chartAge, "Age distribution", response.data["age"]);
         })
         .catch(response => {
           console.log(response);
@@ -61,11 +65,13 @@ export default {
       let option = {
         title: {
           text: title,
-          x: "center"
+          x: "center",
+          padding: [10, 0, 0, 0]
         },
         legend: {
           x: "center",
           y: "bottom",
+          padding: [0, 0, 10, 0],
           data: legendData
         },
         tooltip: {
@@ -77,7 +83,7 @@ export default {
             name: title,
             type: "pie",
             radius: "55%",
-            center: ["50%", "50%"],
+            center: ["50%", "45%"],
             data: data,
             label: {
               normal: {
@@ -98,7 +104,7 @@ export default {
             name: title,
             type: "pie",
             radius: "55%",
-            center: ["50%", "50%"],
+            center: ["50%", "45%"],
             data: data,
             label: {
               normal: {

@@ -46,12 +46,14 @@ export default {
       }
       let option = {
         title: {
-          text: "Race",
-          x: "center"
+          text: "Race distribution",
+          x: "center",
+          padding: [10, 0, 0, 0]
         },
         legend: {
           x: "center",
           y: "bottom",
+          padding: [0, 0, 10, 0],
           data: legendData
         },
         tooltip: {
@@ -60,7 +62,7 @@ export default {
         },
         series: [
           {
-            name: "Race",
+            name: "Race distribution",
             type: "pie",
             radius: "55%",
             center: ["50%", "40%"],
