@@ -91,7 +91,7 @@ export default {
             seriesTmp.push(data[i]["dataTmp"][j]);
             if (!titleStatus) {
               titleTmp.push(Object.keys(data[i]["data"]));
-              valueTmp.push(data[i]["dataTmp"])
+              valueTmp.push(data[i]["dataTmp"]);
             }
           } else {
             seriesTmp.push(0);
@@ -138,19 +138,33 @@ export default {
             type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
           },
           formatter: (params, ticket, callback) => {
-            let list = ""
+            let list = "";
             for (let i in params) {
               if (params[i]["value"] == 0) {
                 continue;
               }
-              let subTitle = titleTmp[params[0]["dataIndex"]][i]
-              let subValue = valueTmp[params[0]["dataIndex"]][i]
-              list += '<div style="color:'+params[i]["color"]+'"><b>'+(++i)+')</b>.'+subTitle+': <b>'+subValue+'%</b></div>'
+              let subTitle = titleTmp[params[0]["dataIndex"]][i];
+              let subValue = valueTmp[params[0]["dataIndex"]][i];
+              list +=
+                '<div style="color:' +
+                params[i]["color"] +
+                '"><b>' +
+                ++i +
+                ")</b>." +
+                subTitle +
+                ": <b>" +
+                subValue +
+                "%</b></div>";
             }
-            let html = `
+            let html =
+              `
                 <div>
-                    <div><b>`+params[0]["axisValueLabel"]+`:</b></div>
-                    <div>`+list+`</div>
+                    <div><b>` +
+              params[0]["axisValueLabel"] +
+              `:</b></div>
+                    <div>` +
+              list +
+              `</div>
                 </div>
                 `;
             return html;
@@ -159,12 +173,14 @@ export default {
         grid: {
           top: "3%",
           left: "2%",
-          right: "3%",
+          right: "12%",
           bottom: "2%",
           containLabel: true
         },
         xAxis: {
-          type: "value"
+          type: "value",
+          min: 0,
+          max: 100
         },
         yAxis: {
           type: "category",
@@ -174,6 +190,52 @@ export default {
             rotate: 40
           }
         },
+        visualMap: {
+          type: "continuous",
+          dimension: 1,
+          text: ["High", "Low"],
+          inverse: false,
+          itemHeight: 330,
+          calculable: false,
+          min: 0,
+          max: 7,
+          top: 0,
+          right: 8,
+          inRange: {
+            colorLightness: [0.8, 0.4]
+          },
+          outOfRange: {
+            color: "#bbb"
+          },
+          controller: {
+            inRange: {
+              color: "#2f4554"
+            }
+          }
+        },
+        graphic: [
+          {
+            type: "group",
+            right: 17,
+            top: 130,
+            rotation: -1.57,
+            children: [
+              {
+                type: "text",
+                silent: true,
+                z: 100,
+                left: "center",
+                top: "middle",
+                cursor: "default",
+                style: {
+                  fill: "#FFF",
+                  text: "Importance",
+                  font: '1.1em "STHeiti", sans-serif'
+                }
+              }
+            ]
+          }
+        ],
         series: series
       });
     }

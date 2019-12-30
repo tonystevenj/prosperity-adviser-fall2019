@@ -4,7 +4,7 @@
       <el-table
         :data="businessData"
         style="width: 100%"
-        height="400"
+        height="465"
         v-loading="loading"
         empty-text="No data."
       >
