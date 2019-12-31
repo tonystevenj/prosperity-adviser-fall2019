@@ -6,11 +6,11 @@
     <div class="banner_content">
       <el-card class="box-card">
         <div slot="header" class="clearfix test">
-          <span style="font-weight: bold;">Assistant for Restaurant Site Selection</span>
+          <span style="font-weight: bold;">Prosperty Adviser for Restaurants</span>
         </div>
-        <div>ARSS（Assistant of Restaurant Site Selection）is a web-based service that helps restaurant businesses to make better location-based decisions. Based on comprehensive databases and advanced big data processing technology; ARSS is totally committed to assists every restaurant owner to determine businesses location, accomplish cooperation target, and create value.</div>
+        <div>PAFR（Prosperty Adviser for Restaurants）is a web-based service that helps restaurant businesses to make better location-based decisions. Based on comprehensive databases and advanced big data processing technology; PAFS is totally committed to assists every restaurant owner to determine businesses location, accomplish cooperation target, and create value.</div>
       </el-card>
-    </div>
+    </div>  
   </div>
 </template>
 
