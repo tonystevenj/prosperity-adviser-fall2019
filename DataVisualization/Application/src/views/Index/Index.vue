@@ -21,11 +21,6 @@
             <router-link to="/introduction">
               <b>INTRODUCTION</b>
             </router-link>.
-            <br />
-            <br />
-            <p style="color: #E01515; font-style: italic;">
-              <b>*</b> This is a sample website for static display only. The report’s data is from a chosen geographic coordinates.
-            </p>
           </div>
         </div>
       </el-card>
