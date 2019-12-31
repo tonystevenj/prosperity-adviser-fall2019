@@ -44,7 +44,7 @@
                 v-model="mapform.radius"
                 vertical
                 :min="1"
-                :max="30"
+                :max="5"
                 :step="1"
                 :marks="milemarks"
                 height="500px"
@@ -107,8 +107,7 @@ export default {
     return {
       milemarks: {
         1: "1",
-        15: "15",
-        30: "30"
+        5: "5",
       },
       mapform: {
         longitude: 0,

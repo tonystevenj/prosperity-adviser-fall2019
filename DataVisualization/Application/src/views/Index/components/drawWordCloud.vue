@@ -105,6 +105,15 @@ export default {
         })
         .catch(response => {
           console.log(response);
+          let words = [
+            {
+              name: "No data",
+              value: 1000
+            }
+          ];
+          this.draw(this.chartStar45, words);
+          this.draw(this.chartStar13, words);
+          this.draw(this.chartStarClosed, words);
         });
     },
     draw(chartObj, words) {
