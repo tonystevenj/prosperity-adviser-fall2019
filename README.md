@@ -3,19 +3,13 @@
 ## Overview
 ___
 
-Our project is called assistant for restaurant site selection (ARSS),a web-based service.
+This project is called Prosperty Adviser for Restaurants (PAFS), a web-based service based on Yelp's dataset.
 
-The goal of ARSS is to give restaurant owner a report about their businesses’ or their potential business’s local surrounding information and provide a suggestion score based on their customized weight factors.
+The goal of PAFS is to give restaurant owner a report about their businesses’ or their potential business’s local surrounding information and provide a investment score based on their customized weight factors.
 
-Furthermore, it can give a report that if I want to or already have a restaurant here, what features I should care most to make my restaurant be more popular. Currently, this product is only work in Phoenix, Arizona.
+Furthermore, it can give a report that if I want to or already have a restaurant here, what features I should care most to make my restaurant more popular.  
 
-## Motivation
-___
-
-​The idea was inspired by yelp dataset challenge’s winning projects. After reviewing these brilliant projects, our team member noticed yelp’s dataset is very versatile. It contains a variety of very important data about restaurants.
-
-There are total number of 59387 restaurants’ core information that distributed in 10 different metropolitan areas. After we found some other related supporting datasets, we believed we could use yelp’s dataset to create a very useful project.
-
+Currently, this product is only work in Phoenix, Arizona.
 
 
 ## Aims
@@ -30,6 +24,9 @@ ___
 
 ​ 2.If the user already owns a place, we want to help them to know their potentials and what they can improve.
 
+## Advantages:
+
+Our project has several advantages. First, it is very practical. Our service turns technologies and data into a tool that can make benefit to the society. Second, our users can manage their factors’ preference. It allows user to adjust the weight of different factors based on their willing. The third and most important, it has huge potential. We can expand the service area by adding more cities’ restaurant data, different key factors’ data, and more advanced method and algorithms.
 
 
 ## Datasets
@@ -227,18 +224,6 @@ Then, the server starts, it will provide some APIs, when receiving a request, it
 
 When you select a point on the map of the website, it can get the longitude, latitude, and zip code, and then, it will send some requests to the server. After that, it will draw some diagrams use the result from the server.
 
-## ​Summary
-___
-
-We collected data from multiple authoritative source.​We used different method to analyze our datas.
-
-The most important achievement about this project, is the universally applicability and the potential.
-
-We can apply on more cities by adding more cities' supporting data.
-
-​We can make our report more comprehensive by using more factors.
-
-​We can get more accurate analysis result by using more advanced method.
 ​
 # About: 
 ___

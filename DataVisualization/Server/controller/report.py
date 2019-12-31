@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime as d
 import json
 from flask import Response, request
 from ..models import data
@@ -55,18 +56,18 @@ def business():
 
     return Response(json.dumps(result), mimetype='application/json')
 
-import datetime as d
+
 def reviews():
-    print("进入review")
-    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    # print("进入review")
+    # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     category = request.args.get('category')
     latitude = request.args.get('latitude')
     longitude = request.args.get('longitude')
     radius = request.args.get('radius')
     # print("哈哈",category)
     IDs = data.radius('Business', longitude, latitude, radius)
-    print("redius反应时间")
-    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    # print("redius反应时间")
+    # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     result_0 = []
     result_13 = []
     result_45 = []
@@ -119,7 +120,8 @@ def reviews():
         return Response(json.dumps(reviewInfo_star45), mimetype='application/json')
 
     re, bool = data.getObj("Reviews")
-    result=[['closed'," ".join(result_0)],['star 1 3'," ".join(result_13)],['star 4 5'," ".join(result_45)]]
+    result = [['closed', " ".join(result_0)], ['star 1 3', " ".join(result_13)], [
+        'star 4 5', " ".join(result_45)]]
     nparray = None
 
     # if category == 'closed':
@@ -129,19 +131,35 @@ def reviews():
     # elif category == 'star45':
     #     nparray = np.array(result_45)
     if category == "reviewsfeature":
+        # print(result)
         nparray = np.array(result)
-        # print(nparray.shape)
-    if (len(nparray) == 0):
-        return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
-    print("数据准备完成")
-    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    #     print(nparray.shape)
+    #     print(nparray)
+    #     print(nparray[0])
+    #     print("&&&&&&&&&&&&&&&")
+    #     print(len(nparray[0][1]))
+    #     print(len(nparray[1][1]))
+    #     print(len(nparray[2][1]))
+    # # 三个字段全为空
+    if (len(nparray[0][1]) == 0) and (len(nparray[1][1]) == 0) and (len(nparray[2][1]) == 0):
+        # return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
+        labels1 = ['closed', 'star13', 'star45']
+        list_dic_out1 = []
+        for i in range(3):
+            list_dic_out1.append({'category': str(labels1[i]),
+                                  'reviews': None,
+                                  'weights': None
+                                  })
+        return Response(json.dumps(list_dic_out1), mimetype='application/json')
+    # print("数据准备完成")
+    # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     # try:
     output = re.full_process(nparray)  # 输入形式：(n,2)
     # except Exception as e:
     #     print("reviews api", e)
     #     return Response(json.dumps([["No data", 50], ["", 40]]), mimetype='application/json')
-    print("TF-IDF时间")
-    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    # print("TF-IDF时间")
+    # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     # list_dic_out = []
     # for i in range(len(output)):
     #     list_dic_out.append({'category': str(output[i, 0]),
@@ -154,32 +172,33 @@ def reviews():
     # return Response(json.dumps(list_dic_out), mimetype='application/json')
 
     # do iterative TF-IDF:
-    allinfodict={}
-    print(output)
-    print(output[0, 1])
-    print(output[0, 1][0])
+    allinfodict = {}
+    # print(output)
+    # print(output[0, 1])
+    # print(output[0, 1][0])
     for i in range(len(output)):
         for j in range(len(output[i, 1])):
-            if str(output[i,1][j]) in allinfodict:
-                allinfodict[str(output[i,1][j])][i]=int(output[i, 2][j]*100)
+            if str(output[i, 1][j]) in allinfodict:
+                allinfodict[str(output[i, 1][j])][i] = int(output[i, 2][j]*100)
             else:
-                allinfodict[str(output[i,1][j])]=[0,0,0]
-                allinfodict[str(output[i,1][j])][i]=int(output[i, 2][j]*100)
-    terms=[]
-    matrix=[]
+                allinfodict[str(output[i, 1][j])] = [0, 0, 0]
+                allinfodict[str(output[i, 1][j])][i] = int(output[i, 2][j]*100)
+    terms = []
+    matrix = []
     for key in allinfodict:
         terms.append(key)
         matrix.append(allinfodict[key])
-    matrix=np.array(matrix).T.tolist()
-    print('呱呱',matrix[0])
-    print('呱呱',matrix[1])
-    print('呱呱',matrix[2])
+    matrix = np.array(matrix).T.tolist()
+    # print('呱呱',matrix[0])
+    # print('呱呱',matrix[1])
+    # print('呱呱',matrix[2])
+
     def steven_tf_idf(matrix, terms):
         # matrix: (3,5), 表示三个文档，5个words
         # terms: len=5, 表示5个words
         # 算法参考:https://stackoverflow.com/questions/36966019/how-aretf-idf-calculated-by-the-scikit-learn-tfidfvectorizer
         matrixnew = np.array(matrix)
-        print("哈哈", matrixnew)
+        # print("哈哈", matrixnew)
         output = np.zeros(matrixnew.shape)
         if len(matrixnew.T) != len(terms):
             print("lenth do not match!")
@@ -215,48 +234,57 @@ def reviews():
         for i in range(len(matrixnew)):
             for j in range(len(matrixnew[i])):
                 tf = (matrixnew[i][j] / linesums[i]) / maxlinetfs[i]
-                idf = math.log((ducomentsnum + 1) / (ducomentsnumwithWs[j] + 1), math.e) + 1
+                idf = math.log((ducomentsnum + 1) /
+                               (ducomentsnumwithWs[j] + 1), math.e) + 1
                 output[i][j] = tf * idf
         return output
 
-    second_tf_idf=steven_tf_idf(matrix,terms)
-
-    termslist=[]
+    second_tf_idf = steven_tf_idf(matrix, terms)
+    termslist = []
     # 排序:
     for k in range(3):
         reviews = terms.copy()
         weight = second_tf_idf[k]
-        print("&&&&&&&&&&&&&&&&&&&&7")
-        print(reviews)
-        print(weight)
+        # print("&&&&&&&&&&&&&&&&&&&&7")
+        # print(reviews)
+        # print(weight)
         for i in range(len(second_tf_idf[k])):
             # 冒泡排序:
             for i in range(len(weight)-1):
                 for j in range(len(weight)-1):
-                    if weight[i]<weight[i+1]:
+                    if weight[i] < weight[i+1]:
                         tem = weight[i]
                         weight[i] = weight[i+1]
-                        weight[i+1]=tem
+                        weight[i+1] = tem
 
                         tem2 = reviews[i]
                         reviews[i] = reviews[i + 1]
                         reviews[i + 1] = tem2
         termslist.append(reviews)
-        print(reviews)
-        print(weight)
-        print("&&&&&&&&&&&&&&&&&&&&7")
+        # print(reviews)
+        # print(weight)
+        # print("&&&&&&&&&&&&&&&&&&&&7")
+
+    second_tf_idf_list = second_tf_idf.tolist()
 
     labels = ['closed', 'star13', 'star45']
     list_dic_out = []
     for i in range(len(second_tf_idf)):
-        list_dic_out.append({'category': str(labels[i]),
-                             'reviews': str(termslist[i]),
-                             'weights': str(second_tf_idf[i])
-                             })
-    print("字典输出时间")
-    print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+        # print(second_tf_idf_list[i][0])
+        # print(type(second_tf_idf_list[i][0]))
+        if not math.isnan(second_tf_idf_list[i][0]):
+            list_dic_out.append({'category': str(labels[i]),
+                                 'reviews': termslist[i],
+                                 'weights': second_tf_idf_list[i]
+                                 })
+        else:
+            list_dic_out.append({'category': str(labels[i]),
+                                 'reviews': None,
+                                 'weights': None
+                                 })
+    # print("字典输出时间")
+    # print(d.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     return Response(json.dumps(list_dic_out), mimetype='application/json')
-
 
     # # calculate top 10 words for whole region:
     # whole_words = {}
@@ -391,7 +419,8 @@ def score():
     zipcode = request.args.get('zipcode')
     # convert 5 percentage into 100% in total:
     sum = park_percentage + school_percentage + pride_percentage + \
-          hospital_percentage + rail_percentage + salary_percentage + population_percentage
+        hospital_percentage + rail_percentage + \
+        salary_percentage + population_percentage
     park_percentage = park_percentage / sum
     school_percentage = school_percentage / sum
     pride_percentage = pride_percentage / sum
@@ -542,5 +571,81 @@ def crime():
             tmpJSON = df2.to_json()
             tmpDict = json.loads(tmpJSON)
             result[i] = tmpDict
+
+    return Response(json.dumps(result), mimetype='application/json')
+
+
+def pop_age():
+    zipcode = request.args.get('zipcode')
+    result = {
+        'gender': [],
+        'age': []
+    }
+    ret, exists = data.getItem('PopAge', zipcode)
+
+    if exists:
+        malePercent = round(float(ret['male']) /
+                            float(ret['total population']), 2)
+        result['gender'].append({
+            'name': 'male',
+            'value': malePercent
+        })
+        result['gender'].append({
+            'name': 'female',
+            'value': 1 - malePercent
+        })
+        result['age'].append({
+            'name': 'under 10',
+            'value': float(ret['under 5 years']) + float(ret['5 to 9 years'])
+        })
+        result['age'].append({
+            'name': '10 to 19',
+            'value': float(ret['10 to 14 years']) + float(ret['15 to 19 years'])
+        })
+        result['age'].append({
+            'name': '20 to 29',
+            'value': float(ret['20 to 24 years']) + float(ret['25 to 29 years'])
+        })
+        result['age'].append({
+            'name': '30 to 39',
+            'value': float(ret['30 to 34 years']) + float(ret['35 to 39 years'])
+        })
+        result['age'].append({
+            'name': '40 to 49',
+            'value': float(ret['40 to 44 years']) + float(ret['45 to 49 years'])
+        })
+        result['age'].append({
+            'name': '50 to 59',
+            'value': float(ret['50 to 54 years']) + float(ret['55 to 59 years'])
+        })
+        result['age'].append({
+            'name': '60 to 69',
+            'value': float(ret['60 to 64 years']) + float(ret['65 to 69 years'])
+        })
+        result['age'].append({
+            'name': '70 to 79',
+            'value': float(ret['70 to 74 years']) + float(ret['75 to 79 years'])
+        })
+        result['age'].append({
+            'name': '80 and over',
+            'value': float(ret['80 to 84 years']) + float(ret[' 85 years and over'])
+        })
+
+    return Response(json.dumps(result), mimetype='application/json')
+
+
+def pop_race():
+    zipcode = request.args.get('zipcode')
+    result = []
+    ret, exists = data.getItem('PopRace', zipcode)
+
+    if exists:
+        for i in ret:
+            if i == 'geography' or i == ' total population ':
+                continue
+            result.append({
+                'name': i,
+                'value': float(ret[i])
+            })
 
     return Response(json.dumps(result), mimetype='application/json')

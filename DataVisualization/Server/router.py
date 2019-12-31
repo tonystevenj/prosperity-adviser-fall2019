@@ -2,6 +2,11 @@
 from . controller import main, report
 
 def dispatch(app):
+    @app.errorhandler(404)
+    def miss(e):
+        from flask import render_template
+        return render_template('index.html')
+
     app.add_url_rule('/', view_func=main.index, methods=['GET'])
     app.add_url_rule('/api/report/business', view_func=report.business, methods=['GET'])
     app.add_url_rule('/api/report/park', view_func=report.parks, methods=['GET'])
@@ -11,3 +16,5 @@ def dispatch(app):
     app.add_url_rule('/api/report/score', view_func=report.score, methods=['GET'])
     app.add_url_rule('/api/report/score_data', view_func=report.score_data, methods=['GET'])
     app.add_url_rule('/api/report/crime', view_func=report.crime, methods=['GET'])
+    app.add_url_rule('/api/report/pop_age', view_func=report.pop_age, methods=['GET'])
+    app.add_url_rule('/api/report/pop_race', view_func=report.pop_race, methods=['GET'])

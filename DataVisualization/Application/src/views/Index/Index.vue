@@ -1,53 +1,7 @@
 <template>
-  <el-container>
-    <el-header>
-      <el-menu
-        :default-active="activeIndex"
-        mode="horizontal"
-        @select="handleSelect"
-        background-color="#f6f6f6"
-      >
-        <el-menu-item>
-          <el-menu-item class="logo">ARSS</el-menu-item>
-        </el-menu-item>
-        <el-menu-item index="1">
-          <i class="el-icon-house" style="width:65%;">HOME</i>
-        </el-menu-item>
-        <el-submenu index="2">
-          <template slot="title">
-            <i class="el-icon-box" style="width:65px;">UTILS</i>
-          </template>
-          <el-menu-item index="2-1">TOOL 1</el-menu-item>
-          <el-menu-item index="2-2">TOOL 3</el-menu-item>
-          <el-menu-item index="2-3">TOOL 3</el-menu-item>
-          <el-submenu index="2-4">
-            <template slot="title">MORE</template>
-            <el-menu-item index="2-4-1">TOOL 4</el-menu-item>
-            <el-menu-item index="2-4-2">TOOL 5</el-menu-item>
-            <el-menu-item index="2-4-3">TOOL 6</el-menu-item>
-          </el-submenu>
-        </el-submenu>
-        <el-menu-item index="3">
-          <i class="el-icon-discover" style="width:65%;">GUIDE</i>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-postcard" style="width:65%;">ABOUT</i>
-        </el-menu-item>
-      </el-menu>
-    </el-header>
-    <div class="banner">
-      <div>
-        <coverflow></coverflow>
-      </div>
-      <div class="banner_content">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix test">
-            <span style="font-weight: bold;">Assistant for Restaurant Site Selection</span>
-          </div>
-          <div>ARSS（Assistant of Restaurant Site Selection）is a web-based service that helps restaurant businesses to make better location-based decisions. Based on comprehensive databases and advanced big data processing technology; ARSS is totally committed to assists every restaurant owner to determine businesses location, accomplish cooperation target, and create value.</div>
-        </el-card>
-      </div>
-    </div>
+  <el-container direction="vertical">
+    <Header />
+    <Banner />
     <el-main>
       <el-card
         class="box-card gmap-box"
@@ -55,7 +9,34 @@
         element-loading-background="rgba(255, 255, 255, 0.5)"
       >
         <div slot="header" class="clearfix">
-          <span>Dashboard</span>
+          <span>
+            <h2>Brief Inroduction</h2>
+          </span>
+        </div>
+        <div class="text item">
+          <div class="clearfix" style="font-size: 16px;">
+            This is a project which can help you decide where to open a restaurant and how to do well if you have one.(Temporarily, our data is limited in Phoenix city)
+            Just click where you potentially want a restaurant, there will be a report to give you surrounding information and analysis of this area based on Yelp dataset.
+            See more details about algorithms, please go to
+            <router-link to="/introduction">
+              <b>INTRODUCTION</b>
+            </router-link>.
+            <br />
+            <br />
+            <p style="color: #E01515; font-style: italic;">
+              <b>*</b> This is a sample website for static display only. The report’s data is from a chosen geographic coordinates.
+            </p>
+          </div>
+        </div>
+      </el-card>
+
+      <el-card
+        class="box-card gmap-box"
+        v-loading="loading"
+        element-loading-background="rgba(255, 255, 255, 0.5)"
+      >
+        <div slot="header" class="clearfix">
+          <span><h2>Dashboard</h2></span>
         </div>
         <div class="text item">
           <div class="clearfix">
@@ -79,16 +60,8 @@
         </div>
       </el-card>
     </el-main>
-    <el-footer height="100px">
-      <div class="footer_link">
-        <span>
-          <el-link type="info" style="margin-left:10px;">Privacy Policy</el-link>
-          <el-link type="info" style="margin-left:10px;">Terms of Use</el-link>
-          <el-link type="info" style="margin-left:10px;">About</el-link>
-          <p style="color: #a6a9ad; font-weight: bold; font-size: 13px;">@2019</p>
-        </span>
-      </div>
-    </el-footer>
+
+    <Footer />
 
     <el-dialog
       class="report"
@@ -115,9 +88,11 @@
 </template>
 
 <script>
+import Header from "../components/Header";
+import Banner from "../components/Banner";
+import Footer from "../components/Footer";
 import mapstyle from "@/utils/mapstyles/mapstyle_mb.js";
 import Layer from "./components/layer";
-import coverflow from "./components/coverflow";
 
 const config = require("../../../config");
 
@@ -128,8 +103,10 @@ var shapes = [];
 export default {
   name: "Index",
   components: {
-    Layer,
-    coverflow
+    Header,
+    Banner,
+    Footer,
+    Layer
   },
   data() {
     return {
@@ -157,6 +134,7 @@ export default {
         west: -125.770392,
         east: -62.366074
       },
+      searchbox: null,
       centerMarker:
         "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
     };
@@ -189,7 +167,7 @@ export default {
         //   google.maps.MapTypeId.TERRAIN,
         //   google.maps.MapTypeId.STYLED_MAP
         // ],
-        // styles: mapstyle,
+        styles: mapstyle,
         // Restricting Map Bounds
         // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/control-bounds-restriction?hl=zh-CN
         restriction: {
@@ -201,9 +179,8 @@ export default {
       // Create a <script> tag and set the USGS URL as the source.
       var script = document.createElement("script");
       // This example uses a local copy of the GeoJSON stored at
-      // script.src = "https://afrsscdn.hopeness.net/static/all_geo_jsonp.js";
       process.env.NODE_ENV === "production";
-      script.src = "https://afrsscdn.hopeness.net/static/geo_jsonp.js";
+      script.src = "//afrsscdn.hopeness.net/geo_jsonp.js";
       document.getElementsByTagName("head")[0].appendChild(script);
     },
     initSearchBox() {
@@ -211,20 +188,32 @@ export default {
       var input = document.getElementById("searchbox");
       var button = document.getElementById("calculate");
       var scope = document.getElementById("scope");
-      var searchBox = new google.maps.places.SearchBox(input);
+      this.searchBox = new google.maps.places.SearchBox(input);
       this.gmap.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
       this.gmap.controls[google.maps.ControlPosition.TOP_CENTER].push(button);
       this.gmap.controls[google.maps.ControlPosition.LEFT_CENTER].push(scope);
 
       this.gmap.addListener("bounds_changed", () => {
-        searchBox.setBounds(this.gmap.getBounds());
+        this.searchBox.setBounds(this.gmap.getBounds());
       });
 
-      var markers = [];
       // Listen for the event fired when the user selects a prediction and retrieve
       // more details for that place.
-      searchBox.addListener("places_changed", () => {
-        var places = searchBox.getPlaces();
+      this.searchBox.addListener("places_changed", this.searchMap);
+    },
+    searchMap() {
+      {
+        this.loading = true;
+
+        let e = new google.maps.LatLng({lat: this.mapform.latitude, lng: this.mapform.longitude});
+        this.sitePin(e);
+
+        setTimeout(() => {
+          this.loading = false;
+          this.showReport = true;
+        }, 1000);
+        var markers = [];
+        var places = this.searchBox.getPlaces();
 
         if (places.length == 0) {
           return;
@@ -243,23 +232,11 @@ export default {
             console.log("Returned place contains no geometry");
             return;
           }
-          var icon = {
-            url: place.icon,
-            size: new google.maps.Size(71, 71),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(25, 25)
-          };
-
-          // Create a marker for each place.
-          markers.push(
-            new google.maps.Marker({
-              map: this.gmap,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            })
-          );
+          this.sitePin(place.geometry.location);
+          setTimeout(() => {
+            this.loading = false;
+            this.showReport = true;
+          }, 1000);
 
           if (place.geometry.viewport) {
             // Only geocodes have viewport.
@@ -269,7 +246,7 @@ export default {
           }
         });
         this.gmap.fitBounds(bounds);
-      });
+      }
     },
     dataHandle(results) {
       var markers = [];
@@ -284,7 +261,7 @@ export default {
         // https://developers.google.com/maps/documentation/javascript/markers?hl=zh-CN
         var marker = new google.maps.Marker({
           map: this.gmap,
-          title: "testtest",
+          title: "center",
           position: latLng
         });
 
@@ -325,6 +302,11 @@ export default {
 
       this.sitePin(e.latLng);
 
+      setTimeout(() => {
+        this.loading = false;
+        this.showReport = true;
+      }, 1000);
+
       // get zipcode
       // https://stackoverflow.com/questions/6764917/latitude-and-longitude-can-find-zip-code
       var geocoder = new google.maps.Geocoder();
@@ -346,7 +328,7 @@ export default {
               this.loading = false;
               this.showReport = true;
             }, 1000);
-            
+
           }
         }
       });
@@ -385,9 +367,6 @@ export default {
       cityCircle.addListener("click", this.onclickmap);
       shapes.push(cityCircle);
     },
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
     onSubmit() {
       console.log("submit!");
     },
@@ -404,9 +383,6 @@ export default {
 
 
 <style>
-.banner_content .el-card__header {
-  border-bottom-color: rgba(0, 0, 0, 0.6);
-}
 .el-dialog {
   border-radius: 20;
   background-color: #f0f1f4 !important;
@@ -454,18 +430,6 @@ export default {
 </style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.swiper-container {
-  float: left;
-  width: 70%;
-  height: 360px;
-  margin-top: 40px;
-  margin-left: 30px;
-}
-
-.el-header {
-  padding: 0;
-  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 1);
-}
 .el-footer {
   background-color: rgb(240, 240, 240);
   border-top-left-radius: 20px;
@@ -476,37 +440,6 @@ export default {
 .el-footer .footer_link {
   margin-top: 20px;
   text-align: center;
-}
-.menu-height {
-  height: 80px;
-  line-height: 80px;
-}
-.logo {
-  font-size: 28px;
-}
-.banner {
-  width: 100%;
-  height: 400px;
-  background: url("/static/banner_1.jpg") no-repeat center top;
-  background-size: cover;
-  -moz-background-size: 100% 100%;
-}
-.banner_content {
-  float: right;
-  width: 24%;
-  height: 360px;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-color: black;
-  margin-top: 20px;
-  margin-right: 30px;
-  border-radius: 8px;
-}
-.banner_content .box-card {
-  background: none;
-  border: none;
-  margin: 20px;
-  color: #dddddd;
-  box-shadow: none;
 }
 .el-card {
   padding: 0px;

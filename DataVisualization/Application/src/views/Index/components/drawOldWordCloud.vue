@@ -1,15 +1,5 @@
 <template>
-  <el-row :gutter="32" class="row">
-    <el-col :span="8">
-      <div ref="star45" class="wbg" style="width: 100%; height: 400px;"></div>
-    </el-col>
-    <el-col :span="8">
-      <div ref="star13" class="wbg" style="width: 100%; height: 400px;"></div>
-    </el-col>
-    <el-col :span="8">
-      <div ref="closed" class="wbg" style="width: 100%; height: 400px;"></div>
-    </el-col>
-  </el-row>
+  <div ref="wordcloud" class="wbg" style="width: 100%; height: 400px;"></div>
 </template>
 
 <script>
@@ -45,18 +35,12 @@ export default {
           value: 1000
         }
       ],
-      chartStar45: null,
-      chartStar13: null,
-      chartStarClosed: null
+      chart: null
     };
   },
   mounted() {
-    this.chartStar45 = echarts.init(this.$refs.star45);
-    this.chartStar13 = echarts.init(this.$refs.star13);
-    this.chartStarClosed = echarts.init(this.$refs.closed);
-    this.draw(this.chartStar45, this.defaultWords);
-    this.draw(this.chartStar13, this.defaultWords);
-    this.draw(this.chartStarClosed, this.defaultWords);
+    this.chart = echarts.init(this.$refs.wordcloud);
+    this.draw(this.defaultWords);
     this.request();
   },
 
@@ -73,43 +57,21 @@ export default {
         })
         .then(response => {
           var words = [];
-          for (let i in response.data) {
-            let words = [];
-            if (response.data[i]["reviews"] == null) {
-              words = [
-                {
-                  name: "No data",
-                  value: 1000
-                }
-              ];
-            } else {
-              for (let j in response.data[i]["reviews"]) {
-                words.push({
-                  name: response.data[i]["reviews"][j],
-                  value: response.data[i]["weights"][j]
-                });
-              }
-            }
-            switch (response.data[i]["category"]) {
-              case "star45":
-                this.draw(this.chartStar45, words);
-                break;
-              case "star13":
-                this.draw(this.chartStar13, words);
-                break;
-              case "closed":
-                this.draw(this.chartStarClosed, words);
-                break;
-            }
+          for (var i in response.data) {
+            words.push({
+              name: response.data[i][0],
+              value: response.data[i][1]
+            });
           }
+          this.draw(words);
         })
         .catch(response => {
           console.log(response);
         });
     },
-    draw(chartObj, words) {
+    draw(words) {
       // https://github.com/ecomfe/echarts-wordcloud
-      let options = {
+      this.chart.setOption({
         title: {
           text: "Reviews",
           textAlign: "auto"
@@ -157,8 +119,7 @@ export default {
             data: words
           }
         ]
-      };
-      chartObj.setOption(options);
+      });
     }
   }
 };

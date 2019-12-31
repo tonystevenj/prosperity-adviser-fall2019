@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/views/Index'
+import Introduction from '@/views/Introduction'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/',
       name: 'Index',
       component: Index
+    },
+    {
+      path: '/introduction',
+      name: 'Introduction',
+      component: Introduction
     }
   ]
 })

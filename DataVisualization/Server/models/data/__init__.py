@@ -11,5 +11,7 @@ from . import pride
 from . import rail
 from . import traffic
 from . import crime
+from . import pop_age
+from . import pop_race
 
 __all__ = ['getObj', 'getItem', 'getItems', 'radius', 'load']

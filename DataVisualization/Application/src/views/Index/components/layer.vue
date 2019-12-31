@@ -1,5 +1,10 @@
 <template>
+
   <div>
+    <!-- 标题 -->
+    <el-row :gutter="32" class="row">
+      <div class="star_type" style="font-size:30px">Part 1: Info and Investment Score of This Area</div>
+    </el-row>
     <!-- 顶部4个栏 -->
     <el-row :gutter="32" class="row">
       <el-col :span="6">
@@ -56,16 +61,55 @@
         <Table :latitude="latitude" :longitude="longitude" :radius="radius" />
       </el-col>
     </el-row>
+    
+    <!-- Gender and age -->
+    <el-row :gutter="32" class="row">
+      <el-col :span="16">
+        <PopAge :zipcode="zipcode" />
+      </el-col>
+      <el-col :span="8">
+        <PopRace :zipcode="zipcode" />
+      </el-col>
+    </el-row>
+
+    <!-- 犯罪率 -->
+    <el-row :gutter="32" class="row">
+      <el-col :span="24">
+        <Crime :zipcode="zipcode" />
+      </el-col>
+    </el-row>
+
     <!-- 标题 -->
+    <br />
+    <br />
+    <br />
+    <el-row :gutter="32" class="row">
+      <div class="star_type" style="font-size:30px">Part 2: Features Summary of Surrounding Restaurants</div>
+    </el-row>
+    <el-row :gutter="32" class="row">
+      <div
+        class="star_type"
+      >There are {{topdata.stars45+topdata.stars03+topdata.close_count}} restaurants in total, and they are divided into three group: star 4-5,star 0-3 and closed for ever</div>
+    </el-row>
+    <!-- 相关性标题 -->
+    <br />
+    <el-row :gutter="32" class="row">
+      <el-col :span="32">
+        <div
+          class="star_type"
+          style="font-size:20px"
+        >Analysis 1: Most important factors to improve prosperity</div>
+      </el-col>
+    </el-row>
     <el-row :gutter="32" class="row">
       <el-col :span="8">
-        <div class="star_type">4 - 5 stars ({{topdata.stars45}} items)</div>
+        <div class="star_type">Restaurants with 4 - 5 stars ({{topdata.stars45}})</div>
       </el-col>
       <el-col :span="8">
-        <div class="star_type">0 - 3 stars ({{topdata.stars03}} items)</div>
+        <div class="star_type">Restaurants with 0 - 3 stars ({{topdata.stars03}})</div>
       </el-col>
       <el-col :span="8">
-        <div class="star_type">Closed ({{topdata.close_count}} items)</div>
+        <div class="star_type">Closed restaurants ({{topdata.close_count}})</div>
       </el-col>
     </el-row>
     <!-- 评分相关性 -->
@@ -80,39 +124,70 @@
         <Rate :latitude="latitude" :longitude="longitude" :radius="radius" :category="category[2]" />
       </el-col>
     </el-row>
-    <!-- 大字报 -->
+
+    <!-- 大字报标题 -->
+    <br />
+    <br />
+    <br />
     <el-row :gutter="32" class="row">
-      <el-col :span="8">
-        <WordCloud
-          :latitude="latitude"
-          :longitude="longitude"
-          :radius="radius"
-          :category="category[0]"
-        />
-      </el-col>
-      <el-col :span="8">
-        <WordCloud
-          :latitude="latitude"
-          :longitude="longitude"
-          :radius="radius"
-          :category="category[1]"
-        />
-      </el-col>
-      <el-col :span="8">
-        <WordCloud
-          :latitude="latitude"
-          :longitude="longitude"
-          :radius="radius"
-          :category="category[2]"
-        />
+      <el-col :span="32">
+        <div
+          class="star_type"
+          style="font-size:20px"
+        >Analysis 2: Most frequency words in users review</div>
       </el-col>
     </el-row>
-    <!-- 犯罪率 -->
+    <el-row :gutter="32" class="row">
+      <el-col :span="8">
+        <div class="star_type">Restaurants with 4 - 5 stars ({{topdata.stars45}})</div>
+      </el-col>
+      <el-col :span="8">
+        <div class="star_type">Restaurants with 0 - 3 stars ({{topdata.stars03}})</div>
+      </el-col>
+      <el-col :span="8">
+        <div class="star_type">Closed restaurants ({{topdata.close_count}})</div>
+      </el-col>
+    </el-row>
+
+    <!-- 聚合大字报 -->
     <el-row :gutter="32" class="row">
       <el-col :span="24">
-        <Crime :zipcode="zipcode" />
+        <WordCloud
+          :latitude="latitude"
+          :longitude="longitude"
+          :radius="radius"
+          :category="category[3]"
+        />
       </el-col>
     </el-row>
+
+    <!-- 大字报 -->
+    <!-- <el-row :gutter="32" class="row">
+      <el-col :span="8">
+        <WordCloud
+          :latitude="latitude"
+          :longitude="longitude"
+          :radius="radius"
+          :category="category[0]+'info'"
+        />
+      </el-col>
+      <el-col :span="8">
+        <WordCloud
+          :latitude="latitude"
+          :longitude="longitude"
+          :radius="radius"
+          :category="category[1]+'info'"
+        />
+      </el-col>
+      <el-col :span="8">
+        <WordCloud
+          :latitude="latitude"
+          :longitude="longitude"
+          :radius="radius"
+          :category="category[2]+'info'"
+        />
+      </el-col>
+    </el-row>-->
   </div>
 </template>
 
@@ -123,6 +198,8 @@ import WordCloud from "./drawWordCloud";
 import Table from "./drawTable";
 import Panel from "./drawPanel";
 import Crime from "./drawCrime";
+import PopAge from "./drawPopAge";
+import PopRace from "./drawPopRace";
 
 export default {
   name: "Layer",
@@ -150,7 +227,9 @@ export default {
     WordCloud,
     Table,
     Panel,
-    Crime
+    Crime,
+    PopAge,
+    PopRace
   },
   data() {
     return {
@@ -162,7 +241,7 @@ export default {
         median_earnings: 0,
         population: 0
       },
-      category: ["star45", "star13", "closed"]
+      category: ["star45", "star13", "closed", "reviewsfeature"]
     };
   },
   created() {},
