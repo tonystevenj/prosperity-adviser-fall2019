@@ -3,7 +3,7 @@
 ## Overview
 ___
 
-This project is called Prosperty Adviser for Restaurants (PAFS), a web-based service based on Yelp's dataset.
+This project is called Prosperity Adviser for Restaurants (PAFS), a web-based service based on Yelp's dataset.
 
 The goal of PAFS is to give restaurant owner a report about their businesses’ or their potential business’s local surrounding information and provide a investment score based on their customized weight factors.
 
